@@ -9,13 +9,13 @@ package LCD_LIB is
   -----------------------------------------------------------------------------
   -- COUNTER VALUES FOR GENERATING H_SYNC AND V_SYNC
 
-  constant H_DISPLAY_END : integer := 799;
+  constant H_DISPLAY_END : integer := 800;
   constant HSYNC_BEGIN   : integer := 824;
-  constant H_VERT_INC    : integer := 699;
+  constant H_VERT_INC    : integer := 859;
   constant HSYNC_END     : integer := 896;
   constant H_MAX         : integer := 992;
 
-  constant V_DISPLAY_END : integer := 479;
+  constant V_DISPLAY_END : integer := 480;
   constant VSYNC_BEGIN   : integer := 483;
   constant VSYNC_END     : integer := 493;
   constant V_MAX         : integer := 500;

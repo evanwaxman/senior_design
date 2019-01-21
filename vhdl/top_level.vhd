@@ -18,7 +18,7 @@ architecture STR of top_level is
 
 begin
 
-    U_LCD_ROM_ADDRESS : entity work.lcd_rom_address_128
+    U_LCD_ROM_ADDRESS : entity work.lcd_rom_address
         port map(
             clk             => clk,
             rst             => rst,
