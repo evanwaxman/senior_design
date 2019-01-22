@@ -9,7 +9,7 @@ entity lcd_rom_address is
         rst         : in std_logic;
         Horiz_Sync  : out std_logic;
         Vert_Sync   : out std_logic;
-        pixel_color : out std_logic_vector(11 downto 0);
+        pixel_color : out std_logic_vector(23 downto 0);
         den         : out std_logic;
         pixel_clock : out std_logic
     );
@@ -17,7 +17,7 @@ end lcd_rom_address;
 
 architecture BHV of lcd_rom_address is
 
-    signal Video_On         : std_logic;
+    --signal Video_On         : std_logic;
     --signal row_address      : std_logic_vector(5 downto 0);
     --signal column_address   : std_logic_vector(5 downto 0);
     --signal rom_address      : std_logic_vector(11 downto 0);
@@ -27,7 +27,7 @@ architecture BHV of lcd_rom_address is
 
 
 
-    signal red, green, blue : std_logic_vector(3 downto 0);
+    signal red, green, blue : std_logic_vector(7 downto 0);
 
 begin
     U_CLK_DIV : entity work.clk_div
@@ -49,7 +49,7 @@ begin
             Vcount      => Vcount,
             Horiz_Sync  => Horiz_Sync,
             Vert_Sync   => Vert_Sync,
-            Video_On    => Video_On
+            Video_On    => den
         );
 
     --U_VGA_ROM : entity work.lcd_rom
@@ -64,15 +64,15 @@ begin
         --column_address  <= (others => '0');
         --row_address     <= (others => '0');
 
-        red <= "0000";
-        blue <= "0000";
-        green <= "0000";
+        red <= "00000000";
+        blue <= "00000000";
+        green <= "00000000";
 
 
         if (unsigned(Hcount) > 100 and unsigned(Hcount) < 150 and unsigned(Vcount) > 100 and unsigned(Vcount) < 150) then
-            red <= "1111";
-            blue <= "1111";
-            green <= "1111";
+            red <= "11111111";
+            blue <= "11111111";
+            green <= "11111111";
         end if;
 
         --if(Video_On = '1') then
@@ -88,7 +88,7 @@ begin
 
     --rom_address(11 downto 6) <= row_address;
     --rom_address(5 downto 0) <= column_address;
-    den <= Video_On;
+    --den <= Video_On;
     pixel_clock <= pixel_clock_temp;
     --pixel_clock <= clk;
 

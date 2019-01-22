@@ -8,7 +8,7 @@ entity top_level is
         rst         : in std_logic;
         Horiz_Sync  : out std_logic;
         Vert_Sync   : out std_logic;
-        pixel_color : out std_logic_vector(11 downto 0);
+        pixel_color : out std_logic_vector(23 downto 0);
         den         : out std_logic;
         pixel_clock : out std_logic
     );
