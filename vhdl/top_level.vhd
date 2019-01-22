@@ -10,7 +10,8 @@ entity top_level is
         Vert_Sync   : out std_logic;
         pixel_color : out std_logic_vector(23 downto 0);
         den         : out std_logic;
-        pixel_clock : out std_logic
+        pixel_clock : out std_logic;
+        pll_locked  : out std_logic
     );
 end top_level;
 
@@ -26,7 +27,8 @@ begin
             Vert_Sync       => Vert_Sync,
             pixel_color     => pixel_color,
             den             => den,
-            pixel_clock     => pixel_clock
+            pixel_clock     => pixel_clock,
+            pll_locked      => pll_locked
         );
 
 end STR;

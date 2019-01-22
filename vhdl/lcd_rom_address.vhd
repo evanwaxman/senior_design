@@ -11,7 +11,8 @@ entity lcd_rom_address is
         Vert_Sync   : out std_logic;
         pixel_color : out std_logic_vector(23 downto 0);
         den         : out std_logic;
-        pixel_clock : out std_logic
+        pixel_clock : out std_logic;
+        pll_locked  : out std_logic
     );
 end lcd_rom_address;
 
@@ -23,22 +24,28 @@ architecture BHV of lcd_rom_address is
     --signal rom_address      : std_logic_vector(11 downto 0);
     signal Hcount           : std_logic_vector(9 downto 0);
     signal Vcount           : std_logic_vector(9 downto 0);
-    signal pixel_clock_temp : std_logic;
-
+    --signal pixel_clock_temp : std_logic;
 
 
     signal red, green, blue : std_logic_vector(7 downto 0);
 
 begin
-    U_CLK_DIV : entity work.clk_div
-        generic map(
-            clk_in_freq => 50000000,
-            clk_out_freq => 25000000
-        )
-        port map(
-            clk_in => clk,
-            clk_out => pixel_clock_temp,
-            rst => rst
+    --U_CLK_DIV : entity work.clk_div
+    --    generic map(
+    --        clk_in_freq => 50000000,
+    --        clk_out_freq => 25000000
+    --    )
+    --    port map(
+    --        clk_in => clk,
+    --        clk_out => pixel_clock_temp,
+    --        rst => rst
+    --    );
+
+    U_PLL : entity work.pll_gen 
+        PORT MAP (
+            inclk0   => clk,
+            c0   => pixel_clock,
+            locked   => pll_locked
         );
 
     U_VGA_SYNC_GEN : entity work.lcd_sync_gen
@@ -69,9 +76,21 @@ begin
         green <= "00000000";
 
 
-        if (unsigned(Hcount) > 100 and unsigned(Hcount) < 150 and unsigned(Vcount) > 100 and unsigned(Vcount) < 150) then
+        if (unsigned(Hcount) >= 50 and unsigned(Hcount) < 150 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
             red <= "11111111";
             blue <= "11111111";
+            green <= "11111111";
+        elsif (unsigned(Hcount) >= 150 and unsigned(Hcount) < 250 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
+            red <= "11111111";
+            blue <= "00000000";
+            green <= "00000000";
+        elsif (unsigned(Hcount) >= 250 and unsigned(Hcount) < 350 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
+            red <= "00000000";
+            blue <= "11111111";
+            green <= "00000000";
+        elsif (unsigned(Hcount) >= 350 and unsigned(Hcount) < 450 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
+            red <= "00000000";
+            blue <= "00000000";
             green <= "11111111";
         end if;
 
@@ -89,7 +108,7 @@ begin
     --rom_address(11 downto 6) <= row_address;
     --rom_address(5 downto 0) <= column_address;
     --den <= Video_On;
-    pixel_clock <= pixel_clock_temp;
+    --pixel_clock <= pixel_clock_temp;
     --pixel_clock <= clk;
 
 end BHV;
