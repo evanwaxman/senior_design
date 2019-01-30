@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.LCD_LIB.all;
 
-entity lcd_rom_address is
+entity lcd_controller is
     port(
         clk         : in std_logic;
         rst         : in std_logic;
@@ -12,9 +12,9 @@ entity lcd_rom_address is
         pixel_color : out std_logic_vector(23 downto 0);
         den         : out std_logic
     );
-end lcd_rom_address;
+end lcd_controller;
 
-architecture BHV of lcd_rom_address is
+architecture BHV of lcd_controller is
 
     signal Hcount           : std_logic_vector(9 downto 0);
     signal Vcount           : std_logic_vector(9 downto 0);

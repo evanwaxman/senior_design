@@ -26,7 +26,7 @@ begin
             locked   => pll_locked
         );
 
-    U_LCD_ROM_ADDRESS : entity work.lcd_rom_address
+    U_LCD_ROM_ADDRESS : entity work.lcd_controller
         port map(
             clk             => clk,
             rst             => rst,
