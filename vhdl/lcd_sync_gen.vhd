@@ -18,7 +18,7 @@ end lcd_sync_gen;
 
 architecture BHV of lcd_sync_gen is
 
-    signal pixel_clock : std_logic;
+    signal clk_25MHz : std_logic;
     signal Hcount_temp : std_logic_vector(9 downto 0);
     signal Vcount_temp : std_logic_vector(9 downto 0);
 
@@ -30,12 +30,11 @@ begin
         )
         port map(
             clk_in => clk,
-            clk_out => pixel_clock,
+            clk_out => clk_25MHz,
             rst => rst
         );
 
-    process(pixel_clock, rst)
-    --    variable Hcount_temp, Vcount_temp : unsigned(9 downto 0);
+    process(clk_25MHz, rst)
     begin
         if(rst = '1') then
             Hcount_temp <= (others => '0');
@@ -43,7 +42,7 @@ begin
             Video_On <= '1';
             Horiz_Sync <= '1';
             Vert_Sync <= '1';
-        elsif(pixel_clock'event and pixel_clock = '1') then
+        elsif(clk_25MHz'event and clk_25MHz = '1') then
             if((unsigned(Hcount_temp) < H_DISPLAY_END) and unsigned(Vcount_temp) < V_DISPLAY_END) then
                 Video_On <= '1';
             else

@@ -19,6 +19,13 @@ architecture STR of top_level is
 
 begin
 
+    U_PLL : entity work.pll_gen 
+        PORT MAP (
+            inclk0   => clk,
+            c0   => pixel_clock,
+            locked   => pll_locked
+        );
+
     U_LCD_ROM_ADDRESS : entity work.lcd_rom_address
         port map(
             clk             => clk,
@@ -26,9 +33,7 @@ begin
             Horiz_Sync      => Horiz_Sync,
             Vert_Sync       => Vert_Sync,
             pixel_color     => pixel_color,
-            den             => den,
-            pixel_clock     => pixel_clock,
-            pll_locked      => pll_locked
+            den             => den
         );
 
 end STR;

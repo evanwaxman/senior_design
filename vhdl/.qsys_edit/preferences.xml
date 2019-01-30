@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable>
+  <columns>
+   <connections preferredWidth="47" />
+   <irq preferredWidth="34" />
+   <inputclock preferredWidth="233" />
+   <endaddress preferredWidth="161" />
+  </columns>
+ </systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="398" />
+   <clocksource preferredWidth="398" />
+   <frequency preferredWidth="380" />
+  </columns>
+ </clocktable>
+ <window width="2084" height="1296" x="522" y="254" />
+ <library
+   expandedCategories="Library/Interface Protocols/Serial,Library,Library/Interface Protocols,Project" />
+ <generation
+   simulation="VHDL"
+   testbench_system="STANDARD"
+   testbench_simulation="VHDL"
+   synthesis="VHDL"
+   block_symbol_file="0" />
+</preferences>
