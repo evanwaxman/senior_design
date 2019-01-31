@@ -5,13 +5,13 @@ use work.LCD_LIB.all;
 
 entity lcd_sync_gen is
     port(
-        clk         : in std_logic;
-        rst         : in std_logic;
-        Hcount      : out std_logic_vector(9 downto 0);
-        Vcount      : out std_logic_vector(9 downto 0);
-        Horiz_Sync  : out std_logic;
-        Vert_Sync   : out std_logic;
-        Video_On    : out std_logic
+        clk         : in    std_logic;
+        rst         : in    std_logic;
+        Hcount      : out   std_logic_vector(9 downto 0);
+        Vcount      : out   std_logic_vector(9 downto 0);
+        Horiz_Sync  : out   std_logic;
+        Vert_Sync   : out   std_logic;
+        Video_On    : out   std_logic
     );
 end lcd_sync_gen;
 
