@@ -13,6 +13,7 @@ signal sck				: std_logic;
 signal ss 				: std_logic;
 signal mosi 			: std_logic;
 signal miso 			: std_logic;
+signal data_correct 	: std_logic;
 
 signal clkEn 			: std_logic := '1';
 
@@ -25,7 +26,8 @@ begin
 			sck 			=> sck,
 			ss 				=> ss,
 			mosi 			=> mosi,
-			miso 			=> miso
+			miso 			=> miso,
+			data_correct 	=> data_correct
 		);
 	
 	clk <= not clk and clkEn after 10 ns;
@@ -115,18 +117,18 @@ begin
 
 
 
--- BYTE 0xFF
+-- BYTE 0x00
 -- DATA
 -- BIT 7
 		ss <= '0';
-		mosi <= '1';
+		mosi <= '0';
 		wait for 40 ns;
 
 		sck <= '1';
 		wait for 40 ns;
 
 -- BIT 6
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -134,7 +136,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 5
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -142,7 +144,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 4
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -150,7 +152,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 3
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -158,7 +160,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 2
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -166,7 +168,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 1
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -174,7 +176,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 0
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -183,7 +185,7 @@ begin
 
 		sck <= '0';
 		wait for 40 ns;
-		mosi <= '0';
+
 		ss <= '1';
 		wait for 100 ns;
 
@@ -260,11 +262,11 @@ begin
 		ss <= '1';
 		wait for 100 ns;
 
--- BYTE 0xAA
+-- BYTE 0x00
 -- DATA
 -- BIT 7
 		ss <= '0';
-		mosi <= '1';
+		mosi <= '0';
 		wait for 40 ns;
 
 		sck <= '1';
@@ -279,7 +281,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 5
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -295,7 +297,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 3
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -311,7 +313,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 1
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -405,7 +407,7 @@ begin
 		wait for 100 ns;
 
 
--- BYTE 0x04
+-- BYTE 0x00
 -- DATA
 -- BIT 7
 		ss <= '0';
@@ -448,7 +450,7 @@ begin
 		wait for 40 ns;
 
 -- BIT 2
-		mosi <= '1';
+		mosi <= '0';
 		sck <= '0';
 		wait for 40 ns;
 
@@ -473,7 +475,7 @@ begin
 
 		sck <= '0';
 		wait for 40 ns;
-		mosi <= '0';
+
 		ss <= '1';
 		wait for 100 ns;
 
@@ -767,6 +769,446 @@ begin
 
 		ss <= '1';
 		wait for 100 ns;
+
+
+
+-- BYTE 0x00
+-- DATA_TYPE
+-- BIT 7
+		ss <= '0';
+		mosi <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 6
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 5
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 4
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 3
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 2
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 1
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 0
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+		sck <= '0';
+		wait for 40 ns;
+
+		ss <= '1';
+		wait for 100 ns;
+
+
+
+-- BYTE 0x00
+-- DATA
+-- BIT 7
+		ss <= '0';
+		mosi <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 6
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 5
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 4
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 3
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 2
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 1
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 0
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+		sck <= '0';
+		wait for 40 ns;
+
+		ss <= '1';
+		wait for 100 ns;
+
+
+-- BYTE 0x01
+-- DATA_TYPE
+-- BIT 7
+		ss <= '0';
+		mosi <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 6
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 5
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 4
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 3
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 2
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 1
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 0
+		mosi <= '1';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+		sck <= '0';
+		wait for 40 ns;
+		mosi <= '0';
+		ss <= '1';
+		wait for 100 ns;
+
+-- BYTE 0x00
+-- DATA
+-- BIT 7
+		ss <= '0';
+		mosi <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 6
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 5
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 4
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 3
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 2
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 1
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 0
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+		sck <= '0';
+		wait for 40 ns;
+
+		ss <= '1';
+		wait for 100 ns;
+
+-- BYTE 0x02
+-- DATA_TYPE
+-- BIT 7
+		ss <= '0';
+		mosi <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 6
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 5
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 4
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 3
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 2
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 1
+		mosi <= '1';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 0
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+		sck <= '0';
+		wait for 40 ns;
+
+		ss <= '1';
+		wait for 100 ns;
+
+
+-- BYTE 0x01
+-- DATA
+-- BIT 7
+		ss <= '0';
+		mosi <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 6
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 5
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 4
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 3
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 2
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 1
+		mosi <= '0';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+-- BIT 0
+		mosi <= '1';
+		sck <= '0';
+		wait for 40 ns;
+
+		sck <= '1';
+		wait for 40 ns;
+
+		sck <= '0';
+		wait for 40 ns;
+
+		ss <= '1';
+		wait for 100 ns;
+
+
 
 -- BYTE 0x05
 -- DATA_TYPE
