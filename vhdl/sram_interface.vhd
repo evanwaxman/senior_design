@@ -12,18 +12,16 @@ entity sram_interface is
 		miso 			: out 	std_logic;
 
 		-- spi_slave
-		led0                : out   std_logic_vector(6 downto 0);
-        led1                : out   std_logic_vector(6 downto 0);
-        led2                : out   std_logic_vector(6 downto 0)
+		led0            : out   std_logic_vector(6 downto 0);
+        led1            : out   std_logic_vector(6 downto 0);
+        led2            : out   std_logic_vector(6 downto 0)
 	);
 end sram_interface;
 
 architecture BHV of sram_interface is
 
-	signal receive_byte 	: std_logic_vector(7 downto 0);
 	signal byte_type 		: std_logic;
 	signal read_done 		: std_logic;
-	signal reset_state 		: std_logic;
 	signal write_fifo_din 	: std_logic_vector(35 downto 0);
 	signal write_fifo_we 	: std_logic;
 	signal write_fifo_re 	: std_logic;
@@ -31,7 +29,6 @@ architecture BHV of sram_interface is
 	signal write_fifo_full 	: std_logic;
 	signal write_fifo_dout 	: std_logic_vector(35 downto 0);
 	signal data_out_order 	: std_logic;
-	signal spi_ready 		: std_logic;
 
 	signal sram_fifo_packet : std_logic_vector(35 downto 0);
 	signal packet_flag 		: std_logic;
@@ -68,22 +65,13 @@ begin
 	--process(clk, rst)
 	--begin
 	--	if (rst = '1') then
+	--		data_correct <= '0';
 	--	elsif (clk'event and clk = '1') then
-	--		if (write_fifo_empty = '0') then
+	--		if (packet_flag = '1') then
 	--			write_fifo_re <= '1';
 	--		end if;
 	--	end if;
 	--end process;
 
-	--process(write_fifo_dout)
-	--begin
-	--	if (write_fifo_dout = "000000000000000000000001010100001111") then
-	--		data_correct <= '1';
-	--	elsif (write_fifo_dout = "000000000000000000010000000100000000") then
-	--		data_correct <= '1';
-	--	else
-	--		data_correct <= '0';
-	--	end if;
-	--end process;
 
 end architecture BHV;

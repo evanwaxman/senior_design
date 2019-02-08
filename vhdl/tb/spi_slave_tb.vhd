@@ -18,6 +18,8 @@ signal sram_fifo_packet	: std_logic_vector(35 downto 0);
 signal led0 			: std_logic_vector(6 downto 0);
 signal led1 			: std_logic_vector(6 downto 0);
 signal led2 			: std_logic_vector(6 downto 0);
+signal received_byte 	: std_logic_vector(7 downto 0);
+signal packet_flag 		: std_logic;
 
 -- tb signals
 type packet is array (0 to 5) of std_logic_vector(7 downto 0);
@@ -42,7 +44,9 @@ begin
 			miso 				=> miso,
 			led0 				=> led0,
 			led1 				=> led1,
-			led2 				=> led2
+			led2 				=> led2,
+			received_byte		=> received_byte,
+			packet_flag			=> packet_flag
 		);
 	
 	clk <= not clk and clkEn after 10 ns;

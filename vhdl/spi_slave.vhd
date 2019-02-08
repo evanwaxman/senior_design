@@ -12,9 +12,12 @@ entity spi_slave is
 		miso 				: out 	std_logic;
 		sram_fifo_packet	: out 	std_logic_vector(35 downto 0);
 		packet_flag			: out 	std_logic;
+
+		-- testing
 		led0    			: out 	std_logic_vector(6 downto 0);
 		led1    			: out 	std_logic_vector(6 downto 0);
-		led2    			: out 	std_logic_vector(6 downto 0)
+		led2    			: out 	std_logic_vector(6 downto 0);
+		received_byte 		: out 	std_logic_vector(7 downto 0)
 	);
 end spi_slave;
 
@@ -118,7 +121,7 @@ begin
 		end if;
 	end process;
 
-	--receive_byte <= shift_reg;
+	received_byte <= shift_reg;
 	mosi_temp(7 downto 1) <= (others => '0');
 	mosi_temp(0) <= mosi_sync; 
 
