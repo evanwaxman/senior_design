@@ -1,4 +1,5 @@
 sram_write_fifo_inst : sram_write_fifo PORT MAP (
+		aclr	 => aclr_sig,
 		clock	 => clock_sig,
 		data	 => data_sig,
 		rdreq	 => rdreq_sig,

@@ -42,6 +42,7 @@ USE altera_mf.all;
 ENTITY sram_write_fifo IS
 	PORT
 	(
+		aclr		: IN STD_LOGIC ;
 		clock		: IN STD_LOGIC ;
 		data		: IN STD_LOGIC_VECTOR (35 DOWNTO 0);
 		rdreq		: IN STD_LOGIC ;
@@ -75,6 +76,7 @@ ARCHITECTURE SYN OF sram_write_fifo IS
 		use_eab		: STRING
 	);
 	PORT (
+			aclr	: IN STD_LOGIC ;
 			clock	: IN STD_LOGIC ;
 			data	: IN STD_LOGIC_VECTOR (35 DOWNTO 0);
 			rdreq	: IN STD_LOGIC ;
@@ -104,6 +106,7 @@ BEGIN
 		use_eab => "ON"
 	)
 	PORT MAP (
+		aclr => aclr,
 		clock => clock,
 		data => data,
 		rdreq => rdreq,
@@ -124,7 +127,7 @@ END SYN;
 -- Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: AlmostFull NUMERIC "0"
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
--- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
+-- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "1"
 -- Retrieval info: PRIVATE: Clock NUMERIC "0"
 -- Retrieval info: PRIVATE: Depth NUMERIC "256"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
@@ -147,7 +150,7 @@ END SYN;
 -- Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 -- Retrieval info: PRIVATE: rsFull NUMERIC "0"
 -- Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
--- Retrieval info: PRIVATE: sc_aclr NUMERIC "0"
+-- Retrieval info: PRIVATE: sc_aclr NUMERIC "1"
 -- Retrieval info: PRIVATE: sc_sclr NUMERIC "0"
 -- Retrieval info: PRIVATE: wsEmpty NUMERIC "0"
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
@@ -163,6 +166,7 @@ END SYN;
 -- Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: USE_EAB STRING "ON"
+-- Retrieval info: USED_PORT: aclr 0 0 0 0 INPUT NODEFVAL "aclr"
 -- Retrieval info: USED_PORT: clock 0 0 0 0 INPUT NODEFVAL "clock"
 -- Retrieval info: USED_PORT: data 0 0 36 0 INPUT NODEFVAL "data[35..0]"
 -- Retrieval info: USED_PORT: empty 0 0 0 0 OUTPUT NODEFVAL "empty"
@@ -170,6 +174,7 @@ END SYN;
 -- Retrieval info: USED_PORT: q 0 0 36 0 OUTPUT NODEFVAL "q[35..0]"
 -- Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
 -- Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
+-- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 -- Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
 -- Retrieval info: CONNECT: @data 0 0 36 0 data 0 0 36 0
 -- Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0

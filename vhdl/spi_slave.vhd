@@ -166,14 +166,15 @@ begin
 
 				case unsigned(cntr_reg) is
 					when to_unsigned(8, 6) =>	-- ADDR_HIGH
-						address_hold_temp(19 downto 16) <= shift_reg(3 downto 0);
-						sram_fifo_packet_temp(35 downto 32) <= shift_reg(3 downto 0);
+						address_hold_temp(19 downto 17) <= shift_reg(2 downto 0);
+						sram_fifo_packet_temp(35 downto 33) <= shift_reg(2 downto 0);
 					when to_unsigned(16, 6) =>	-- ADDR_MID
-						address_hold_temp(15 downto 8) <= shift_reg;
-						sram_fifo_packet_temp(31 downto 24) <= shift_reg;
+						address_hold_temp(16 downto 9) <= shift_reg;
+						sram_fifo_packet_temp(32 downto 25) <= shift_reg;
 					when to_unsigned(24, 6) => 	-- ADDR_LOW
-						address_hold_temp(7 downto 0) <= shift_reg;
-						sram_fifo_packet_temp(23 downto 16) <= shift_reg;
+						address_hold_temp(8 downto 1) <= shift_reg;
+						sram_fifo_packet_temp(24 downto 17) <= shift_reg;
+						sram_fifo_packet_temp(16) <= '0';
 					when to_unsigned(32, 6) =>	-- RED
 						sram_fifo_packet_temp(15 downto 8) <= shift_reg;
 					when to_unsigned(40, 6) =>	-- GREEN

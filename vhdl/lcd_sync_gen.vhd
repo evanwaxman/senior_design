@@ -5,13 +5,13 @@ use work.LCD_LIB.all;
 
 entity lcd_sync_gen is
     port(
-        clk         : in    std_logic;
-        rst         : in    std_logic;
-        Hcount      : out   std_logic_vector(9 downto 0);
-        Vcount      : out   std_logic_vector(9 downto 0);
-        Horiz_Sync  : out   std_logic;
-        Vert_Sync   : out   std_logic;
-        Video_On    : out   std_logic
+        clk             : in    std_logic;
+        rst             : in    std_logic;
+        Horiz_Sync      : out   std_logic;
+        Vert_Sync       : out   std_logic;
+        Video_On        : out   std_logic;
+        pixel_location  : out   std_logic_vector(18 downto 0);
+        clk_25MHz_out   : out   std_logic
     );
 end lcd_sync_gen;
 
@@ -21,6 +21,8 @@ architecture BHV of lcd_sync_gen is
     signal clk_25MHz : std_logic;
     signal Hcount_temp : std_logic_vector(9 downto 0);
     signal Vcount_temp : std_logic_vector(9 downto 0);
+
+    signal pixel_cntr  : std_logic_vector(18 downto 0);
 
 begin
     U_CLK_DIV : entity work.clk_div
@@ -42,9 +44,15 @@ begin
             Video_On <= '1';
             Horiz_Sync <= '1';
             Vert_Sync <= '1';
+            pixel_cntr <= (others => '0');
+            --pixel_location <= (others => '0');
         elsif(clk_25MHz'event and clk_25MHz = '1') then
             if((unsigned(Hcount_temp) < H_DISPLAY_END) and unsigned(Vcount_temp) < V_DISPLAY_END) then
+                pixel_cntr <= std_logic_vector(unsigned(pixel_cntr) + 1);
                 Video_On <= '1';
+            elsif (unsigned(Vcount_temp) >= V_DISPLAY_END) then
+                pixel_cntr <= (others => '0');
+                Video_On <= '0';
             else
                 Video_On <= '0';
             end if;
@@ -76,8 +84,8 @@ begin
         end if;
     end process;
 
-    Hcount <= Hcount_temp;
-    Vcount <= Vcount_temp;
+    pixel_location <= pixel_cntr;
+    clk_25MHz_out <= clk_25MHz;
 
 
 end BHV;
