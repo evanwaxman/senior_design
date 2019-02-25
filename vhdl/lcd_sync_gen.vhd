@@ -5,36 +5,38 @@ use work.LCD_LIB.all;
 
 entity lcd_sync_gen is
     port(
-        clk             : in    std_logic;
+        clk_25MHz       : in    std_logic;
         rst             : in    std_logic;
         Horiz_Sync      : out   std_logic;
         Vert_Sync       : out   std_logic;
         Video_On        : out   std_logic;
         pixel_location  : out   std_logic_vector(18 downto 0);
-        clk_25MHz_out   : out   std_logic
+        Hcount          : out   std_logic_vector(9 downto 0);
+        Vcount          : out   std_logic_vector(9 downto 0)
+        --clk_25MHz_out   : out   std_logic
     );
 end lcd_sync_gen;
 
 
 architecture BHV of lcd_sync_gen is
 
-    signal clk_25MHz : std_logic;
+    --signal clk_25MHz : std_logic;
     signal Hcount_temp : std_logic_vector(9 downto 0);
     signal Vcount_temp : std_logic_vector(9 downto 0);
 
     signal pixel_cntr  : std_logic_vector(18 downto 0);
 
 begin
-    U_CLK_DIV : entity work.clk_div
-        generic map(
-            clk_in_freq => 50000000,
-            clk_out_freq => 25000000
-        )
-        port map(
-            clk_in => clk,
-            clk_out => clk_25MHz,
-            rst => rst
-        );
+    --U_CLK_DIV : entity work.clk_div
+    --    generic map(
+    --        clk_in_freq => 50000000,
+    --        clk_out_freq => 25000000
+    --    )
+    --    port map(
+    --        clk_in => clk,
+    --        clk_out => clk_25MHz,
+    --        rst => rst
+    --    );
 
     process(clk_25MHz, rst)
     begin
@@ -85,7 +87,9 @@ begin
     end process;
 
     pixel_location <= pixel_cntr;
-    clk_25MHz_out <= clk_25MHz;
+    Hcount <= Hcount_temp;
+    Vcount <= Vcount_temp;
+    --clk_25MHz_out <= clk_25MHz;
 
 
 end BHV;
