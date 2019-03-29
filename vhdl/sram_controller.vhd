@@ -142,7 +142,7 @@ begin
 					next_state <= READ_SRAM;
 				else
 					sram_read_en_n <= '0';
-					if (unsigned(cntr) < 384000) then
+					if (unsigned(cntr) < 192000) then
 						sram_addr_n <= cntr;
 						sram_write_data_n <= "1111111100000000";
 						sram_ce_n <= '0';
@@ -150,13 +150,13 @@ begin
 						sram_we_n <= '0';
 
 						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--elsif (unsigned(cntr) >= 192000 and unsigned(cntr) < 384000) then
-					--	sram_addr_n <= cntr;
-					--	sram_write_data_n <= "0000000000000000";
-					--	sram_ce_n <= '0';
-					--	sram_oe_n <= '1';
-					--	sram_we_n <= '0';
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
+					elsif (unsigned(cntr) >= 384000 and unsigned(cntr) < 384000) then
+						sram_addr_n <= cntr;
+						sram_write_data_n <= "0000000000000000";
+						sram_ce_n <= '0';
+						sram_oe_n <= '1';
+						sram_we_n <= '0';
+						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
 					end if;
 				end if;
 

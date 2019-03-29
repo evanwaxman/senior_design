@@ -8,10 +8,9 @@ entity lcd_controller is
         clk             : in        std_logic;
         clk_25MHz       : in        std_logic;
         rst             : in        std_logic;
-        Horiz_Sync      : out       std_logic;
-        Vert_Sync       : out       std_logic;
+        video_on        : in        std_logic;
+        pixel_location  : in        std_logic_vector(18 downto 0);
         pixel_color     : out       std_logic_vector(7 downto 0);
-        den             : out       std_logic;
 
         -- sram signals
         lcd_addr        : out       std_logic_vector(19 downto 0);
@@ -28,29 +27,15 @@ architecture BHV of lcd_controller is
     signal red                  : std_logic_vector(7 downto 0);
     signal red_n                : std_logic_vector(7 downto 0);
     signal pixel_color_n        : std_logic_vector(23 downto 0);
-    signal pixel_location       : std_logic_vector(18 downto 0);
 
     signal hcount               : std_logic_vector(9 downto 0);
     signal vcount               : std_logic_vector(9 downto 0);
-    signal video_on             : std_logic;
-    signal lcd_addr_n           : std_logic_vector(19 downto 0);
+    --signal lcd_addr_n           : std_logic_vector(19 downto 0);
     signal sram_read_en_n       : std_logic;
 
 begin
 
-    U_LCD_SYNC_GEN : entity work.lcd_sync_gen
-        port map(
-            clk_25MHz       => clk_25MHz,
-            rst             => rst,
-            Horiz_Sync      => Horiz_Sync,
-            Vert_Sync       => Vert_Sync,
-            Video_On        => video_on,
-            pixel_location  => pixel_location,
-            Hcount          => hcount,
-            Vcount          => vcount
-        );
 
-    den <= video_on;
     lcd_status <= video_on;
 
 
@@ -58,11 +43,11 @@ begin
     begin
         if (rst = '1') then
             pixel_color <= (others => '0'); 
-            lcd_addr <= (others => '0');
+            --lcd_addr <= (others => '0');
             state <= INIT;
         elsif (clk_25MHz'event and clk_25MHz = '1') then
             pixel_color <= red_n;
-            lcd_addr <= lcd_addr_n;
+            --lcd_addr <= lcd_addr_n;
             state <= next_state;
         end if;
     end process;
@@ -70,7 +55,7 @@ begin
     process(state, video_on, pixel_location, sram_read_data)
     begin
         red_n <= "00000000";
-        lcd_addr_n <= (others => '0');
+        lcd_addr <= (others => '0');
         next_state <= state;
 
         case state is
@@ -79,7 +64,7 @@ begin
 
             when IDLE =>
                 if (video_on = '1') then
-                    lcd_addr_n <= '0' & pixel_location;
+                    lcd_addr <= '0' & pixel_location;
                     red_n <= sram_read_data(15 downto 8);
                     next_state <= READ_SRAM;
                 end if;
@@ -88,7 +73,7 @@ begin
                 if (video_on = '0') then
                     next_state <= IDLE;
                 else
-                    lcd_addr_n <= '0' & pixel_location;
+                    lcd_addr <= '0' & pixel_location;
                     red_n <= sram_read_data(15 downto 8);
                 end if;
 

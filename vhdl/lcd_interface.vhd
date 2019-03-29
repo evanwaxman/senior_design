@@ -27,19 +27,10 @@ architecture BHV of lcd_interface is
  --   signal write_fifo_empty : std_logic;
  --   signal write_fifo_full  : std_logic;
 
-    type STATE_TYPE is (INIT, IDLE, READ_SRAM);
-    signal state, next_state, saved_state, saved_state_n        : STATE_TYPE;
-
-    signal red                  : std_logic_vector(7 downto 0);
-    signal red_n                : std_logic_vector(7 downto 0);
-    signal pixel_color_n        : std_logic_vector(23 downto 0);
-    signal pixel_location       : std_logic_vector(18 downto 0);
-
-    signal hcount               : std_logic_vector(9 downto 0);
-    signal vcount               : std_logic_vector(9 downto 0);
-    signal video_on             : std_logic;
-    signal lcd_addr_n           : std_logic_vector(19 downto 0);
-    signal sram_read_en_n       : std_logic;
+    signal hcount 			: std_logic_vector(9 downto 0);
+    signal vcount 			: std_logic_vector(9 downto 0);
+    signal video_on 		: std_logic;
+    signal pixel_location 	: std_logic_vector(18 downto 0);
 
 begin
 
@@ -60,14 +51,14 @@ begin
 			clk 			=> clk,
 			clk_25MHz 		=> clk_25MHz,
 			rst	 			=> rst,
-			Horiz_Sync 		=> Horiz_Sync,
-			Vert_Sync 		=> Vert_Sync,
+			video_on 		=> video_on,
+			pixel_location 	=> pixel_location,
 			pixel_color 	=> pixel_color,
-			den 			=> den,
 			lcd_addr 		=> lcd_addr,
 			sram_read_data 	=> sram_read_data,
 			lcd_status 		=> lcd_status
 	    );
     
+    den <= video_on;
 	
 end architecture BHV;

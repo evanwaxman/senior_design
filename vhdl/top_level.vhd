@@ -62,23 +62,12 @@ begin
             locked  => pll_locked
         );
 
-    --U_CLK_DIV : entity work.clk_div
-    --    generic map(
-    --        clk_in_freq => 50000000,
-    --        clk_out_freq => 25000000
-    --    )
-    --    port map(
-    --        clk_in      => clk,
-    --        clk_out     => clk_25MHz,
-    --        rst         => rst_n
-    --    );
-
     global_rst <= rst_n or ((not rst_n) and (not pll_locked));
     pixel_clock <= clk_25MHz;
 
     pll_locked_out <= not pll_locked;
 
-    U_LCD_CONTROLLER : entity work.lcd_controller
+    U_LCD_INTERFACE : entity work.lcd_interface
         port map(
             clk             => clk,
             clk_25MHz       => clk_25MHz,
