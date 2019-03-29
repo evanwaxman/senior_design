@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=CLK_pixel Pin=FPGA-137
+Removed Pin From Net: NetName=ON/OFF Pin=FPGA-139
+Removed Pin From Net: NetName=HSYNC Pin=FPGA-141
+Added Pin To Net: NetName=CLK_pixel Pin=FPGA-135
+Added Pin To Net: NetName=ON/OFF Pin=FPGA-137
+Added Pin To Net: NetName=HSYNC Pin=FPGA-139
+Added Pin To Net: NetName=VSYNC Pin=FPGA-141

@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=NetR7_2 Pin=U1-1
+Removed Pin From Net: NetName=NetR3_1 Pin=U1-3
+Removed Pin From Net: NetName=GND Pin=U1-4
+Removed Pin From Net: NetName=12V Pin=U1-8
+Added Pin To Net: NetName=NetR7_2 Pin=U1-1
+Added Pin To Net: NetName=NetR3_1 Pin=U1-3
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=12V Pin=U1-8
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component C3 Cap Pol1
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component R12 Res1
+Added Room: Name=BatteryRecharge2
+Added Room: Name=dac_audio_out
+Added Room: Name=fpga_sram
+Added Room: Name=lcd_breakout
+Added Room: Name=MSPBreakout

@@ -1,0 +1,100 @@
+Added Component: Designator=*1(CoreEP3C16)
+Add component. Clean all parameters for all variants
+Added Component: Designator=*(TSOP54)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=/BHE Pin=*-12
+Added Net: Name=/BHE
+Added Pin To Net: NetName=/BLE Pin=*-39
+Added Net: Name=/BLE
+Added Pin To Net: NetName=/CE Pin=*-13
+Added Net: Name=/CE
+Added Pin To Net: NetName=/OE Pin=*-42
+Added Net: Name=/OE
+Added Pin To Net: NetName=/WE Pin=*-15
+Added Net: Name=/WE
+Added Pin To Net: NetName=A0 Pin=*-11
+Added Net: Name=A0
+Added Pin To Net: NetName=A1 Pin=*-10
+Added Net: Name=A1
+Added Pin To Net: NetName=A2 Pin=*-9
+Added Net: Name=A2
+Added Pin To Net: NetName=A3 Pin=*-8
+Added Net: Name=A3
+Added Pin To Net: NetName=A4 Pin=*-7
+Added Net: Name=A4
+Added Pin To Net: NetName=A5 Pin=*-48
+Added Net: Name=A5
+Added Pin To Net: NetName=A6 Pin=*-47
+Added Net: Name=A6
+Added Pin To Net: NetName=A7 Pin=*-46
+Added Net: Name=A7
+Added Pin To Net: NetName=A8 Pin=*-45
+Added Net: Name=A8
+Added Pin To Net: NetName=A9 Pin=*-44
+Added Net: Name=A9
+Added Pin To Net: NetName=A10 Pin=*-38
+Added Net: Name=A10
+Added Pin To Net: NetName=A11 Pin=*-37
+Added Net: Name=A11
+Added Pin To Net: NetName=A12 Pin=*-36
+Added Net: Name=A12
+Added Pin To Net: NetName=A13 Pin=*-35
+Added Net: Name=A13
+Added Pin To Net: NetName=A14 Pin=*-34
+Added Net: Name=A14
+Added Pin To Net: NetName=A15 Pin=*-21
+Added Net: Name=A15
+Added Pin To Net: NetName=A16 Pin=*-20
+Added Net: Name=A16
+Added Pin To Net: NetName=A17 Pin=*-19
+Added Net: Name=A17
+Added Pin To Net: NetName=A18 Pin=*-18
+Added Net: Name=A18
+Added Pin To Net: NetName=A19 Pin=*-17
+Added Net: Name=A19
+Added Pin To Net: NetName=IO0 Pin=*-22
+Added Net: Name=IO0
+Added Pin To Net: NetName=IO1 Pin=*-24
+Added Net: Name=IO1
+Added Pin To Net: NetName=IO2 Pin=*-25
+Added Net: Name=IO2
+Added Pin To Net: NetName=IO3 Pin=*-27
+Added Net: Name=IO3
+Added Pin To Net: NetName=IO4 Pin=*-28
+Added Net: Name=IO4
+Added Pin To Net: NetName=IO5 Pin=*-30
+Added Net: Name=IO5
+Added Pin To Net: NetName=IO6 Pin=*-31
+Added Net: Name=IO6
+Added Pin To Net: NetName=IO7 Pin=*-33
+Added Net: Name=IO7
+Added Pin To Net: NetName=IO8 Pin=*-49
+Added Net: Name=IO8
+Added Pin To Net: NetName=IO9 Pin=*-51
+Added Net: Name=IO9
+Added Pin To Net: NetName=IO10 Pin=*-52
+Added Net: Name=IO10
+Added Pin To Net: NetName=IO11 Pin=*-54
+Added Net: Name=IO11
+Added Pin To Net: NetName=IO12 Pin=*-1
+Added Net: Name=IO12
+Added Pin To Net: NetName=IO13 Pin=*-3
+Added Net: Name=IO13
+Added Pin To Net: NetName=IO14 Pin=*-4
+Added Net: Name=IO14
+Added Pin To Net: NetName=IO15 Pin=*-6
+Added Net: Name=IO15
+Added Pin To Net: NetName=Vcc Pin=*-2
+Added Pin To Net: NetName=Vcc Pin=*-14
+Added Pin To Net: NetName=Vcc Pin=*-23
+Added Pin To Net: NetName=Vcc Pin=*-29
+Added Pin To Net: NetName=Vcc Pin=*-50
+Added Net: Name=Vcc
+Added Pin To Net: NetName=Vss Pin=*-5
+Added Pin To Net: NetName=Vss Pin=*-26
+Added Pin To Net: NetName=Vss Pin=*-32
+Added Pin To Net: NetName=Vss Pin=*-41
+Added Pin To Net: NetName=Vss Pin=*-53
+Added Net: Name=Vss
+Added Class: Name=fpga_schem
+Added Room: Name=fpga_schem

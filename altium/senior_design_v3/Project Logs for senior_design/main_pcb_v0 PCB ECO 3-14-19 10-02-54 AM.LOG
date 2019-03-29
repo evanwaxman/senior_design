@@ -1,0 +1,68 @@
+Added Component: Designator=Q2(SOT54)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Code_JEDEC"; Value = "TO-92"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Code_JEITA"; Value = "SC-43"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.semiconductors.philips.com/"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://www.semiconductors.philips.com/acrobat/datasheets/2N7000-03.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DatasheetVersion"; Value = "19-May-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "12-Dec-2006"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Footprint pad sequence fixed."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Plastic Single-Ended Leaded (through hole) package; 3 Leads (TO-92)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SOT54"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Feb-1997"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "17-Sep-2003"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=U1(LT-N8)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Channels (#)"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer URL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.linear.com/"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://cds.linear.com/docs/en/datasheet/10178ff.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3Description"; Value = "Package Specification"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3URL"; Value = "http://cds.linear.com/docs/en/packaging/05081510_I_N8.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DatasheetVersion"; Value = "Rev F"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Features"; Value = "Comparator"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Generic Part Number"; Value = "LT1017"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Linear Technology"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Technology"; Value = "Through Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "8-Pin PDIP, Row Spacing 7.62, Pitch 2.54 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "N8"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PartNumber"; Value = "LT1017CN8"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Prop Delay (us)"; Value = "22"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS"; Value = "N"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2"; Value = "Newark"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "LT1017CN8-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 2"; Value = "57M0864"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supply Current (uA) Guaranteed"; Value = "60"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supply Current (uA) Typical"; Value = "30"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supply Voltage Range"; Value = "1.2 to 40 V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Vos (mV) Guaranteed"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Vos (mV) Typical"; Value = "0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Vs Max (V)"; Value = "40"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Vs Min (V)"; Value = "1.2"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetD2_2 Pin=Q2-1
+Added Pin To Net: NetName=NetQ2_2 Pin=Q2-2
+Added Pin To Net: NetName=GND Pin=Q2-3
+Added Pin To Net: NetName=NetR7_2 Pin=U1-1
+Added Pin To Net: NetName=P10.1 Pin=U1-1
+Added Pin To Net: NetName=P10.2 Pin=U1-2
+Added Pin To Net: NetName=V_BAT Pin=U1-2
+Added Pin To Net: NetName=NetR3_1 Pin=U1-3
+Added Pin To Net: NetName=P10.3 Pin=U1-3
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=P1.0 Pin=U1-4
+Added Pin To Net: NetName=NetR3_1 Pin=U1-5
+Added Pin To Net: NetName=P1.1 Pin=U1-5
+Added Pin To Net: NetName=NetR7_2 Pin=U1-6
+Added Pin To Net: NetName=P1.2 Pin=U1-6
+Added Pin To Net: NetName=NetQ2_2 Pin=U1-7
+Added Pin To Net: NetName=P1.3 Pin=U1-7
+Added Pin To Net: NetName=12V Pin=U1-8
+Added Pin To Net: NetName=P1.4 Pin=U1-8
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component Q2 2N7000
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component U1 LT1017CN8
+Added Member To Class: ClassName=MSPBreakout Member=Component U1 XMS432P401RIPZR

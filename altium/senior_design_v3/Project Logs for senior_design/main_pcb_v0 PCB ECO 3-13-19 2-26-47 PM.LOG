@@ -1,0 +1,5 @@
+Change Component Designator: OldDesignator=P? NewDesignator=P1
+Change Component Designator: OldDesignator=P? NewDesignator=P2
+Added Member To Class: ClassName=lcd_breakout Member=Component P1 Header 20
+Added Room: Name=fpga_sram
+Added Room: Name=lcd_breakout

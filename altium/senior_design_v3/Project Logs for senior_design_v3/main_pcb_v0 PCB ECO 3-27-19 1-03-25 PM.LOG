@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=IO11 Pin=FPGA-4
+Removed Pin From Net: NetName=IO10 Pin=FPGA-6
+Removed Pin From Net: NetName=IO11 Pin=SRAM-1
+Removed Pin From Net: NetName=IO10 Pin=SRAM-3
+Removed Pin From Net: NetName=IO12 Pin=SRAM-54
+Added Pin To Net: NetName=IO12 Pin=FPGA-4
+Added Pin To Net: NetName=IO11 Pin=FPGA-6
+Added Pin To Net: NetName=IO12 Pin=SRAM-1
+Added Pin To Net: NetName=IO13 Pin=SRAM-3
+Added Pin To Net: NetName=IO11 Pin=SRAM-54

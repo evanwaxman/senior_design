@@ -1,0 +1,157 @@
+Change Component DesignItemId : Designator=TOUCH Old DesignItemId=1X04-BIG New DesignItemId=1X4-BIG
+Change Component DesignItemId : Designator=CONTROL Old DesignItemId=1X06-BIG New DesignItemId=PINHD-1X6B
+Change Component DesignItemId : Designator=JP1 Old DesignItemId=1X06-BIG New DesignItemId=PINHD-1X6B
+Change Component DesignItemId : Designator=BLUE Old DesignItemId=1X08-BIG New DesignItemId=PINHD-1X8BIG
+Change Component DesignItemId : Designator=GREEN Old DesignItemId=1X08-BIG New DesignItemId=PINHD-1X8BIG
+Change Component DesignItemId : Designator=RED Old DesignItemId=1X08-BIG New DesignItemId=PINHD-1X8BIG
+Change Component Comment : Designator=TOUCH Old Comment= New Comment=1X4-BIG
+Change Component Comment : Designator=CONTROL Old Comment= New Comment=PINHD-1X6B
+Change Component Comment : Designator=JP1 Old Comment= New Comment=PINHD-1X6B
+Change Component Comment : Designator=BLUE Old Comment= New Comment=PINHD-1X8BIG
+Change Component Comment : Designator=GREEN Old Comment= New Comment=PINHD-1X8BIG
+Change Component Comment : Designator=RED Old Comment= New Comment=PINHD-1X8BIG
+Change Component Designator: OldDesignator=E1 NewDesignator=R0
+Change Component Designator: OldDesignator=E2 NewDesignator=G0
+Change Component Designator: OldDesignator=E3 NewDesignator=B0
+Change Component Designator: OldDesignator=E4 NewDesignator=R1
+Change Component Designator: OldDesignator=E5 NewDesignator=G1
+Change Component Designator: OldDesignator=E6 NewDesignator=B1
+Change Component Designator: OldDesignator=E7 NewDesignator=R2
+Change Component Designator: OldDesignator=E8 NewDesignator=G2
+Change Component Designator: OldDesignator=E9 NewDesignator=B2
+Change Component Designator: OldDesignator=E10 NewDesignator=R3
+Change Component Designator: OldDesignator=E11 NewDesignator=G3
+Change Component Designator: OldDesignator=E12 NewDesignator=B3
+Change Component Designator: OldDesignator=E13 NewDesignator=CLK
+Change Component Designator: OldDesignator=E14 NewDesignator=R4
+Change Component Designator: OldDesignator=E15 NewDesignator=G4
+Change Component Designator: OldDesignator=E16 NewDesignator=B4
+Change Component Designator: OldDesignator=E17 NewDesignator=ON/OFF
+Change Component Designator: OldDesignator=E18 NewDesignator=R5
+Change Component Designator: OldDesignator=E19 NewDesignator=G5
+Change Component Designator: OldDesignator=E20 NewDesignator=B5
+Change Component Designator: OldDesignator=E21 NewDesignator=HSYNC
+Change Component Designator: OldDesignator=E22 NewDesignator=R6
+Change Component Designator: OldDesignator=E23 NewDesignator=G6
+Change Component Designator: OldDesignator=E24 NewDesignator=B6
+Change Component Designator: OldDesignator=E25 NewDesignator=VSYNC
+Change Component Designator: OldDesignator=E26 NewDesignator=R7
+Change Component Designator: OldDesignator=E27 NewDesignator=G7
+Change Component Designator: OldDesignator=E28 NewDesignator=B7
+Change Component Designator: OldDesignator=E29 NewDesignator=DE
+Change Component Description : Designator=TOUCH Old Description= New Description=4-pin connector
+Change Component Description : Designator=BLUE Old Description= New Description=PIN HEADER
+Change Component Description : Designator=CONTROL Old Description= New Description=PIN HEADER
+Change Component Description : Designator=GREEN Old Description= New Description=PIN HEADER
+Change Component Description : Designator=JP1 Old Description= New Description=PIN HEADER
+Change Component Description : Designator=RED Old Description= New Description=PIN HEADER
+Change Component Library : Designator=BLUE Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=CONTROL Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=GREEN Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=JP1 Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=RED Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=TOUCH Old Library= New Library=adafruit.IntLib
+Change component parameters: Designator = "JP1"; Footprint = "1X06-BIG"; UniqueID = "\XLNUTXSP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "B"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X6"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "A"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD6"; VariantName = "[No Variations]"
+Change component parameters: Designator = "TOUCH"; Footprint = "1X04-BIG"; UniqueID = "\MMIKCWUX"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "-BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "1X4"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "1X4"; VariantName = "[No Variations]"
+Change component parameters: Designator = "BLUE"; Footprint = "1X08-BIG"; UniqueID = "\EBIULFAP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD8"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CONTROL"; Footprint = "1X06-BIG"; UniqueID = "\IJHDXFSD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "B"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X6"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "A"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD6"; VariantName = "[No Variations]"
+Change component parameters: Designator = "GREEN"; Footprint = "1X08-BIG"; UniqueID = "\VDAKIMKV"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD8"; VariantName = "[No Variations]"
+Change component parameters: Designator = "RED"; Footprint = "1X08-BIG"; UniqueID = "\NEDVAAOR"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD8"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=B7 Pin=BLUE-1
+Added Pin To Net: NetName=B6 Pin=BLUE-2
+Added Pin To Net: NetName=B5 Pin=BLUE-3
+Added Pin To Net: NetName=B4 Pin=BLUE-4
+Added Pin To Net: NetName=B3 Pin=BLUE-5
+Added Pin To Net: NetName=B2 Pin=BLUE-6
+Added Pin To Net: NetName=B1 Pin=BLUE-7
+Added Pin To Net: NetName=B0 Pin=BLUE-8
+Added Pin To Net: NetName=DE Pin=CONTROL-1
+Added Pin To Net: NetName=VSYNC Pin=CONTROL-2
+Added Pin To Net: NetName=HSYNC Pin=CONTROL-3
+Added Pin To Net: NetName=ON/OFF Pin=CONTROL-4
+Added Pin To Net: NetName=NetCONTROL_5 Pin=CONTROL-5
+Added Pin To Net: NetName=GND Pin=CONTROL-6
+Added Pin To Net: NetName=G7 Pin=GREEN-1
+Added Pin To Net: NetName=G6 Pin=GREEN-2
+Added Pin To Net: NetName=G5 Pin=GREEN-3
+Added Pin To Net: NetName=G4 Pin=GREEN-4
+Added Pin To Net: NetName=G3 Pin=GREEN-5
+Added Pin To Net: NetName=G2 Pin=GREEN-6
+Added Pin To Net: NetName=G1 Pin=GREEN-7
+Added Pin To Net: NetName=G0 Pin=GREEN-8
+Added Pin To Net: NetName=+3V3 Pin=JP1-1
+Added Pin To Net: NetName=PWM Pin=JP1-2
+Added Pin To Net: NetName=+24V Pin=JP1-3
+Added Pin To Net: NetName=LEDK Pin=JP1-4
+Added Pin To Net: NetName=GND Pin=JP1-5
+Added Pin To Net: NetName=VIN Pin=JP1-6
+Added Pin To Net: NetName=PWM Pin=R1-1
+Added Pin To Net: NetName=NetR2_1 Pin=R2-1
+Added Pin To Net: NetName=NetR3_1 Pin=R3-1
+Added Pin To Net: NetName=NetR4_1 Pin=R4-1
+Added Pin To Net: NetName=CLK Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R7-1
+Added Pin To Net: NetName=R7 Pin=RED-1
+Added Pin To Net: NetName=R6 Pin=RED-2
+Added Pin To Net: NetName=R5 Pin=RED-3
+Added Pin To Net: NetName=R4 Pin=RED-4
+Added Pin To Net: NetName=R3 Pin=RED-5
+Added Pin To Net: NetName=R2 Pin=RED-6
+Added Pin To Net: NetName=R1 Pin=RED-7
+Added Pin To Net: NetName=R0 Pin=RED-8
+Added Pin To Net: NetName=YU Pin=TOUCH-1
+Added Pin To Net: NetName=XL Pin=TOUCH-2
+Added Pin To Net: NetName=YD Pin=TOUCH-3
+Added Pin To Net: NetName=XR Pin=TOUCH-4
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component BLUE PINHD-1X8BIG
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component CONTROL PINHD-1X6B
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component GREEN PINHD-1X8BIG
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component JP1 PINHD-1X6B
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component R1 10K
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component R2 6?
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component R3 12?
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component R4 12?
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component R5 22
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component R7 12?
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component RED PINHD-1X8BIG
+Added Member To Class: ClassName=Adafruit 40pin TFT friend Member=Component TOUCH 1X4-BIG

@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=RED0 Pin=FPGA-37
+Removed Pin From Net: NetName=RED1 Pin=FPGA-39
+Removed Pin From Net: NetName=RED2 Pin=FPGA-41
+Removed Pin From Net: NetName=RED3 Pin=FPGA-43
+Removed Pin From Net: NetName=RED4 Pin=FPGA-45
+Removed Pin From Net: NetName=RED5 Pin=FPGA-47
+Removed Pin From Net: NetName=RED6 Pin=FPGA-49
+Added Pin To Net: NetName=RED7 Pin=FPGA-37
+Added Pin To Net: NetName=RED6 Pin=FPGA-39
+Added Pin To Net: NetName=RED5 Pin=FPGA-41
+Added Pin To Net: NetName=RED4 Pin=FPGA-43
+Added Pin To Net: NetName=RED3 Pin=FPGA-45
+Added Pin To Net: NetName=RED2 Pin=FPGA-47
+Added Pin To Net: NetName=RED1 Pin=FPGA-49

@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=GREEN0 Pin=FPGA-135
+Removed Pin From Net: NetName=GREEN1 Pin=FPGA-137
+Removed Pin From Net: NetName=GREEN3 Pin=FPGA-141
+Removed Pin From Net: NetName=GREEN4 Pin=FPGA-143
+Removed Pin From Net: NetName=NetR7_2 Pin=U1-1
+Removed Pin From Net: NetName=NetR3_1 Pin=U1-3
+Removed Pin From Net: NetName=GND Pin=U1-4
+Removed Pin From Net: NetName=12V Pin=U1-8
+Added Pin To Net: NetName=GREEN4 Pin=FPGA-135
+Added Pin To Net: NetName=GREEN3 Pin=FPGA-137
+Added Pin To Net: NetName=GREEN1 Pin=FPGA-141
+Added Pin To Net: NetName=GREEN0 Pin=FPGA-143
+Added Pin To Net: NetName=NetR7_2 Pin=U1-1
+Added Pin To Net: NetName=NetR3_1 Pin=U1-3
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=12V Pin=U1-8
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component C3 Cap Pol1

@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=/BLE Pin=*1-24
+Added Pin To Net: NetName=/BLE Pin=*1-26

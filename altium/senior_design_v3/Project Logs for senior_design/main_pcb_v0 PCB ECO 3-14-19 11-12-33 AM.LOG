@@ -1,0 +1,102 @@
+Removed Pin From Net: NetName=P1.5 Pin=Port 1-6
+Removed Pin From Net: NetName=P1.6 Pin=Port 1-7
+Removed Pin From Net: NetName=P1.7 Pin=Port 1-8
+Removed Pin From Net: NetName=P3.0 Pin=Port 3-1
+Removed Pin From Net: NetName=P5.0 Pin=Port 5-1
+Removed Pin From Net: NetName=P5.4 Pin=Port 5-5
+Removed Pin From Net: NetName=P6.3 Pin=Port 6-4
+Removed Pin From Net: NetName=P6.4 Pin=Port 6-5
+Removed Pin From Net: NetName=P6.5 Pin=Port 6-6
+Removed Pin From Net: NetName=P6.6 Pin=Port 6-7
+Removed Pin From Net: NetName=P6.7 Pin=Port 6-8
+Removed Pin From Net: NetName=PJ.4 Pin=Port J-5
+Removed Pin From Net: NetName=PJ.5 Pin=Port J-6
+Removed Pin From Net: NetName=RST_NMI_N Pin=Port Misc-1
+Removed Pin From Net: NetName=SWDIOTMS Pin=Port Misc-2
+Removed Pin From Net: NetName=SWCLKTCK Pin=Port Misc-3
+Removed Member From Class: ClassName=BatteryRecharge2 Member=C1
+Removed Member From Class: ClassName=MSPBreakout Member=C1
+Removed Member From Class: ClassName=MSPBreakout Member=C2
+Removed Member From Class: ClassName=MSPBreakout Member=C3
+Removed Member From Class: ClassName=MSPBreakout Member=Port 1
+Removed Member From Class: ClassName=MSPBreakout Member=Port 2
+Removed Member From Class: ClassName=MSPBreakout Member=Port 3
+Removed Member From Class: ClassName=MSPBreakout Member=Port 4
+Removed Member From Class: ClassName=MSPBreakout Member=Port 5
+Removed Member From Class: ClassName=MSPBreakout Member=Port 6
+Removed Member From Class: ClassName=MSPBreakout Member=Port 7
+Removed Member From Class: ClassName=MSPBreakout Member=Port 8
+Removed Member From Class: ClassName=MSPBreakout Member=Port 9
+Removed Member From Class: ClassName=MSPBreakout Member=Port 10
+Removed Member From Class: ClassName=MSPBreakout Member=Port J
+Removed Member From Class: ClassName=MSPBreakout Member=Port Misc
+Change Component Footprint: Designator=R2 Old Footprint=AXIAL-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C1 Old Footprint=RAD-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C2 Old Footprint=RAD-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C4 Old Footprint=RAD-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C7 Old Footprint=RAD-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C8 Old Footprint=RAD-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C10 Old Footprint=RAD-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=C3 Old Footprint=RB7.6-15 New Footprint=6-0805_M
+Change Component Designator: OldDesignator=C1 NewDesignator=C3
+Change Component Designator: OldDesignator=C1 NewDesignator=C4
+Change Component Designator: OldDesignator=C2 NewDesignator=C5
+Change Component Designator: OldDesignator=C3 NewDesignator=C6
+Change Component Designator: OldDesignator=C4 NewDesignator=C7
+Change Component Designator: OldDesignator=C7 NewDesignator=C8
+Change Component Designator: OldDesignator=C8 NewDesignator=C9
+Added Component: Designator=MCU(HDR1X10)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=Port Program(HDR1X5)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=FPGA-23
+Added Pin To Net: NetName=5V Pin=FPGA-24
+Added Pin To Net: NetName=5V Pin=FPGA-111
+Added Pin To Net: NetName=GND Pin=FPGA-112
+Added Pin To Net: NetName=V_BUCK_OUT Pin=MCU-1
+Added Pin To Net: NetName=GND Pin=MCU-2
+Added Pin To Net: NetName=P6.7 Pin=MCU-3
+Added Pin To Net: NetName=P6.6 Pin=MCU-4
+Added Pin To Net: NetName=P5.0 Pin=P5-1
+Added Pin To Net: NetName=P1.5 Pin=P5-2
+Added Pin To Net: NetName=P3.0 Pin=P5-3
+Added Pin To Net: NetName=P1.7 Pin=P5-4
+Added Pin To Net: NetName=P1.6 Pin=P5-5
+Added Pin To Net: NetName=V_BUCK_OUT Pin=P5-6
+Added Pin To Net: NetName=GND Pin=P5-10
+Added Pin To Net: NetName=V_BUCK_OUT Pin=P5-11
+Added Pin To Net: NetName=RST_NMI_N Pin=Port Program-1
+Added Pin To Net: NetName=SWDIOTMS Pin=Port Program-2
+Added Pin To Net: NetName=SWCLKTCK Pin=Port Program-3
+Added Pin To Net: NetName=PJ.4 Pin=Port Program-4
+Added Pin To Net: NetName=PJ.5 Pin=Port Program-5
+Added Pin To Net: NetName=NetR7_2 Pin=U1-1
+Added Pin To Net: NetName=NetR3_1 Pin=U1-3
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=12V Pin=U1-8
+Change Net Name : Old Net Name=NetC8_2 New Net Name=NetC9_2
+Change Net Name : Old Net Name=P1.5 New Net Name=TOUCH_SCL
+Change Net Name : Old Net Name=P1.6 New Net Name=TOUCH_SDI
+Change Net Name : Old Net Name=P1.7 New Net Name=TOUCH_SDO
+Change Net Name : Old Net Name=P3.0 New Net Name=TOUCH_INT
+Change Net Name : Old Net Name=P5.0 New Net Name=TOUCH_SDA/CS
+Change Net Name : Old Net Name=P5.4 New Net Name=FPGA_SS
+Change Net Name : Old Net Name=P6.3 New Net Name=FPGA_SCLK
+Change Net Name : Old Net Name=P6.4 New Net Name=FPGA_MOSI
+Change Net Name : Old Net Name=P6.5 New Net Name=FPGA_MISO
+Change Net Name : Old Net Name=P6.6 New Net Name=IMU_SDA
+Change Net Name : Old Net Name=P6.7 New Net Name=IMU_SCL
+Change Net Name : Old Net Name=PJ.4 New Net Name=TDI_ADC14CLK
+Change Net Name : Old Net Name=PJ.5 New Net Name=TDO_SWO
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component C3 Cap Pol1
+Added Member To Class: ClassName=MSPBreakout Member=Component C5 Cap
+Added Member To Class: ClassName=MSPBreakout Member=Component C6 Cap Pol1
+Added Member To Class: ClassName=MSPBreakout Member=Component C9 Cap
+Added Member To Class: ClassName=MSPBreakout Member=Component MCU Header 10
+Added Member To Class: ClassName=MSPBreakout Member=Component Port Program Header 5

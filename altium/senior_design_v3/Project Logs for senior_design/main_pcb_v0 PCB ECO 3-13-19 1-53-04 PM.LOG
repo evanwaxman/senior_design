@@ -1,0 +1,7 @@
+Added Member To Class: ClassName=lcd_breakout Member=Component R1 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R2 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R3 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R4 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R5 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R7 Antenna
+Added Room: Name=lcd_breakout

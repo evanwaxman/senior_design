@@ -1,0 +1,629 @@
+Change Component DesignItemId : Designator=TOUCH Old DesignItemId=1X04-BIG New DesignItemId=1X4-BIG
+Change Component DesignItemId : Designator=CONTROL Old DesignItemId=1X06-BIG New DesignItemId=PINHD-1X6B
+Change Component DesignItemId : Designator=JP1 Old DesignItemId=1X06-BIG New DesignItemId=PINHD-1X6B
+Change Component DesignItemId : Designator=BLUE Old DesignItemId=1X08-BIG New DesignItemId=PINHD-1X8BIG
+Change Component DesignItemId : Designator=GREEN Old DesignItemId=1X08-BIG New DesignItemId=PINHD-1X8BIG
+Change Component DesignItemId : Designator=RED Old DesignItemId=1X08-BIG New DesignItemId=PINHD-1X8BIG
+Change Component DesignItemId : Designator=J1 Old DesignItemId=4-1734839-0 New DesignItemId=40PINFPC4-1734839-0
+Change Component DesignItemId : Designator=C1 Old DesignItemId=_0805MP New DesignItemId=CAP_CERAMIC_0805MP
+Change Component DesignItemId : Designator=C2 Old DesignItemId=_0805MP New DesignItemId=CAP_CERAMIC_0805MP
+Change Component DesignItemId : Designator=C6 Old DesignItemId=_0805MP New DesignItemId=CAP_CERAMIC_0805MP
+Change Component DesignItemId : Designator=C7 Old DesignItemId=_0805MP New DesignItemId=CAP_CERAMIC_0805MP
+Change Component DesignItemId : Designator=C8 Old DesignItemId=_0805MP New DesignItemId=CAP_CERAMIC_0805MP
+Change Component DesignItemId : Designator=R1_1 Old DesignItemId=_0805MP New DesignItemId=RESISTOR_0805MP
+Change Component DesignItemId : Designator=R2_1 Old DesignItemId=_0805MP New DesignItemId=RESISTOR_0805MP
+Change Component DesignItemId : Designator=R3_1 Old DesignItemId=_0805MP New DesignItemId=RESISTOR_0805MP
+Change Component DesignItemId : Designator=R4_1 Old DesignItemId=_0805MP New DesignItemId=RESISTOR_0805MP
+Change Component DesignItemId : Designator=R5_1 Old DesignItemId=_0805MP New DesignItemId=RESISTOR_0805MP
+Change Component DesignItemId : Designator=R7_1 Old DesignItemId=_0805MP New DesignItemId=RESISTOR_0805MP
+Change Component DesignItemId : Designator=FID1 Old DesignItemId=FIDUCIAL_1MM New DesignItemId=FIDUCIAL""
+Change Component DesignItemId : Designator=FID2 Old DesignItemId=FIDUCIAL_1MM New DesignItemId=FIDUCIAL""
+Change Component DesignItemId : Designator=FID3 Old DesignItemId=FIDUCIAL_1MM New DesignItemId=FIDUCIAL""
+Change Component DesignItemId : Designator=L1 Old DesignItemId=INDUCTOR_5X5MM_NR5040_NOTHERMALS New DesignItemId=INDUCTORNR5040
+Change Component DesignItemId : Designator=U$7 Old DesignItemId=MOUNTINGHOLE_2.5_PLATED New DesignItemId=MOUNTINGHOLE2.5
+Change Component DesignItemId : Designator=D1 Old DesignItemId=SMADIODE New DesignItemId=DIODESMA
+Change Component DesignItemId : Designator=D2 Old DesignItemId=SOD-123 New DesignItemId=DIODESOD-123
+Change Component DesignItemId : Designator=SJ1 Old DesignItemId=SOLDERJUMPER_ARROW_NOPASTE New DesignItemId=SOLDERJUMPER
+Change Component DesignItemId : Designator=SJ2 Old DesignItemId=SOLDERJUMPER_ARROW_NOPASTE New DesignItemId=SOLDERJUMPER
+Change Component DesignItemId : Designator=SJ3 Old DesignItemId=SOLDERJUMPER_ARROW_NOPASTE New DesignItemId=SOLDERJUMPER
+Change Component DesignItemId : Designator=U2 Old DesignItemId=SOT23-5 New DesignItemId=VREG_SOT23-5
+Change Component DesignItemId : Designator=U3 Old DesignItemId=SOT23-5@1 New DesignItemId=FAN5331
+Change Component Comment : Designator=TOUCH Old Comment= New Comment=1X4-BIG
+Change Component Comment : Designator=FID1 Old Comment= New Comment=FIDUCIAL""
+Change Component Comment : Designator=FID2 Old Comment= New Comment=FIDUCIAL""
+Change Component Comment : Designator=FID3 Old Comment= New Comment=FIDUCIAL""
+Change Component Comment : Designator=U$7 Old Comment= New Comment=MOUNTINGHOLE2.5
+Change Component Comment : Designator=CONTROL Old Comment= New Comment=PINHD-1X6B
+Change Component Comment : Designator=JP1 Old Comment= New Comment=PINHD-1X6B
+Change Component Comment : Designator=BLUE Old Comment= New Comment=PINHD-1X8BIG
+Change Component Comment : Designator=GREEN Old Comment= New Comment=PINHD-1X8BIG
+Change Component Comment : Designator=RED Old Comment= New Comment=PINHD-1X8BIG
+Change Component Comment : Designator=J1 Old Comment=40PINFPCM4-1734839-0 New Comment=40PINFPC4-1734839-0
+Change Component Designator: OldDesignator=R1_1 NewDesignator=R1
+Change Component Designator: OldDesignator=R2_1 NewDesignator=R2
+Change Component Designator: OldDesignator=R3_1 NewDesignator=R3
+Change Component Designator: OldDesignator=R4_1 NewDesignator=R4
+Change Component Designator: OldDesignator=R5_1 NewDesignator=R5
+Change Component Designator: OldDesignator=R7_1 NewDesignator=R7
+Change Component Description : Designator=TOUCH Old Description= New Description=4-pin connector
+Change Component Description : Designator=C1 Old Description= New Description=Ceramic CapacitorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):Commonly Stocked Parts0402 - 0402 Surface Mount Capacitors 0603 - 0603 Surface Mount Capacitors 0603 - RF Specific 0805 - 0805 Surface Mount Capacitors 1206 - 1206 Surface Mount Capacitors
+Change Component Description : Designator=C2 Old Description= New Description=Ceramic CapacitorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):Commonly Stocked Parts0402 - 0402 Surface Mount Capacitors 0603 - 0603 Surface Mount Capacitors 0603 - RF Specific 0805 - 0805 Surface Mount Capacitors 1206 - 1206 Surface Mount Capacitors
+Change Component Description : Designator=C6 Old Description= New Description=Ceramic CapacitorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):Commonly Stocked Parts0402 - 0402 Surface Mount Capacitors 0603 - 0603 Surface Mount Capacitors 0603 - RF Specific 0805 - 0805 Surface Mount Capacitors 1206 - 1206 Surface Mount Capacitors
+Change Component Description : Designator=C7 Old Description= New Description=Ceramic CapacitorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):Commonly Stocked Parts0402 - 0402 Surface Mount Capacitors 0603 - 0603 Surface Mount Capacitors 0603 - RF Specific 0805 - 0805 Surface Mount Capacitors 1206 - 1206 Surface Mount Capacitors
+Change Component Description : Designator=C8 Old Description= New Description=Ceramic CapacitorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):Commonly Stocked Parts0402 - 0402 Surface Mount Capacitors 0603 - 0603 Surface Mount Capacitors 0603 - RF Specific 0805 - 0805 Surface Mount Capacitors 1206 - 1206 Surface Mount Capacitors
+Change Component Description : Designator=D1 Old Description= New Description=DiodeSMA  Model  Volts  Amps  Type  Vf  Vr  Digikey #  Notes  SSA34-E3  40V  3A  Schottky  480mV @ 3A  200uA @ 40V  SSA34-E3/61TGITR-ND    CDBA120-G  20V  1A  Schottky  500mV @ 1A  500uA @ 20V  641-1014-6-ND  REEL  MBRA210  10V  2A  Schottky  350mV @ 2A  700uA @ 10V  MBRA210LT3  SOD-123  Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  BAT54T1G  30V  200mA  Schottky  800mV @ 200mA  2uA @ 25V  BAT54T1GOSTR-ND    B0530W  30V  500mA  Schottky  430mV @ 500mA  130uA @ 30V  B0530W-FDICT-ND  REEL  MBR120  20V  1A  Schottky  340mV @ 1A    MBR120VLSFT1GOSCT-ND  SOD-323  Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  PMEG2005EJ  20V  500mA  Schottky  355mV @ 500mA    568-4110-1-ND    ZLLS410  10V  570mA  Schottky  380mV @ 570mA    ZLLS410CT-ND    1N4148WS  75V  150mA  Silicon/Simple  1V    1N4148WSFSCT-ND  REELSOD-523  Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  BAT54XV2  30V  200mA  Schottky  0.8V @ 100mA    BAT54XV2CT-ND    TB751S  30V  30mA  Schottky      RB751S-40TE61CT-ND  SOT23-R/W(R = Solder Paste/Reflow Ovens, W = Hand-Soldering)   Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  BAT54FILM  40V  300mA  Schottky      497-7162-1-ND
+Change Component Description : Designator=D2 Old Description= New Description=DiodeSMA  Model  Volts  Amps  Type  Vf  Vr  Digikey #  Notes  SSA34-E3  40V  3A  Schottky  480mV @ 3A  200uA @ 40V  SSA34-E3/61TGITR-ND    CDBA120-G  20V  1A  Schottky  500mV @ 1A  500uA @ 20V  641-1014-6-ND  REEL  MBRA210  10V  2A  Schottky  350mV @ 2A  700uA @ 10V  MBRA210LT3  SOD-123  Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  BAT54T1G  30V  200mA  Schottky  800mV @ 200mA  2uA @ 25V  BAT54T1GOSTR-ND    B0530W  30V  500mA  Schottky  430mV @ 500mA  130uA @ 30V  B0530W-FDICT-ND  REEL  MBR120  20V  1A  Schottky  340mV @ 1A    MBR120VLSFT1GOSCT-ND  SOD-323  Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  PMEG2005EJ  20V  500mA  Schottky  355mV @ 500mA    568-4110-1-ND    ZLLS410  10V  570mA  Schottky  380mV @ 570mA    ZLLS410CT-ND    1N4148WS  75V  150mA  Silicon/Simple  1V    1N4148WSFSCT-ND  REELSOD-523  Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  BAT54XV2  30V  200mA  Schottky  0.8V @ 100mA    BAT54XV2CT-ND    TB751S  30V  30mA  Schottky      RB751S-40TE61CT-ND  SOT23-R/W(R = Solder Paste/Reflow Ovens, W = Hand-Soldering)   Model  Volts  Amps  Type  Vf  Vr  Order #  Notes  BAT54FILM  40V  300mA  Schottky      497-7162-1-ND
+Change Component Description : Designator=U3 Old Description= New Description=FAN5331 - LED/OLED 20V Boost ConverterDigikey: FAN5331SXCT-ND
+Change Component Description : Designator=FID1 Old Description= New Description=Fiducial Alignment PointsVarious fiducial points for machine vision alignment.
+Change Component Description : Designator=FID2 Old Description= New Description=Fiducial Alignment PointsVarious fiducial points for machine vision alignment.
+Change Component Description : Designator=FID3 Old Description= New Description=Fiducial Alignment PointsVarious fiducial points for machine vision alignment.
+Change Component Description : Designator=L1 Old Description= New Description=Inductors0603:0805:1007 (2518 Metric) SMT:5.0x5.0mm (Taiyo Yuden NR5040 Series)5.0x5.0mm (TDK VLC5045 Series)6.0x6.0mm (TDK VLC6045 Series)6.0x6.0mm (TDK SLF6045 Series)6.0x6.0mm (Sumida CDRH5D28 Series)Taiyo Yuden NR3015T2R2M - 2.2uH 20% 1.5A (Digikey: 587-1648-2-ND, Mouser: 963-NR3015T2R2M) - Used with TI TPS62172CoilCraft RFID Transponder Coil - MA5532-AE (For use with AS3935 Lightning Sensor)
+Change Component Description : Designator=U$7 Old Description= New Description=Mounting HoleFor #2 screws (0.086"/2.18mm width, 0.094"/2.4mm hole) use 2.5mm
+Change Component Description : Designator=J1 Old Description= New Description=OMRON FPC ConnectorSource : http://www.omron.com/ecb/products/pdf/fpc.pdf XF2M-4015-rev is good for connecting up 'PSP' SHARP LQ043 LCDs
+Change Component Description : Designator=BLUE Old Description= New Description=PIN HEADER
+Change Component Description : Designator=CONTROL Old Description= New Description=PIN HEADER
+Change Component Description : Designator=GREEN Old Description= New Description=PIN HEADER
+Change Component Description : Designator=JP1 Old Description= New Description=PIN HEADER
+Change Component Description : Designator=RED Old Description= New Description=PIN HEADER
+Change Component Description : Designator=R1 Old Description= New Description=ResistorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):
+Change Component Description : Designator=R2 Old Description= New Description=ResistorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):
+Change Component Description : Designator=R3 Old Description= New Description=ResistorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):
+Change Component Description : Designator=R4 Old Description= New Description=ResistorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):
+Change Component Description : Designator=R5 Old Description= New Description=ResistorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):
+Change Component Description : Designator=R7 Old Description= New Description=ResistorsFor new designs, use the packages preceded by an '_' character since they are more reliable:The following footprints should be used on most boards:For extremely tight-pitch boards where space is at a premium, the following 'micro-pitch' footprints can be used (smaller pads, no silkscreen outline, etc.):
+Change Component Description : Designator=SJ1 Old Description= New Description=SMD Solder JUMPERSolder the two pads together to create a connection, or remove the solder to break it.REFLOW - Use this footprint for solder paste and reflow ovens.WAVE - Use this footprint for hand-soldering (larger pads). CLOSED - Has a trace between the two pads to ensure it is closed by default.  The trace needs to be cut to disable the jumper, and can be closed again by creating a solder bridge between the two pads.
+Change Component Description : Designator=SJ2 Old Description= New Description=SMD Solder JUMPERSolder the two pads together to create a connection, or remove the solder to break it.REFLOW - Use this footprint for solder paste and reflow ovens.WAVE - Use this footprint for hand-soldering (larger pads). CLOSED - Has a trace between the two pads to ensure it is closed by default.  The trace needs to be cut to disable the jumper, and can be closed again by creating a solder bridge between the two pads.
+Change Component Description : Designator=SJ3 Old Description= New Description=SMD Solder JUMPERSolder the two pads together to create a connection, or remove the solder to break it.REFLOW - Use this footprint for solder paste and reflow ovens.WAVE - Use this footprint for hand-soldering (larger pads). CLOSED - Has a trace between the two pads to ensure it is closed by default.  The trace needs to be cut to disable the jumper, and can be closed again by creating a solder bridge between the two pads.
+Change Component Description : Designator=U2 Old Description= New Description=SOT23-5 Fixed Voltage RegulatorsPartCurrent OutV OutV InV DropoutθJA (°C/W)TJ (°C)Digikey Part No.  ADP121  150mA  3.3V  3.4-5.5V  0.09V @ 150mA  --  --  ADP121-AUJZ33R7CT-ND  ADP121  150mA  3.0V  3.1-5.5V  0.09V @ 150mA  --  --  ADP121-AUJZ30R7CT-ND  ADP122     300mA  3.3V  3.4-5.5V  0.085V @ 300mA  --  --  ADP122AUJZ-3.3-R7CT-ND  ADP1712     300mA  3.3V  3.5-5.5V  0.17V @ 300mA  --  --  ADP1712AUJZ-3.3-R7TR-ND  AP7311 (Low Cost)  150mA  3.3V  3.5-6V  0.15V @ 150mA  --  --  AP7311-33WG-7DICT-ND  LD39015M18R  150mA  1.8V  1.9V-5.5V  0.08V @ 100mA  --  --  497-6977-1-ND  LP2985A-33DBVR  150mA  3.3V  3.3-16V  0.28V @ 150mA  206  150  296-18479-1-ND  MCP1824T-3302E/OT  300mA  3.3V  3.5V-6V  0.2V @ 300mA  --  --  MCP1824T-3302E/OTCT-ND  MIC5205-2.5YM5 TR  150mA  2.5V  2.7-16V  0.165V @ 150mA  --  --  576-1257-2-ND  MIC5205-3.0YM5 TR  150mA  3.0V  3.2V-16V  0.165V @ 150mA  --  --  576-1258-2-ND  MIC5205-3.3YM5 TR  150mA  3.3V  3.5V-16V  0.165V @ 150mA  --  --  576-1259-2-ND  TPS780330220  150mA  3.3V+2.2V  3.6-5.5V  250mV Max  --  --  296-23332-1-ND  TDA3663/N1,135  100mA  3.3V  3.5-45V  0.18V @ 50mA  --  --  568-5343-1-ND                                Max operating temp can be calculated using θJA, TJ (max junction temperature), and power in watts.  Set the "Maximum Ambient Temperature" until it reaches TJ ("Max Junction Temperature"), which is the absolute limit for safe use of the regulator: Heat Sink Temperature CalculatorFor example, With 12V source into a 3.3V LP2985 and a 30mA load, we are dissipating (12V-3.3V) * 0.03A = 0.261W.  With a θJA of 206 °C/W, a TJ of 150°C, and 261mW we can safely use the chip without a heat sink up to 75°C (=147.1°C Junction Temperature).
+Change Component Library : Designator=BLUE Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=CONTROL Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=GREEN Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=J1 Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=JP1 Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=RED Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=TOUCH Old Library= New Library=adafruit.IntLib
+Change Component Library : Designator=C1 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=C2 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=C6 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=C7 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=C8 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=D1 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=D2 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=FID1 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=FID2 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=FID3 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=L1 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=R1 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=R2 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=R3 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=R4 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=R5 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=R7 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=SJ1 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=SJ2 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=SJ3 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=U2 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=U3 Old Library= New Library=microbuilder.IntLib
+Change Component Library : Designator=U$7 Old Library= New Library=microbuilder.IntLib
+Change component parameters: Designator = "C1"; Footprint = "_0805MP"; UniqueID = "\PIKARVRD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "CAP_CERAMIC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "CAPACITOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C2"; Footprint = "_0805MP"; UniqueID = "\YMDWIQKA"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "CAP_CERAMIC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "CAPACITOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C6"; Footprint = "_0805MP"; UniqueID = "\NKBMFRUJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "CAP_CERAMIC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "CAPACITOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C7"; Footprint = "_0805MP"; UniqueID = "\MOXAJKMT"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "CAP_CERAMIC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "CAPACITOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C8"; Footprint = "_0805MP"; UniqueID = "\LLQLPWWU"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "CAP_CERAMIC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "CAPACITOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D1"; Footprint = "SMADIODE"; UniqueID = "\LSMLTUGQ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "SMA"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "DIODE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "DIODE"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D2"; Footprint = "SOD-123"; UniqueID = "\AYAKPPVB"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "SOD-123"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "DIODE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "DIODE"; VariantName = "[No Variations]"
+Change component parameters: Designator = "JP1"; Footprint = "1X06-BIG"; UniqueID = "\XLNUTXSP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "B"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X6"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "A"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD6"; VariantName = "[No Variations]"
+Change component parameters: Designator = "L1"; Footprint = "INDUCTOR_5X5MM_NR5040_NOTHERMALS"; UniqueID = "\XODMVFPE"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "NR5040"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "INDUCTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "INDUCTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R1"; Footprint = "_0805MP"; UniqueID = "\ACLQIBBS"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R2"; Footprint = "_0805MP"; UniqueID = "\BMSGLRIF"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R3"; Footprint = "_0805MP"; UniqueID = "\WFVDIGRL"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R4"; Footprint = "_0805MP"; UniqueID = "\PBFXDJHQ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R5"; Footprint = "_0805MP"; UniqueID = "\KYVOXESP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R7"; Footprint = "_0805MP"; UniqueID = "\GTXCPVGE"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "_0805MP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "RESISTOR"; VariantName = "[No Variations]"
+Change component parameters: Designator = "TOUCH"; Footprint = "1X04-BIG"; UniqueID = "\MMIKCWUX"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "-BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "1X4"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "1X4"; VariantName = "[No Variations]"
+Change component parameters: Designator = "U2"; Footprint = "SOT23-5"; UniqueID = "\QODXLMUY"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "VREG_SOT23-5"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "VREG_SOT23-5"; VariantName = "[No Variations]"
+Change component parameters: Designator = "U3"; Footprint = "SOT23-5@1"; UniqueID = "\PSAGGOXX"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "FAN5331"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "FAN5331"; VariantName = "[No Variations]"
+Change component parameters: Designator = "FID1"; Footprint = "FIDUCIAL_1MM"; UniqueID = "\VCAAUFRY"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = """"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "FIDUCIAL"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "FIDUCIAL"; VariantName = "[No Variations]"
+Change component parameters: Designator = "FID2"; Footprint = "FIDUCIAL_1MM"; UniqueID = "\RHQRPPFD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = """"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "FIDUCIAL"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "FIDUCIAL"; VariantName = "[No Variations]"
+Change component parameters: Designator = "FID3"; Footprint = "FIDUCIAL_1MM"; UniqueID = "\DJNICXVT"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = """"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "FIDUCIAL"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "FIDUCIAL"; VariantName = "[No Variations]"
+Change component parameters: Designator = "SJ1"; Footprint = "SOLDERJUMPER_ARROW_NOPASTE"; UniqueID = "\EPDFYHVL"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "SOLDERJUMPER"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "SOLDERJUMPER"; VariantName = "[No Variations]"
+Change component parameters: Designator = "SJ2"; Footprint = "SOLDERJUMPER_ARROW_NOPASTE"; UniqueID = "\OHTCUGMX"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "SOLDERJUMPER"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "SOLDERJUMPER"; VariantName = "[No Variations]"
+Change component parameters: Designator = "SJ3"; Footprint = "SOLDERJUMPER_ARROW_NOPASTE"; UniqueID = "\QSQXNYLM"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "SOLDERJUMPER"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "SOLDERJUMPER"; VariantName = "[No Variations]"
+Change component parameters: Designator = "U$7"; Footprint = "MOUNTINGHOLE_2.5_PLATED"; UniqueID = "\QRMEFQRM"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM"; Value = "EXCLUDE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "2.5"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "MOUNTINGHOLE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "microbuilder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "MOUNTINGHOLE"; VariantName = "[No Variations]"
+Change component parameters: Designator = "BLUE"; Footprint = "1X08-BIG"; UniqueID = "\EBIULFAP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD8"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CONTROL"; Footprint = "1X06-BIG"; UniqueID = "\IJHDXFSD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "B"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X6"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "A"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD6"; VariantName = "[No Variations]"
+Change component parameters: Designator = "GREEN"; Footprint = "1X08-BIG"; UniqueID = "\VDAKIMKV"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD8"; VariantName = "[No Variations]"
+Change component parameters: Designator = "RED"; Footprint = "1X08-BIG"; UniqueID = "\NEDVAAOR"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "BIG"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "PINHD-1X8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "G$1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "NAME"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PINHD8"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J1"; Footprint = "4-1734839-0"; UniqueID = "\JENLTLDT"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "DeviceName"; Value = "4-1734839-0"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "DeviceSetName"; Value = "40PINFPC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_1"; Value = "-1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_2"; Value = "-2"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_3"; Value = "-3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_4"; Value = "-4"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_5"; Value = "-5"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_6"; Value = "-6"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_7"; Value = "-7"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_8"; Value = "-8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_9"; Value = "-9"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_10"; Value = "-10"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_11"; Value = "-11"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_12"; Value = "-12"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_13"; Value = "-13"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_14"; Value = "-14"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_15"; Value = "-15"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_16"; Value = "-16"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_17"; Value = "-17"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_18"; Value = "-18"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_19"; Value = "-19"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_20"; Value = "-20"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_21"; Value = "-21"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_22"; Value = "-22"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_23"; Value = "-23"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_24"; Value = "-24"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_25"; Value = "-25"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_26"; Value = "-26"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_27"; Value = "-27"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_28"; Value = "-28"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_29"; Value = "-29"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_30"; Value = "-30"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_31"; Value = "-31"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_32"; Value = "-32"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_33"; Value = "-33"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_34"; Value = "-34"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_35"; Value = "-35"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_36"; Value = "-36"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_37"; Value = "-37"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_38"; Value = "-38"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_39"; Value = "-39"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "GateName_40"; Value = "-40"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LibraryName"; Value = "adafruit"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_1"; Value = "PV"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_2"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_3"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_4"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_5"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_6"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_7"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_8"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_9"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_10"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_11"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_12"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_13"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_14"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_15"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_16"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_17"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_18"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_19"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_20"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_21"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_22"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_23"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_24"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_25"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_26"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_27"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_28"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_29"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_30"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_31"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_32"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_33"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_34"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_35"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_36"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_37"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_38"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_39"; Value = "P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SymbolName_40"; Value = "P"; VariantName = "[No Variations]"
+Added Component: Designator=5VIN(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=GND(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=NC(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=NC(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=NC(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=PWM(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=XL(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=XR(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=YD(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=YU(PIN1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PIN1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=B7 Pin=BLUE-1
+Added Pin To Net: NetName=B6 Pin=BLUE-2
+Added Pin To Net: NetName=B5 Pin=BLUE-3
+Added Pin To Net: NetName=B4 Pin=BLUE-4
+Added Pin To Net: NetName=B3 Pin=BLUE-5
+Added Pin To Net: NetName=B2 Pin=BLUE-6
+Added Pin To Net: NetName=B1 Pin=BLUE-7
+Added Pin To Net: NetName=B0 Pin=BLUE-8
+Added Pin To Net: NetName=DE Pin=CONTROL-1
+Added Pin To Net: NetName=VSYNC Pin=CONTROL-2
+Added Pin To Net: NetName=HSYNC Pin=CONTROL-3
+Added Pin To Net: NetName=ON/OFF Pin=CONTROL-4
+Added Pin To Net: NetName=G7 Pin=GREEN-1
+Added Pin To Net: NetName=G6 Pin=GREEN-2
+Added Pin To Net: NetName=G5 Pin=GREEN-3
+Added Pin To Net: NetName=G4 Pin=GREEN-4
+Added Pin To Net: NetName=G3 Pin=GREEN-5
+Added Pin To Net: NetName=G2 Pin=GREEN-6
+Added Pin To Net: NetName=G1 Pin=GREEN-7
+Added Pin To Net: NetName=G0 Pin=GREEN-8
+Added Pin To Net: NetName=R0 Pin=J1-5
+Added Pin To Net: NetName=R1 Pin=J1-6
+Added Pin To Net: NetName=R2 Pin=J1-7
+Added Pin To Net: NetName=R3 Pin=J1-8
+Added Pin To Net: NetName=R4 Pin=J1-9
+Added Pin To Net: NetName=R5 Pin=J1-10
+Added Pin To Net: NetName=R6 Pin=J1-11
+Added Pin To Net: NetName=R7 Pin=J1-12
+Added Pin To Net: NetName=G0 Pin=J1-13
+Added Pin To Net: NetName=G1 Pin=J1-14
+Added Pin To Net: NetName=G2 Pin=J1-15
+Added Pin To Net: NetName=G3 Pin=J1-16
+Added Pin To Net: NetName=G4 Pin=J1-17
+Added Pin To Net: NetName=G5 Pin=J1-18
+Added Pin To Net: NetName=G6 Pin=J1-19
+Added Pin To Net: NetName=G7 Pin=J1-20
+Added Pin To Net: NetName=B0 Pin=J1-21
+Added Pin To Net: NetName=B1 Pin=J1-22
+Added Pin To Net: NetName=B2 Pin=J1-23
+Added Pin To Net: NetName=B3 Pin=J1-24
+Added Pin To Net: NetName=B4 Pin=J1-25
+Added Pin To Net: NetName=B5 Pin=J1-26
+Added Pin To Net: NetName=B6 Pin=J1-27
+Added Pin To Net: NetName=B7 Pin=J1-28
+Added Pin To Net: NetName=ON/OFF Pin=J1-31
+Added Pin To Net: NetName=HSYNC Pin=J1-32
+Added Pin To Net: NetName=VSYNC Pin=J1-33
+Added Pin To Net: NetName=DE Pin=J1-34
+Added Pin To Net: NetName=R7 Pin=RED-1
+Added Pin To Net: NetName=R6 Pin=RED-2
+Added Pin To Net: NetName=R5 Pin=RED-3
+Added Pin To Net: NetName=R4 Pin=RED-4
+Added Pin To Net: NetName=R3 Pin=RED-5
+Added Pin To Net: NetName=R2 Pin=RED-6
+Added Pin To Net: NetName=R1 Pin=RED-7
+Added Pin To Net: NetName=R0 Pin=RED-8
+Added Pin To Net: NetName=+3V3 Pin=J1-4
+Added Pin To Net: NetName=+3V3 Pin=JP1-1
+Added Pin To Net: NetName=+3V3 Pin=U2-5
+Added Net: Name=+3V3
+Added Pin To Net: NetName=+24V Pin=C2-1
+Added Pin To Net: NetName=+24V Pin=C8-1
+Added Pin To Net: NetName=+24V Pin=D1-C
+Added Pin To Net: NetName=+24V Pin=D2-C
+Added Pin To Net: NetName=+24V Pin=J1-2
+Added Pin To Net: NetName=+24V Pin=JP1-3
+Added Net: Name=+24V
+Added Pin To Net: NetName=CLK Pin=J1-30
+Added Pin To Net: NetName=CLK Pin=R5-1
+Added Net: Name=CLK
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=C6-2
+Added Pin To Net: NetName=GND Pin=C7-2
+Added Pin To Net: NetName=GND Pin=C8-2
+Added Pin To Net: NetName=GND Pin=CONTROL-6
+Added Pin To Net: NetName=GND Pin=J1-3
+Added Pin To Net: NetName=GND Pin=J1-29
+Added Pin To Net: NetName=GND Pin=J1-36
+Added Pin To Net: NetName=GND Pin=JP1-5
+Added Pin To Net: NetName=GND Pin=R7-1
+Added Pin To Net: NetName=GND Pin=SJ1-1
+Added Pin To Net: NetName=GND Pin=SJ2-1
+Added Pin To Net: NetName=GND Pin=SJ3-1
+Added Pin To Net: NetName=GND Pin=U2-2
+Added Pin To Net: NetName=GND Pin=U3-2
+Added Net: Name=GND
+Added Pin To Net: NetName=LEDK Pin=C1-1
+Added Pin To Net: NetName=LEDK Pin=D1-A
+Added Pin To Net: NetName=LEDK Pin=J1-1
+Added Pin To Net: NetName=LEDK Pin=JP1-4
+Added Pin To Net: NetName=LEDK Pin=R2-2
+Added Pin To Net: NetName=LEDK Pin=R3-2
+Added Pin To Net: NetName=LEDK Pin=R4-2
+Added Pin To Net: NetName=LEDK Pin=R7-2
+Added Pin To Net: NetName=LEDK Pin=U3-3
+Added Net: Name=LEDK
+Added Pin To Net: NetName=NetCONTROL_5 Pin=CONTROL-5
+Added Pin To Net: NetName=NetCONTROL_5 Pin=R5-2
+Added Net: Name=NetCONTROL_5
+Added Pin To Net: NetName=NetD2_A Pin=D2-A
+Added Pin To Net: NetName=NetD2_A Pin=L1-P$2
+Added Pin To Net: NetName=NetD2_A Pin=U3-1
+Added Net: Name=NetD2_A
+Added Pin To Net: NetName=NetR2_1 Pin=R2-1
+Added Pin To Net: NetName=NetR2_1 Pin=SJ1-2
+Added Net: Name=NetR2_1
+Added Pin To Net: NetName=NetR3_1 Pin=R3-1
+Added Pin To Net: NetName=NetR3_1 Pin=SJ2-2
+Added Net: Name=NetR3_1
+Added Pin To Net: NetName=NetR4_1 Pin=R4-1
+Added Pin To Net: NetName=NetR4_1 Pin=SJ3-2
+Added Net: Name=NetR4_1
+Added Pin To Net: NetName=PWM Pin=JP1-2
+Added Pin To Net: NetName=PWM Pin=R1-1
+Added Pin To Net: NetName=PWM Pin=U3-4
+Added Net: Name=PWM
+Added Pin To Net: NetName=VIN Pin=C6-1
+Added Pin To Net: NetName=VIN Pin=C7-1
+Added Pin To Net: NetName=VIN Pin=JP1-6
+Added Pin To Net: NetName=VIN Pin=L1-P$1
+Added Pin To Net: NetName=VIN Pin=R1-2
+Added Pin To Net: NetName=VIN Pin=U2-1
+Added Pin To Net: NetName=VIN Pin=U2-3
+Added Pin To Net: NetName=VIN Pin=U3-5
+Added Net: Name=VIN
+Added Pin To Net: NetName=XL Pin=J1-39
+Added Pin To Net: NetName=XL Pin=TOUCH-2
+Added Net: Name=XL
+Added Pin To Net: NetName=XR Pin=J1-37
+Added Pin To Net: NetName=XR Pin=TOUCH-4
+Added Net: Name=XR
+Added Pin To Net: NetName=YD Pin=J1-38
+Added Pin To Net: NetName=YD Pin=TOUCH-3
+Added Net: Name=YD
+Added Pin To Net: NetName=YU Pin=J1-40
+Added Pin To Net: NetName=YU Pin=TOUCH-1
+Added Net: Name=YU
+Added Class: Name=Adafruit 40pin TFT friend
+Added Class: Name=B[0..7]
+Added Class: Name=G[0..7]
+Added Class: Name=R[0..7]
+Added Member To Class: ClassName=fpga_schem Member=Component 5VIN Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component GND Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component NC Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component NC Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component NC Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component PWM Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component XL Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component XR Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component YD Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component YU Antenna
+Added Room: Name=Adafruit 40pin TFT friend

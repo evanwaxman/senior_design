@@ -1,0 +1,27 @@
+Removed Pin From Net: NetName=GREEN5 Pin=FPGA-46
+Removed Pin From Net: NetName=GREEN7 Pin=FPGA-50
+Removed Pin From Net: NetName=CLK_pixel Pin=FPGA-52
+Removed Pin From Net: NetName=DE Pin=FPGA-53
+Removed Pin From Net: NetName=ON/OFF Pin=FPGA-54
+Removed Pin From Net: NetName=VSYNC Pin=FPGA-55
+Removed Pin From Net: NetName=HSYNC Pin=FPGA-56
+Removed Pin From Net: NetName=GREEN4 Pin=FPGA-135
+Removed Pin From Net: NetName=GREEN3 Pin=FPGA-137
+Removed Pin From Net: NetName=GREEN2 Pin=FPGA-139
+Removed Pin From Net: NetName=GREEN0 Pin=FPGA-143
+Added Pin To Net: NetName=GREEN7 Pin=FPGA-46
+Added Pin To Net: NetName=GREEN5 Pin=FPGA-50
+Added Pin To Net: NetName=GREEN4 Pin=FPGA-52
+Added Pin To Net: NetName=GREEN0 Pin=FPGA-53
+Added Pin To Net: NetName=GREEN3 Pin=FPGA-54
+Added Pin To Net: NetName=GREEN1 Pin=FPGA-55
+Added Pin To Net: NetName=GREEN2 Pin=FPGA-56
+Added Pin To Net: NetName=CLK_pixel Pin=FPGA-135
+Added Pin To Net: NetName=ON/OFF Pin=FPGA-137
+Added Pin To Net: NetName=HSYNC Pin=FPGA-139
+Added Pin To Net: NetName=DE Pin=FPGA-143
+Added Room: Name=BatteryRecharge2
+Added Room: Name=dac_audio_out
+Added Room: Name=fpga_sram
+Added Room: Name=lcd_breakout
+Added Room: Name=MSPBreakout

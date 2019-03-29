@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=NetR7_2 Pin=U1-1
+Removed Pin From Net: NetName=NetR3_1 Pin=U1-3
+Removed Pin From Net: NetName=GND Pin=U1-4
+Removed Pin From Net: NetName=12V Pin=U1-8
+Removed Member From Class: ClassName=BatteryRecharge2 Member=C5
+Removed Member From Class: ClassName=lcd_breakout Member=C5
+Removed Member From Class: ClassName=BatteryRecharge2 Member=C6
+Removed Member From Class: ClassName=lcd_breakout Member=C6
+Removed Member From Class: ClassName=BatteryRecharge2 Member=C7
+Removed Member From Class: ClassName=lcd_breakout Member=C7
+Added Pin To Net: NetName=NetR7_2 Pin=U1-1
+Added Pin To Net: NetName=NetR3_1 Pin=U1-3
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=12V Pin=U1-8
+Added Member To Class: ClassName=lcd_breakout Member=Component C1 Cap
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component C2 Cap Pol1
+Added Member To Class: ClassName=lcd_breakout Member=Component C2 Cap
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component C3 Cap Pol1
+Added Member To Class: ClassName=lcd_breakout Member=Component C3 Cap
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component C4 Cap Pol1
+Added Member To Class: ClassName=MSPBreakout Member=Component C4 Cap

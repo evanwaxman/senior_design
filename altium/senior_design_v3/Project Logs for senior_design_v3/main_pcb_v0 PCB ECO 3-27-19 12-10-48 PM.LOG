@@ -1,0 +1,47 @@
+Added Component: Designator=P?(HDR1X12)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=FPGA_1 Pin=FPGA-1
+Added Net: Name=FPGA_1
+Added Pin To Net: NetName=FPGA_2 Pin=FPGA-2
+Added Pin To Net: NetName=FPGA_2 Pin=P?-1
+Added Pin To Net: NetName=FPGA_2 Pin=P?-2
+Added Net: Name=FPGA_2
+Added Pin To Net: NetName=FPGA_3 Pin=FPGA-3
+Added Pin To Net: NetName=FPGA_3 Pin=P?-3
+Added Net: Name=FPGA_3
+Added Pin To Net: NetName=FPGA_5 Pin=FPGA-5
+Added Pin To Net: NetName=FPGA_5 Pin=P?-4
+Added Net: Name=FPGA_5
+Added Pin To Net: NetName=FPGA_7 Pin=FPGA-7
+Added Pin To Net: NetName=FPGA_7 Pin=P?-5
+Added Net: Name=FPGA_7
+Added Pin To Net: NetName=FPGA_9 Pin=FPGA-9
+Added Pin To Net: NetName=FPGA_9 Pin=P?-6
+Added Net: Name=FPGA_9
+Added Pin To Net: NetName=FPGA_11 Pin=FPGA-11
+Added Pin To Net: NetName=FPGA_11 Pin=P?-7
+Added Net: Name=FPGA_11
+Added Pin To Net: NetName=FPGA_13 Pin=FPGA-13
+Added Pin To Net: NetName=FPGA_13 Pin=P?-8
+Added Net: Name=FPGA_13
+Added Pin To Net: NetName=FPGA_15 Pin=FPGA-15
+Added Pin To Net: NetName=FPGA_15 Pin=P?-9
+Added Net: Name=FPGA_15
+Added Pin To Net: NetName=FPGA_17 Pin=FPGA-17
+Added Pin To Net: NetName=FPGA_17 Pin=P?-10
+Added Net: Name=FPGA_17
+Added Pin To Net: NetName=FPGA_19 Pin=FPGA-19
+Added Pin To Net: NetName=FPGA_19 Pin=P?-11
+Added Net: Name=FPGA_19
+Added Pin To Net: NetName=FPGA_21 Pin=FPGA-21
+Added Pin To Net: NetName=FPGA_21 Pin=P?-12
+Added Net: Name=FPGA_21
+Added Member To Class: ClassName=fpga_sram Member=Component P? Header 12
+Added Room: Name=BatteryRecharge2
+Added Room: Name=dac_audio_out
+Added Room: Name=fpga_sram
+Added Room: Name=lcd_breakout
+Added Room: Name=MSPBreakout

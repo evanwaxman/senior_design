@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=FPGA_SS Pin=FPGA-29
+Removed Pin From Net: NetName=FPGA_SCLK Pin=FPGA-31
+Removed Pin From Net: NetName=FPGA_MOSI Pin=FPGA-33
+Removed Pin From Net: NetName=FPGA_MISO Pin=FPGA-35
+Added Pin To Net: NetName=FPGA_SS Pin=FPGA-116
+Added Pin To Net: NetName=FPGA_SCLK Pin=FPGA-118
+Added Pin To Net: NetName=FPGA_MOSI Pin=FPGA-120
+Added Pin To Net: NetName=FPGA_MISO Pin=FPGA-122

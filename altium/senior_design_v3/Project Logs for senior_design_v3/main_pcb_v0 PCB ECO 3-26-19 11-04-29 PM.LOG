@@ -1,0 +1,17 @@
+Change Component Designator: OldDesignator=SW A NewDesignator=SW.A
+Change Component Designator: OldDesignator=SW A LED NewDesignator=SW.A LED
+Change Component Designator: OldDesignator=SW B NewDesignator=SW.B
+Change Component Designator: OldDesignator=SW B LED NewDesignator=SW.B LED
+Change Component Designator: OldDesignator=SW DOWN NewDesignator=SW.D
+Change Component Designator: OldDesignator=SW DOWN LED NewDesignator=SW.D LED
+Change Component Designator: OldDesignator=SW LEFT NewDesignator=SW.L
+Change Component Designator: OldDesignator=SW LEFT LED NewDesignator=SW.L LED
+Change Component Designator: OldDesignator=SW RIGHT NewDesignator=SW.R
+Change Component Designator: OldDesignator=SW RIGHT LED NewDesignator=SW.R LED
+Change Component Designator: OldDesignator=SW UP NewDesignator=SW.U
+Change Component Designator: OldDesignator=SW UP LED NewDesignator=SW.U LED
+Added Room: Name=BatteryRecharge2
+Added Room: Name=dac_audio_out
+Added Room: Name=fpga_sram
+Added Room: Name=lcd_breakout
+Added Room: Name=MSPBreakout

@@ -1,0 +1,7 @@
+Change Component Designator: OldDesignator=GND NewDesignator=GND0
+Change Component Designator: OldDesignator=GND? NewDesignator=GND1
+Change Component Designator: OldDesignator=NC NewDesignator=NC0
+Change Component Designator: OldDesignator=NC NewDesignator=NC1
+Change Component Designator: OldDesignator=NC NewDesignator=NC2
+Added Member To Class: ClassName=fpga_schem Member=Component NC1 Antenna
+Added Member To Class: ClassName=fpga_schem Member=Component NC2 Antenna

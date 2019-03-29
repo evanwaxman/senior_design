@@ -1,0 +1,91 @@
+Protel Design System Design Rule Check
+PCB File : \\Mac\Home\Documents\Classes\EEL4924C\altium\senior_design\main_pcb_v0.PcbDoc
+Date     : 3/17/19
+Time     : 1:28:20 AM
+
+WARNING: Zero hole size multi-layer pad(s) detected
+   Pad J1-1(9704.37mil,1329.094mil) on Multi-Layer on Net 12V
+   Pad J1-2(9704.37mil,1085mil) on Multi-Layer on Net GND
+   Pad J1-3(9507.52mil,1203.11mil) on Multi-Layer on Net GND
+
+WARNING: Multilayer Pads with 0 size Hole found
+   Pad J1-1(9704.37mil,1329.094mil) on Multi-Layer
+   Pad J1-2(9704.37mil,1085mil) on Multi-Layer
+   Pad J1-3(9507.52mil,1203.11mil) on Multi-Layer
+
+Processing Rule : Clearance Constraint (Gap=9mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=7mil) (Max=15mil) (Preferred=15mil) (InNet('3V3'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=7mil) (Max=15mil) (Preferred=8mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=7mil) (Max=15mil) (Preferred=15mil) (InNet('12V'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=7mil) (Max=15mil) (Preferred=15mil) (InNet('Power_Common'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=7mil) (Max=15mil) (Preferred=15mil) (InNet('V_BAT'))
+Rule Violations :0
+
+Processing Rule : SMD Neck-Down Constraint (Percent=80%) (InNet('3V3'))
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=240mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=2.5mil) (Disabled)(IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=10mil) (InNetClass('LCD_net'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=10mil) (InNetClass('FPGA_SPI_net'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=10mil) (InNetClass('SRAM_net'))
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Waived Violations Of Rule : Silk to Silk (Clearance=10mil) (All),(All)
+   Waived Violation between Silk To Silk Clearance Constraint: (Collision < 10mil) Between Text "DEV" (6469.803mil,3357.953mil) on Top Overlay And Text "PN" (6469.803mil,3357.953mil) on Top Overlay Silk Text to Silk Clearance [0mil]Waived by  at 3/15/19 10:43:36 PM
+   Waived Violation between Silk To Silk Clearance Constraint: (Collision < 10mil) Between Text "DEV" (6469.803mil,3357.953mil) on Top Overlay And Text "TOL" (6469.803mil,3357.953mil) on Top Overlay Silk Text to Silk Clearance [0mil]Waived by  at 3/15/19 10:43:41 PM
+   Waived Violation between Silk To Silk Clearance Constraint: (Collision < 10mil) Between Text "DEV" (6469.803mil,3357.953mil) on Top Overlay And Text "VAL" (6469.803mil,3357.953mil) on Top Overlay Silk Text to Silk Clearance [0mil]Waived by  at 3/15/19 10:43:39 PM
+   Waived Violation between Silk To Silk Clearance Constraint: (Collision < 10mil) Between Text "PN" (6469.803mil,3357.953mil) on Top Overlay And Text "TOL" (6469.803mil,3357.953mil) on Top Overlay Silk Text to Silk Clearance [0mil]Waived by  at 3/15/19 10:43:32 PM
+   Waived Violation between Silk To Silk Clearance Constraint: (Collision < 10mil) Between Text "PN" (6469.803mil,3357.953mil) on Top Overlay And Text "VAL" (6469.803mil,3357.953mil) on Top Overlay Silk Text to Silk Clearance [0mil]Waived by  at 3/15/19 10:43:45 PM
+   Waived Violation between Silk To Silk Clearance Constraint: (Collision < 10mil) Between Text "TOL" (6469.803mil,3357.953mil) on Top Overlay And Text "VAL" (6469.803mil,3357.953mil) on Top Overlay Silk Text to Silk Clearance [0mil]Waived by  at 3/15/19 10:43:34 PM
+Waived Violations :6
+
+
+Violations Detected : 0
+Waived Violations : 6
+Time Elapsed        : 00:00:02

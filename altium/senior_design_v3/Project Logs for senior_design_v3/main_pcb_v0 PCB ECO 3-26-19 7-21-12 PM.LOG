@@ -1,0 +1,6 @@
+Change Component Footprint: Designator=R8 Old Footprint=AXIAL-0.3 New Footprint=6-0805_M
+Change Component Footprint: Designator=R9 Old Footprint=AXIAL-0.3 New Footprint=6-0805_M
+Added Member To Class: ClassName=lcd_breakout Member=Component C3 Cap
+Added Member To Class: ClassName=lcd_breakout Member=Component C4 Cap
+Added Member To Class: ClassName=MSPBreakout Member=Component C4 Cap
+Added Member To Class: ClassName=MSPBreakout Member=Component L1 Inductor

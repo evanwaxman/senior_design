@@ -1,0 +1,125 @@
+Removed Pin From Net: NetName=P10.1 Pin=U1-1
+Removed Pin From Net: NetName=P10.3 Pin=U1-3
+Removed Pin From Net: NetName=P1.0 Pin=U1-4
+Removed Pin From Net: NetName=P1.1 Pin=U1-5
+Removed Pin From Net: NetName=P1.2 Pin=U1-6
+Removed Pin From Net: NetName=P1.3 Pin=U1-7
+Removed Pin From Net: NetName=P1.4 Pin=U1-8
+Added Component: Designator=U1(PZ0100A_M)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "CompType"; Value = "IC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MountType"; Value = "SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "PZ0100A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PartNumber"; Value = "XMS432P401RIPZR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PIN_COUNT"; Value = "100"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RefDes"; Value = "RefDes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "TYPE"; Value = "TYPE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Value"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetR7_2 Pin=U1-1
+Added Pin To Net: NetName=P10.1 Pin=U1-1
+Added Pin To Net: NetName=P10.2 Pin=U1-2
+Added Pin To Net: NetName=NetR3_1 Pin=U1-3
+Added Pin To Net: NetName=P10.3 Pin=U1-3
+Added Pin To Net: NetName=GND Pin=U1-4
+Added Pin To Net: NetName=P1.0 Pin=U1-4
+Added Pin To Net: NetName=NetR3_1 Pin=U1-5
+Added Pin To Net: NetName=P1.1 Pin=U1-5
+Added Pin To Net: NetName=NetR7_2 Pin=U1-6
+Added Pin To Net: NetName=P1.2 Pin=U1-6
+Added Pin To Net: NetName=NetQ2_2 Pin=U1-7
+Added Pin To Net: NetName=P1.3 Pin=U1-7
+Added Pin To Net: NetName=12V Pin=U1-8
+Added Pin To Net: NetName=P1.4 Pin=U1-8
+Added Pin To Net: NetName=P1.5 Pin=U1-9
+Added Pin To Net: NetName=P1.6 Pin=U1-10
+Added Pin To Net: NetName=P1.7 Pin=U1-11
+Added Pin To Net: NetName=NetC8_2 Pin=U1-12
+Added Pin To Net: NetName=3.3V Pin=U1-13
+Added Pin To Net: NetName=VSW Pin=U1-14
+Added Pin To Net: NetName=GND Pin=U1-15
+Added Pin To Net: NetName=P2.0 Pin=U1-16
+Added Pin To Net: NetName=P2.1 Pin=U1-17
+Added Pin To Net: NetName=P2.2 Pin=U1-18
+Added Pin To Net: NetName=P2.3 Pin=U1-19
+Added Pin To Net: NetName=P2.4 Pin=U1-20
+Added Pin To Net: NetName=P2.5 Pin=U1-21
+Added Pin To Net: NetName=P2.6 Pin=U1-22
+Added Pin To Net: NetName=P2.7 Pin=U1-23
+Added Pin To Net: NetName=P10.4 Pin=U1-24
+Added Pin To Net: NetName=P10.5 Pin=U1-25
+Added Pin To Net: NetName=P7.4 Pin=U1-26
+Added Pin To Net: NetName=P7.5 Pin=U1-27
+Added Pin To Net: NetName=P7.6 Pin=U1-28
+Added Pin To Net: NetName=P7.7 Pin=U1-29
+Added Pin To Net: NetName=P8.0 Pin=U1-30
+Added Pin To Net: NetName=P8.1 Pin=U1-31
+Added Pin To Net: NetName=P3.0 Pin=U1-32
+Added Pin To Net: NetName=P3.1 Pin=U1-33
+Added Pin To Net: NetName=P3.2 Pin=U1-34
+Added Pin To Net: NetName=P3.3 Pin=U1-35
+Added Pin To Net: NetName=P3.4 Pin=U1-36
+Added Pin To Net: NetName=P3.5 Pin=U1-37
+Added Pin To Net: NetName=P3.6 Pin=U1-38
+Added Pin To Net: NetName=P3.7 Pin=U1-39
+Added Pin To Net: NetName=GND Pin=U1-40
+Added Pin To Net: NetName=PJ.0 Pin=U1-41
+Added Pin To Net: NetName=PJ.1 Pin=U1-42
+Added Pin To Net: NetName=GND Pin=U1-43
+Added Pin To Net: NetName=NetR2_1 Pin=U1-44
+Added Pin To Net: NetName=ANALOG VCC Pin=U1-45
+Added Pin To Net: NetName=P8.2 Pin=U1-46
+Added Pin To Net: NetName=P8.3 Pin=U1-47
+Added Pin To Net: NetName=P8.4 Pin=U1-48
+Added Pin To Net: NetName=P8.5 Pin=U1-49
+Added Pin To Net: NetName=P8.6 Pin=U1-50
+Added Pin To Net: NetName=P8.7 Pin=U1-51
+Added Pin To Net: NetName=P9.0 Pin=U1-52
+Added Pin To Net: NetName=P9.1 Pin=U1-53
+Added Pin To Net: NetName=P6.0 Pin=U1-54
+Added Pin To Net: NetName=P6.1 Pin=U1-55
+Added Pin To Net: NetName=P4.0 Pin=U1-56
+Added Pin To Net: NetName=P4.1 Pin=U1-57
+Added Pin To Net: NetName=P4.2 Pin=U1-58
+Added Pin To Net: NetName=P4.3 Pin=U1-59
+Added Pin To Net: NetName=P4.4 Pin=U1-60
+Added Pin To Net: NetName=P4.5 Pin=U1-61
+Added Pin To Net: NetName=P4.6 Pin=U1-62
+Added Pin To Net: NetName=P4.7 Pin=U1-63
+Added Pin To Net: NetName=P5.0 Pin=U1-64
+Added Pin To Net: NetName=P5.1 Pin=U1-65
+Added Pin To Net: NetName=P5.2 Pin=U1-66
+Added Pin To Net: NetName=P5.3 Pin=U1-67
+Added Pin To Net: NetName=P5.4 Pin=U1-68
+Added Pin To Net: NetName=P5.5 Pin=U1-69
+Added Pin To Net: NetName=P5.6 Pin=U1-70
+Added Pin To Net: NetName=P5.7 Pin=U1-71
+Added Pin To Net: NetName=GND Pin=U1-72
+Added Pin To Net: NetName=3.3V Pin=U1-73
+Added Pin To Net: NetName=P9.2 Pin=U1-74
+Added Pin To Net: NetName=P9.3 Pin=U1-75
+Added Pin To Net: NetName=P6.2 Pin=U1-76
+Added Pin To Net: NetName=P6.3 Pin=U1-77
+Added Pin To Net: NetName=P6.4 Pin=U1-78
+Added Pin To Net: NetName=P6.5 Pin=U1-79
+Added Pin To Net: NetName=P6.6 Pin=U1-80
+Added Pin To Net: NetName=P6.7 Pin=U1-81
+Added Pin To Net: NetName=GND Pin=U1-82
+Added Pin To Net: NetName=RST_NMI_N Pin=U1-83
+Added Pin To Net: NetName=GND Pin=U1-84
+Added Pin To Net: NetName=PJ.2 Pin=U1-85
+Added Pin To Net: NetName=PJ.3 Pin=U1-86
+Added Pin To Net: NetName=ANALOG VCC Pin=U1-87
+Added Pin To Net: NetName=P7.0 Pin=U1-88
+Added Pin To Net: NetName=P7.1 Pin=U1-89
+Added Pin To Net: NetName=P7.2 Pin=U1-90
+Added Pin To Net: NetName=P7.3 Pin=U1-91
+Added Pin To Net: NetName=PJ.4 Pin=U1-92
+Added Pin To Net: NetName=PJ.5 Pin=U1-93
+Added Pin To Net: NetName=SWDIOTMS Pin=U1-94
+Added Pin To Net: NetName=SWCLKTCK Pin=U1-95
+Added Pin To Net: NetName=P9.4 Pin=U1-96
+Added Pin To Net: NetName=P9.5 Pin=U1-97
+Added Pin To Net: NetName=P9.6 Pin=U1-98
+Added Pin To Net: NetName=P9.7 Pin=U1-99
+Added Pin To Net: NetName=P10.0 Pin=U1-100

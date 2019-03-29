@@ -1,0 +1,12 @@
+Added Pin To Net: NetName=IO11 Pin=*1-4
+Added Pin To Net: NetName=IO10 Pin=*1-6
+Added Pin To Net: NetName=IO9 Pin=*1-8
+Added Pin To Net: NetName=IO8 Pin=*1-10
+Added Pin To Net: NetName=A5 Pin=*1-12
+Added Pin To Net: NetName=A6 Pin=*1-14
+Added Pin To Net: NetName=A7 Pin=*1-16
+Added Pin To Net: NetName=A8 Pin=*1-18
+Added Pin To Net: NetName=A9 Pin=*1-20
+Added Pin To Net: NetName=/OE Pin=*1-22
+Added Pin To Net: NetName=/BLE Pin=*1-24
+Added Pin To Net: NetName=A10 Pin=*1-28

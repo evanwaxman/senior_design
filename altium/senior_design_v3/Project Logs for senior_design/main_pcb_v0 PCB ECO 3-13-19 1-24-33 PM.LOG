@@ -1,0 +1,37 @@
+Change Class Name : Old Net Name=fpga_schem New Net Name=fpga_sram
+Added Member To Class: ClassName=lcd_breakout Member=Component B0 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B1 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B2 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B3 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B4 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B5 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B6 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component B7 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component CLK Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component DE Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G0 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G1 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G2 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G3 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G4 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G5 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G6 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component G7 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component GND0 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component GND1 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component HSYNC Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component NC0 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component ON/OFF Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component PWM Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R0 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R1 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R2 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R3 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R4 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R5 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R6 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component R7 Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component VSYNC Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component XL Antenna
+Added Member To Class: ClassName=lcd_breakout Member=Component YD Antenna
+Added Room: Name=fpga_sram

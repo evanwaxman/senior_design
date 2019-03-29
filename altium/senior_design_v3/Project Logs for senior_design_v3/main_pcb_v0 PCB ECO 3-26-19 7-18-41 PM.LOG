@@ -1,0 +1,86 @@
+Removed Pin From Net: NetName=GND Pin=Boost-3
+Removed Pin From Net: NetName=GND Pin=Boost-4
+Removed Pin From Net: NetName=GND Pin=Boost-5
+Removed Pin From Net: NetName=V_BAT Pin=Boost-6
+Removed Pin From Net: NetName=GND Pin=Boost-8
+Removed Pin From Net: NetName=V_BAT Pin=Boost-9
+Removed Pin From Net: NetName=GND Pin=Boost-11
+Removed Pin From Net: NetName=5V Pin=Boost-13
+Removed Pin From Net: NetName=5V Pin=Boost-14
+Removed Pin From Net: NetName=5V Pin=Boost-15
+Removed Pin From Net: NetName=NetBuck_4 Pin=Buck-4
+Removed Pin From Net: NetName=3V3 Pin=Buck-6
+Removed Pin From Net: NetName=V_BAT Pin=C3-1
+Removed Pin From Net: NetName=GND Pin=C3-2
+Removed Pin From Net: NetName=5V Pin=C4-1
+Removed Pin From Net: NetName=GND Pin=C4-2
+Removed Pin From Net: NetName=NetBuck_4 Pin=L1-1
+Removed Pin From Net: NetName=3V3 Pin=L1-2
+Removed Pin From Net: NetName=V_BAT Pin=L2-1
+Removed Pin From Net: NetName=V_BAT Pin=Power Switch-1
+Removed Pin From Net: NetName=GND Pin=Power Switch-2
+Removed Pin From Net: NetName=GND Pin=R10-1
+Removed Pin From Net: NetName=V_BAT Pin=R11-2
+Removed Pin From Net: NetName=5V Pin=R12-1
+Removed Member From Class: ClassName=BatteryRecharge2 Member=Boost
+Removed Member From Class: ClassName=BatteryRecharge2 Member=C4
+Removed Member From Class: ClassName=BatteryRecharge2 Member=L1
+Removed Member From Class: ClassName=BatteryRecharge2 Member=Power Switch
+Removed Member From Class: ClassName=BatteryRecharge2 Member=R8
+Removed Member From Class: ClassName=BatteryRecharge2 Member=R9
+Removed Member From Class: ClassName=BatteryRecharge2 Member=R10
+Removed Member From Class: ClassName=BatteryRecharge2 Member=R11
+Change Component Footprint: Designator=R8 Old Footprint=6-0805_M New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R9 Old Footprint=6-0805_M New Footprint=AXIAL-0.3
+Change Component Comment : Designator=BATTERY Old Comment=BATTERY HEAD New Comment=Header 2
+Change Component Comment : Designator=5V TP Old Comment=V_BOOST_OUT_HEAD New Comment=Header 2
+Change Component Comment : Designator=3V3 TP Old Comment=V_BUCK_OUT_HEAD New Comment=Header 2
+Change component parameters: Designator = "R8"; Footprint = "AXIAL-0.3"; UniqueID = "\OOHPCLCP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R9"; Footprint = "AXIAL-0.3"; UniqueID = "\XNQXNFRW"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=S7V8F5(HDR1X4)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=U3V12F5(HDR1X3)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=3V3 Pin=Buck-4
+Added Pin To Net: NetName=NetBuck_4 Pin=Buck-6
+Added Pin To Net: NetName=NetBuck_4 Pin=L2-1
+Added Pin To Net: NetName=3V3 Pin=L2-2
+Added Pin To Net: NetName=V_BAT Pin=Power Com-2
+Added Pin To Net: NetName=IMU_SDA Pin=R8-1
+Added Pin To Net: NetName=3V3 Pin=R8-2
+Added Pin To Net: NetName=IMU_SCL Pin=R9-1
+Added Pin To Net: NetName=3V3 Pin=R9-2
+Added Pin To Net: NetName=V_BAT Pin=S7V8F5-1
+Added Pin To Net: NetName=V_BAT Pin=S7V8F5-2
+Added Pin To Net: NetName=GND Pin=S7V8F5-3
+Added Pin To Net: NetName=5V Pin=S7V8F5-4
+Added Pin To Net: NetName=V_BAT Pin=U3V12F5-1
+Added Pin To Net: NetName=GND Pin=U3V12F5-2
+Added Pin To Net: NetName=5V Pin=U3V12F5-3
+Change Net Name : Old Net Name=NetBuck_4 New Net Name=NetBuck_6
+Added Member To Class: ClassName=MSPBreakout Member=Component R8 Res1
+Added Member To Class: ClassName=MSPBreakout Member=Component R9 Res1
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component S7V8F5 Header 4
+Added Member To Class: ClassName=BatteryRecharge2 Member=Component U3V12F5 Header 3

@@ -1,0 +1,13 @@
+Added Pin To Net: NetName=ON/OFF Pin=FPGA-132
+Added Pin To Net: NetName=HSYNC Pin=FPGA-134
+Added Pin To Net: NetName=VSYNC Pin=FPGA-136
+Added Pin To Net: NetName=DE Pin=FPGA-138
+Added Pin To Net: NetName=ON/OFF Pin=P?-17
+Added Pin To Net: NetName=XR Pin=P?-17
+Added Pin To Net: NetName=HSYNC Pin=P?-18
+Added Pin To Net: NetName=YD Pin=P?-18
+Added Pin To Net: NetName=VSYNC Pin=P?-19
+Added Pin To Net: NetName=XL Pin=P?-19
+Added Pin To Net: NetName=DE Pin=P?-20
+Added Pin To Net: NetName=YU Pin=P?-20
+Added Member To Class: ClassName=lcd_breakout Member=Component P? Header 20
