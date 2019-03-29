@@ -15,7 +15,7 @@ package LCD_LIB is
   constant HSYNC_END     : integer := 896;
   constant H_MAX         : integer := 992;
 
-  constant V_DISPLAY_END : integer := 481;
+  constant V_DISPLAY_END : integer := 480;
   constant VSYNC_BEGIN   : integer := 483;
   constant VSYNC_END     : integer := 493;
   constant V_MAX         : integer := 500;
