@@ -3,6 +3,11 @@ use ieee.std_logic_1164.all;
 use work.LCD_LIB.all;
 
 entity top_level is
+    generic(
+        COLOR_WIDTH     : positive := 8;
+        SRAM_DATA_WIDTH : positive := 16;
+        SRAM_ADDR_WIDTH : positive := 20
+    );
     port(
         clk                 : in        std_logic;
         rst                 : in        std_logic;
@@ -16,8 +21,8 @@ entity top_level is
         --led1                : out       std_logic_vector(6 downto 0);
         --led2                : out       std_logic_vector(6 downto 0);
         --received_byte       : out       std_logic_vector(7 downto 0);
-        sram_addr           : out       std_logic_vector(19 downto 0);
-        sram_data_bus       : inout     std_logic_vector(15 downto 0);
+        sram_addr           : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+        sram_data_bus       : inout     std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
         sram_ce             : out       std_logic;
         sram_oe             : out       std_logic;
         sram_we             : out       std_logic;
@@ -27,7 +32,7 @@ entity top_level is
         -- lcd controller
         Horiz_Sync  : out std_logic;
         Vert_Sync   : out std_logic;
-        pixel_color : out std_logic_vector(7 downto 0);
+        pixel_color : out std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         den         : out std_logic;
         pixel_clock : out std_logic;
         on_off      : out std_logic;
@@ -42,10 +47,10 @@ architecture STR of top_level is
     signal pll_locked       : std_logic;
     signal clk_25MHz        : std_logic;
 
-    signal lcd_addr         : std_logic_vector(19 downto 0);
-    signal lcd_status         : std_logic;
+    signal lcd_addr         : std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+    signal lcd_status       : std_logic;
 
-    signal sram_read_data   : std_logic_vector(15 downto 0);
+    signal sram_read_data   : std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
 
 
 begin
@@ -68,6 +73,11 @@ begin
     pll_locked_out <= not pll_locked;
 
     U_LCD_INTERFACE : entity work.lcd_interface
+        generic map (
+            COLOR_WIDTH     => COLOR_WIDTH,
+            SRAM_DATA_WIDTH => SRAM_DATA_WIDTH,
+            SRAM_ADDR_WIDTH => SRAM_ADDR_WIDTH
+        )
         port map(
             clk             => clk,
             clk_25MHz       => clk_25MHz,
@@ -82,6 +92,10 @@ begin
         );
 
     U_SRAM_INTERFACE : entity work.sram_interface
+        generic map (
+            SRAM_DATA_WIDTH     => SRAM_DATA_WIDTH,
+            SRAM_ADDR_WIDTH     => SRAM_ADDR_WIDTH
+        )
         port map (
             clk                 => clk,
             rst                 => global_rst,

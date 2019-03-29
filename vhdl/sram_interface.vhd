@@ -3,6 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity sram_interface is
+	generic (
+		SRAM_DATA_WIDTH : positive := 16;
+        SRAM_ADDR_WIDTH : positive := 20
+	);
 	port (
 		clk 			: in 		std_logic;
 		rst 			: in 		std_logic;
@@ -19,14 +23,14 @@ entity sram_interface is
 
 
         -- lcd i/o
-        lcd_addr 		: in 		std_logic_vector(19 downto 0);
+        lcd_addr 		: in 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
         lcd_status 		: in 		std_logic;
         --write_fifo_full : out 		std_logic;
 
         -- sram i/o
-		sram_read_data	: out 		std_logic_vector(15 downto 0);
-		sram_addr  		: out 		std_logic_vector(19 downto 0);
-		sram_data_bus 	: inout 	std_logic_vector(15 downto 0);
+		sram_read_data	: out 		std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+		sram_addr  		: out 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+		sram_data_bus 	: inout 	std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
 		sram_ce			: out 		std_logic;
 		sram_oe			: out 		std_logic;
 		sram_we			: out 		std_logic;
@@ -82,6 +86,10 @@ begin
 	--spi_data <= write_fifo_dout(15 downto 0);
 
 	U_SRAM_CONTROLLER : entity work.sram_controller
+	    generic map (
+            SRAM_DATA_WIDTH     => SRAM_DATA_WIDTH,
+            SRAM_ADDR_WIDTH     => SRAM_ADDR_WIDTH
+        )
 		port map (
 			clk 			=> clk,
 			rst 			=> rst,

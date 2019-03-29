@@ -4,17 +4,21 @@ use ieee.numeric_std.all;
 use work.LCD_LIB.all;
 
 entity lcd_controller is
+    generic (
+        COLOR_WIDTH     : positive  := 8;
+        SRAM_DATA_WIDTH : positive := 16;
+        SRAM_ADDR_WIDTH : positive := 20
+    );
     port(
         clk             : in        std_logic;
-        clk_25MHz       : in        std_logic;
         rst             : in        std_logic;
         video_on        : in        std_logic;
-        pixel_location  : in        std_logic_vector(18 downto 0);
-        pixel_color     : out       std_logic_vector(7 downto 0);
+        pixel_location  : in        std_logic_vector(SRAM_ADDR_WIDTH-2 downto 0);
+        pixel_color     : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
 
         -- sram signals
-        lcd_addr        : out       std_logic_vector(19 downto 0);
-        sram_read_data  : in        std_logic_vector(15 downto 0);
+        lcd_addr        : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+        sram_read_data  : in        std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
         lcd_status      : out       std_logic
     );
 end lcd_controller;
@@ -24,9 +28,10 @@ architecture BHV of lcd_controller is
     type STATE_TYPE is (INIT, IDLE, READ_SRAM);
     signal state, next_state, saved_state, saved_state_n        : STATE_TYPE;
 
-    signal red                  : std_logic_vector(7 downto 0);
-    signal red_n                : std_logic_vector(7 downto 0);
-    signal pixel_color_n        : std_logic_vector(23 downto 0);
+    signal red                  : std_logic_vector(COLOR_WIDTH-1 downto 0);
+    signal red_n                : std_logic_vector(COLOR_WIDTH-1 downto 0);
+    signal green_n                : std_logic_vector(COLOR_WIDTH-1 downto 0);
+    signal blue_n                : std_logic_vector(COLOR_WIDTH-1 downto 0);
 
     signal hcount               : std_logic_vector(9 downto 0);
     signal vcount               : std_logic_vector(9 downto 0);
@@ -39,15 +44,13 @@ begin
     lcd_status <= video_on;
 
 
-    process(clk_25MHz, rst)
+    process(clk, rst)
     begin
         if (rst = '1') then
-            pixel_color <= (others => '0'); 
-            --lcd_addr <= (others => '0');
+            pixel_color <= (others => '0');
             state <= INIT;
-        elsif (clk_25MHz'event and clk_25MHz = '1') then
-            pixel_color <= red_n;
-            --lcd_addr <= lcd_addr_n;
+        elsif (clk'event and clk = '1') then
+            pixel_color <= green_n & blue_n & red_n;
             state <= next_state;
         end if;
     end process;
@@ -55,6 +58,8 @@ begin
     process(state, video_on, pixel_location, sram_read_data)
     begin
         red_n <= "00000000";
+        green_n <= "00000000";
+        blue_n <= "00000000";
         lcd_addr <= (others => '0');
         next_state <= state;
 

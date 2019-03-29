@@ -4,6 +4,10 @@ use ieee.numeric_std.all;
 use work.LCD_LIB.all;
 
 entity sram_controller is
+	generic (
+		SRAM_DATA_WIDTH : positive := 16;
+        SRAM_ADDR_WIDTH : positive := 20
+	);
 	port(
 		clk 			: in 		std_logic;
 		rst 			: in 		std_logic;
@@ -15,13 +19,13 @@ entity sram_controller is
 		--spi_fifo_empty 	: in 		std_logic;
 
 		-- lcd i/o
-		lcd_addr 		: in 		std_logic_vector(19 downto 0);
+		lcd_addr 		: in 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
 		lcd_status 		: in 		std_logic;
 
 		-- sram i/o
-		sram_read_data	: out 		std_logic_vector(15 downto 0);
-		sram_addr  		: out 		std_logic_vector(19 downto 0);
-		sram_data_bus 	: inout 	std_logic_vector(15 downto 0);
+		sram_read_data	: out 		std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+		sram_addr  		: out 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+		sram_data_bus 	: inout 	std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
 		sram_ce 		: out 		std_logic;
 		sram_oe 		: out 		std_logic;
 		sram_we 		: out 		std_logic;
@@ -35,12 +39,12 @@ architecture BHV of sram_controller is
 	type STATE_TYPE is (INIT, WRITE_SRAM, READ_SRAM);
 	signal state, next_state : STATE_TYPE;
 
-	signal sram_write_data		: std_logic_vector(15 downto 0);
-	signal sram_write_data_n	: std_logic_vector(15 downto 0);
+	signal sram_write_data		: std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+	signal sram_write_data_n	: std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
 	signal sram_read_en 		: std_logic;
 	signal sram_read_en_n 		: std_logic;
 
-	signal sram_addr_n 			: std_logic_vector(19 downto 0);
+	signal sram_addr_n 			: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
 	signal sram_ce_n 			: std_logic;
 	signal sram_oe_n 			: std_logic;
 	signal sram_we_n 			: std_logic;
@@ -49,8 +53,8 @@ architecture BHV of sram_controller is
 
 	----------------------------------------------------------------------------
 	-- for testing without fifo
-	signal cntr 		: std_logic_vector(19 downto 0);
-	signal cntr_n		: std_logic_vector(19 downto 0);
+	signal cntr 		: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+	signal cntr_n		: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
 	--signal spi_fifo_re_n 	: std_logic;
 	----------------------------------------------------------------------------
 
