@@ -137,7 +137,7 @@ begin
 				next_state <= READ_SRAM;
 
 			when WRITE_SRAM =>
-				if (lcd_status = '1') then 	-- enable write
+				if (lcd_status = '1') then
 					sram_read_en_n <= '1';
 					sram_addr_n <= lcd_addr;
 					sram_ce_n <= '0';
@@ -146,20 +146,102 @@ begin
 					next_state <= READ_SRAM;
 				else
 					sram_read_en_n <= '0';
-					if (unsigned(cntr) < 192000) then
-						sram_addr_n <= cntr;
-						sram_write_data_n <= "1111111100000000";
-						sram_ce_n <= '0';
-						sram_oe_n <= '1';
-						sram_we_n <= '0';
+
+					if (unsigned(cntr) < 128000) then
+						if (cntr(0) = '0') then
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111111111111";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';
+						else
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111100000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';	
+						end if;
 
 						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					elsif (unsigned(cntr) >= 384000 and unsigned(cntr) < 384000) then
-						sram_addr_n <= cntr;
-						sram_write_data_n <= "0000000000000000";
-						sram_ce_n <= '0';
-						sram_oe_n <= '1';
-						sram_we_n <= '0';
+					elsif (unsigned(cntr) >= 128000 and unsigned(cntr) < 256000) then
+						if (cntr(0) = '0') then
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "0000000011111111";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';
+						else
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111100000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';	
+						end if;
+
+						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
+					elsif (unsigned(cntr) >= 256000 and unsigned(cntr) < 384000) then
+						if (cntr(0) = '0') then
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111100000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';
+						else
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111100000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';	
+						end if;
+
+						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
+					elsif (unsigned(cntr) >= 384000 and unsigned(cntr) < 512000) then
+						if (cntr(0) = '0') then
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111111111111";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';
+						else
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "0000000000000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';	
+						end if;
+
+						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
+					elsif (unsigned(cntr) >= 512000 and unsigned(cntr) < 640000) then
+						if (cntr(0) = '0') then
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "0000000011111111";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';
+						else
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "0000000000000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';	
+						end if;
+
+						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
+					elsif (unsigned(cntr) >= 640000 and unsigned(cntr) < 767999) then
+						if (cntr(0) = '0') then
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "1111111100000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';
+						else
+							sram_addr_n <= cntr;
+							sram_write_data_n <= "0000000000000000";
+							sram_ce_n <= '0';
+							sram_oe_n <= '1';
+							sram_we_n <= '0';	
+						end if;
+
 						cntr_n <= std_logic_vector(unsigned(cntr) + 1);
 					end if;
 				end if;
