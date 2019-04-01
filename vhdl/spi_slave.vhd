@@ -11,13 +11,13 @@ entity spi_slave is
 		mosi 				: in 	std_logic;
 		miso 				: out 	std_logic;
 		sram_fifo_packet	: out 	std_logic_vector(35 downto 0);
-		packet_flag			: out 	std_logic;
+		packet_flag			: out 	std_logic
 
 		-- testing
-		led0    			: out 	std_logic_vector(6 downto 0);
-		led1    			: out 	std_logic_vector(6 downto 0);
-		led2    			: out 	std_logic_vector(6 downto 0);
-		received_byte 		: out 	std_logic_vector(7 downto 0)
+		--led0    			: out 	std_logic_vector(6 downto 0);
+		--led1    			: out 	std_logic_vector(6 downto 0);
+		--led2    			: out 	std_logic_vector(6 downto 0);
+		--received_byte 		: out 	std_logic_vector(7 downto 0)
 	);
 end spi_slave;
 
@@ -51,25 +51,25 @@ architecture BHV of spi_slave is
 
 begin
 
-	U_STATE_7SEG : entity work.decoder7seg
-		port map(
-			input 	=> state_code_reg,
-			output 	=> led0
-		);
+	--U_STATE_7SEG : entity work.decoder7seg
+	--	port map(
+	--		input 	=> state_code_reg,
+	--		output 	=> led0
+	--	);
 
-	U_SCK_COUNT0_7SEG : entity work.decoder7seg
-		port map(
-			input 	=> cntr_reg(3 downto 0),
-			output 	=> led1
-		);
+	--U_SCK_COUNT0_7SEG : entity work.decoder7seg
+	--	port map(
+	--		input 	=> cntr_reg(3 downto 0),
+	--		output 	=> led1
+	--	);
 
-	counter_led2_hold <= "00" & cntr_reg(5 downto 4);
+	--counter_led2_hold <= "00" & cntr_reg(5 downto 4);
 
-	U_SCK_COUNT1_7SEG : entity work.decoder7seg
-		port map(
-			input 	=> counter_led2_hold,
-			output 	=> led2
-		);
+	--U_SCK_COUNT1_7SEG : entity work.decoder7seg
+	--	port map(
+	--		input 	=> counter_led2_hold,
+	--		output 	=> led2
+	--	);
 
 	U_SPI_SYNC : entity work.df_sync 
 		port map(
@@ -121,7 +121,7 @@ begin
 		end if;
 	end process;
 
-	received_byte <= shift_reg;
+	--received_byte <= shift_reg;
 	mosi_temp(7 downto 1) <= (others => '0');
 	mosi_temp(0) <= mosi_sync; 
 
