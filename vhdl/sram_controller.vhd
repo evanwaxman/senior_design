@@ -268,9 +268,9 @@ begin
 				sram_ce_n <= '0';
 				sram_oe_n <= '0';
 				sram_we_n <= '1';
-				--if (lcd_status = '0') then
-				--	next_state <= WRITE_SRAM;
-				--end if;
+				if (lcd_status = '0') then
+					next_state <= WRITE_SRAM;
+				end if;
 
 			when others => null;
 		end case;
