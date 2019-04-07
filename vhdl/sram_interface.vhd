@@ -53,7 +53,11 @@ architecture BHV of sram_interface is
 	signal spi_fifo_re 		: std_logic;
 	signal spi_fifo_empty 	: std_logic;
 
+	signal offset_max 		: std_logic_vector(9 downto 0);
+
 begin
+
+	offset_max <= std_logic_vector(to_unsigned(10, 10));
 	
     U_SPI_SLAVE : entity work.spi_slave
         port map(
@@ -64,7 +68,8 @@ begin
 	        mosi                => mosi,
 	        miso                => miso,
 	        sram_fifo_packet    => sram_fifo_packet,
-	        packet_flag         => packet_flag
+	        packet_flag         => packet_flag,
+	        offset_max 			=> offset_max
 	        --led0                => led0,
 	        --led1                => led1,
 	        --led2                => led2,
