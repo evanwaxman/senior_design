@@ -54,6 +54,8 @@ architecture STR of top_level is
 
     signal sram_ready       : std_logic;
 
+    signal curr_color       : std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+
 begin
 
     on_off <= '1';
@@ -89,7 +91,8 @@ begin
             den             => den,
             lcd_addr        => lcd_addr,
             sram_read_data  => sram_read_data,
-            lcd_status      => lcd_status
+            lcd_status      => lcd_status,
+            curr_color      => curr_color
         );
 
     U_SRAM_INTERFACE : entity work.sram_interface
@@ -111,6 +114,7 @@ begin
             sram_ready          => sram_ready,  
             lcd_addr            => lcd_addr,
             lcd_status          => lcd_status,
+            curr_color          => curr_color,
             --write_fifo_full     => open,
             sram_read_data      => sram_read_data,
             sram_addr           => sram_addr,

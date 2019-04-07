@@ -4,6 +4,7 @@ use ieee.numeric_std.all;
 
 entity spi_slave is
 	generic(
+		COLOR_WIDTH     : positive := 8;
 		OFFSET_WIDTH 	 	: positive 	:= 5;
 		ADDRESS_WIDTH 		: positive 	:= 20
 	);
@@ -17,8 +18,8 @@ entity spi_slave is
 		sram_fifo_packet	: out 	std_logic_vector(35 downto 0);
 		packet_flag			: out 	std_logic;
 
-		offset_max			: in 	std_logic_vector(2*OFFSET_WIDTH-1 downto 0)
-
+		offset_max			: in 	std_logic_vector(2*OFFSET_WIDTH-1 downto 0);
+		curr_color 			: out 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0)
 		-- testing
 		--led0    			: out 	std_logic_vector(6 downto 0);
 		--led1    			: out 	std_logic_vector(6 downto 0);
@@ -124,6 +125,7 @@ begin
 			h_off <= (others => '0');
 			v_off <= (others => '0');
 			mult_temp <= (others => '0');
+			curr_color <= (others => '0');
 			state <= INIT;
 			state_code_reg <= "0000";
 		elsif (clk'event and clk = '1') then
@@ -142,6 +144,7 @@ begin
 			h_off <= h_off_n;
 			v_off <= v_off_n;
 			mult_temp <= mult_temp_n;
+			curr_color <= red_reg & green_reg & green_reg;
 			state <= next_state;
 			state_code_reg <= state_code_temp;
 		end if;

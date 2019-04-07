@@ -14,7 +14,10 @@ entity lcd_controller is
         rst             : in        std_logic;
         video_on        : in        std_logic;
         pixel_location  : in        std_logic_vector(SRAM_ADDR_WIDTH-2 downto 0);
+        hcount          : in        std_logic_vector(9 downto 0);
+        vcount          : in        std_logic_vector(9 downto 0);
         pixel_color     : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        curr_color      : in        std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
 
         -- sram signals
         lcd_addr        : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
@@ -34,16 +37,11 @@ architecture BHV of lcd_controller is
     signal green_n              : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal blue                 : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal blue_n               : std_logic_vector(COLOR_WIDTH-1 downto 0);
-
-    signal hcount               : std_logic_vector(9 downto 0);
-    signal vcount               : std_logic_vector(9 downto 0);
     signal sram_read_en_n       : std_logic;
 
 begin
 
-
     lcd_status <= video_on;
-
 
     process(clk, rst)
     begin
@@ -62,7 +60,7 @@ begin
 
     pixel_color <= blue & green & red;
 
-    process(state, red, green, blue, video_on, pixel_location, sram_read_data)
+    process(state, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount)
     begin
         red_n <= red;
         green_n <= green;
@@ -85,9 +83,27 @@ begin
                 if (video_on = '0') then
                     next_state <= IDLE;
                 else
-                    lcd_addr <= pixel_location & '1';
-                    red_n <= sram_read_data(15 downto 8);
-                    green_n <= sram_read_data(7 downto 0);
+                    if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
+                        lcd_addr <= pixel_location & '1';
+                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
+                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800) then
+                        lcd_addr <= pixel_location & '1';
+                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
+                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10) then
+                        lcd_addr <= pixel_location & '1';
+                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
+                    elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
+                        lcd_addr <= pixel_location & '1';
+                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
+                    else
+                        lcd_addr <= pixel_location & '1';
+                        red_n <= sram_read_data(15 downto 8);
+                        green_n <= sram_read_data(7 downto 0);                                                                       
+                    end if;
                     next_state <= READ_SRAM_B;
                 end if;
 
@@ -95,8 +111,22 @@ begin
                 if (video_on = '0') then
                     next_state <= IDLE;
                 else
-                    lcd_addr <= pixel_location & '0';
-                    blue_n <= sram_read_data(15 downto 8);
+                    if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
+                        lcd_addr <= pixel_location & '0';
+                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800) then
+                        lcd_addr <= pixel_location & '0';
+                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10) then
+                        lcd_addr <= pixel_location & '0';
+                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                    elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
+                        lcd_addr <= pixel_location & '0';
+                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                    else
+                        lcd_addr <= pixel_location & '0';
+                        blue_n <= sram_read_data(15 downto 8);                                                                    
+                    end if;
                     next_state <= READ_SRAM_RG;
                 end if;
 

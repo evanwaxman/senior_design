@@ -4,6 +4,7 @@ use ieee.numeric_std.all;
 
 entity sram_interface is
 	generic (
+		COLOR_WIDTH     : positive := 8;
 		SRAM_DATA_WIDTH : positive := 16;
         SRAM_ADDR_WIDTH : positive := 20
 	);
@@ -26,6 +27,7 @@ entity sram_interface is
         sram_ready 		: out 		std_logic;
         lcd_addr 		: in 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
         lcd_status 		: in 		std_logic;
+        curr_color 		: out 		std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         --write_fifo_full : out 		std_logic;
 
         -- sram i/o
@@ -69,7 +71,8 @@ begin
 	        miso                => miso,
 	        sram_fifo_packet    => sram_fifo_packet,
 	        packet_flag         => packet_flag,
-	        offset_max 			=> offset_max
+	        offset_max 			=> offset_max,
+	        curr_color 			=> curr_color
 	        --led0                => led0,
 	        --led1                => led1,
 	        --led2                => led2,
