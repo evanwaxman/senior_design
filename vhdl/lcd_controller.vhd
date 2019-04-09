@@ -5,24 +5,25 @@ use work.LCD_LIB.all;
 
 entity lcd_controller is
     generic (
-        COLOR_WIDTH     : positive  := 8;
-        SRAM_DATA_WIDTH : positive := 16;
-        SRAM_ADDR_WIDTH : positive := 20
+        COLOR_WIDTH         : positive  := 8;
+        SRAM_DATA_WIDTH     : positive := 16;
+        SRAM_ADDR_WIDTH     : positive := 20
     );
     port(
-        clk             : in        std_logic;
-        rst             : in        std_logic;
-        video_on        : in        std_logic;
-        pixel_location  : in        std_logic_vector(SRAM_ADDR_WIDTH-2 downto 0);
-        hcount          : in        std_logic_vector(9 downto 0);
-        vcount          : in        std_logic_vector(9 downto 0);
-        pixel_color     : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
-        curr_color      : in        std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        clk                 : in        std_logic;
+        rst                 : in        std_logic;
+        video_on            : in        std_logic;
+        pixel_location      : in        std_logic_vector(SRAM_ADDR_WIDTH-2 downto 0);
+        hcount              : in        std_logic_vector(9 downto 0);
+        vcount              : in        std_logic_vector(9 downto 0);
+        pixel_color         : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        curr_color          : in        std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        --change_brush_button : in        std_logic;
 
         -- sram signals
-        lcd_addr        : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
-        sram_read_data  : in        std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
-        lcd_status      : out       std_logic
+        lcd_addr            : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+        sram_read_data      : in        std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+        lcd_status          : out       std_logic
     );
 end lcd_controller;
 

@@ -5,6 +5,7 @@ use ieee.numeric_std.all;
 entity sram_interface is
 	generic (
 		COLOR_WIDTH     : positive := 8;
+		OFFSET_WIDTH    : positive := 4;
 		SRAM_DATA_WIDTH : positive := 16;
         SRAM_ADDR_WIDTH : positive := 20
 	);
@@ -27,6 +28,7 @@ entity sram_interface is
         sram_ready 		: out 		std_logic;
         lcd_addr 		: in 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
         lcd_status 		: in 		std_logic;
+        brush_width     : in 		std_logic_vector(OFFSET_WIDTH downto 0);
         curr_color 		: out 		std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         --write_fifo_full : out 		std_logic;
 
@@ -55,11 +57,7 @@ architecture BHV of sram_interface is
 	signal spi_fifo_re 		: std_logic;
 	signal spi_fifo_empty 	: std_logic;
 
-	signal offset_max 		: std_logic_vector(9 downto 0);
-
 begin
-
-	offset_max <= std_logic_vector(to_unsigned(8, 10));
 	
     U_SPI_SLAVE : entity work.spi_slave
         port map(
@@ -71,7 +69,7 @@ begin
 	        miso                => miso,
 	        sram_fifo_packet    => sram_fifo_packet,
 	        packet_flag         => packet_flag,
-	        offset_max 			=> offset_max,
+	        brush_width      	=> brush_width,
 	        curr_color 			=> curr_color
 	        --led0                => led0,
 	        --led1                => led1,

@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity spi_slave is
 	generic(
 		COLOR_WIDTH     : positive := 8;
-		OFFSET_WIDTH 	 	: positive 	:= 5;
+		OFFSET_WIDTH 	 	: positive 	:= 4;
 		ADDRESS_WIDTH 		: positive 	:= 20
 	);
 	port(
@@ -17,8 +17,7 @@ entity spi_slave is
 		miso 				: out 	std_logic;
 		sram_fifo_packet	: out 	std_logic_vector(35 downto 0);
 		packet_flag			: out 	std_logic;
-
-		offset_max			: in 	std_logic_vector(2*OFFSET_WIDTH-1 downto 0);
+		brush_width      	: in 	std_logic_vector(OFFSET_WIDTH downto 0);
 		curr_color 			: out 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0)
 		-- testing
 		--led0    			: out 	std_logic_vector(6 downto 0);
@@ -128,7 +127,7 @@ begin
 			h_off <= (others => '0');
 			v_off <= (others => '0');
 			mult_temp <= (others => '0');
-			curr_color_reg <= (others => '0');
+			curr_color_reg <= (others => '1');
 			state <= INIT;
 			state_code_reg <= "0000";
 		elsif (clk'event and clk = '1') then
@@ -159,7 +158,7 @@ begin
 	mosi_temp(7 downto 1) <= (others => '0');
 	mosi_temp(0) <= mosi_sync; 
 
-	process(state, ss_sync, cntr_reg, shift_reg, sck_sync, sck_low_flag_reg, mosi_temp, state_code_reg, packet_buff, address_hold, packet_sent, red_reg, green_reg, blue_reg, h_off, v_off, offset_max, mult_temp, curr_color_reg)
+	process(state, ss_sync, cntr_reg, shift_reg, sck_sync, sck_low_flag_reg, mosi_temp, state_code_reg, packet_buff, address_hold, packet_sent, red_reg, green_reg, blue_reg, h_off, v_off, brush_width, mult_temp, curr_color_reg)
 	begin
 		next_state <= state;
 		ack <= '0';
@@ -184,6 +183,7 @@ begin
 
 		case state is
 			when INIT =>
+				curr_color_reg_n <= (others => '1');
 				state_code_temp <= "0000";
 				if (ss_sync = '1') then
 					next_state <= WAIT_FOR_DATA;
@@ -246,9 +246,9 @@ begin
 				end case;
 
 			when LEFT_OFFSET_RG =>
-				if (h_off < 2*unsigned(offset_max) + 1) then
+				if (h_off < 2*unsigned(brush_width) + 1) then
 					-- write packet
-					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - unsigned(offset_max) + h_off);
+					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - unsigned(brush_width) + h_off);
 					sram_fifo_packet_temp(15 downto 8) <= red_reg;
 					sram_fifo_packet_temp(7 downto 0) <= green_reg;
 					packet_flag_temp <= '1';
@@ -265,12 +265,12 @@ begin
 
 			when LEFT_UP_OFFSET_RG =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - mult_temp(ADDRESS_WIDTH-1 downto 0) -  unsigned(offset_max) + h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - mult_temp(ADDRESS_WIDTH-1 downto 0) -  unsigned(brush_width) + h_off);
 				sram_fifo_packet_temp(15 downto 8) <= red_reg;
 				sram_fifo_packet_temp(7 downto 0) <= green_reg;
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -281,12 +281,12 @@ begin
 
 			when LEFT_DOWN_OFFSET_RG =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + mult_temp(ADDRESS_WIDTH-1 downto 0) - unsigned(offset_max) + h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + mult_temp(ADDRESS_WIDTH-1 downto 0) - unsigned(brush_width) + h_off);
 				sram_fifo_packet_temp(15 downto 8) <= red_reg;
 				sram_fifo_packet_temp(7 downto 0) <= green_reg;
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -297,9 +297,9 @@ begin
 				end if;
 
 			when RIGHT_OFFSET_RG =>
-				if (h_off < 2*unsigned(offset_max) + 1) then
+				if (h_off < 2*unsigned(brush_width) + 1) then
 					-- write packet
-					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + unsigned(offset_max) - h_off);
+					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + unsigned(brush_width) - h_off);
 					sram_fifo_packet_temp(15 downto 8) <= red_reg;
 					sram_fifo_packet_temp(7 downto 0) <= green_reg;
 					packet_flag_temp <= '1';
@@ -316,12 +316,12 @@ begin
 
 			when RIGHT_UP_OFFSET_RG =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(offset_max) - h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(brush_width) - h_off);
 				sram_fifo_packet_temp(15 downto 8) <= red_reg;
 				sram_fifo_packet_temp(7 downto 0) <= green_reg;
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -332,12 +332,12 @@ begin
 
 			when RIGHT_DOWN_OFFSET_RG =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(offset_max) - h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(brush_width) - h_off);
 				sram_fifo_packet_temp(15 downto 8) <= red_reg;
 				sram_fifo_packet_temp(7 downto 0) <= green_reg;
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -348,9 +348,9 @@ begin
 				end if;
 
 			when LEFT_OFFSET_B =>
-				if (h_off < 2*unsigned(offset_max) + 1) then
+				if (h_off < 2*unsigned(brush_width) + 1) then
 					-- write packet
-					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1 - unsigned(offset_max) + h_off);
+					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - 1 - unsigned(brush_width) + h_off);
 					sram_fifo_packet_temp(15 downto 8) <= blue_reg;
 					sram_fifo_packet_temp(7 downto 0) <= "00000000";
 					packet_flag_temp <= '1';
@@ -367,12 +367,12 @@ begin
 
 			when LEFT_UP_OFFSET_B =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1 - mult_temp(ADDRESS_WIDTH-1 downto 0) -  unsigned(offset_max) + h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - 1 - mult_temp(ADDRESS_WIDTH-1 downto 0) -  unsigned(brush_width) + h_off);
 				sram_fifo_packet_temp(15 downto 8) <= blue_reg;
 				sram_fifo_packet_temp(7 downto 0) <= "00000000";
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -383,12 +383,12 @@ begin
 
 			when LEFT_DOWN_OFFSET_B =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1 + mult_temp(ADDRESS_WIDTH-1 downto 0) - unsigned(offset_max) + h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - 1 + mult_temp(ADDRESS_WIDTH-1 downto 0) - unsigned(brush_width) + h_off);
 				sram_fifo_packet_temp(15 downto 8) <= blue_reg;
 				sram_fifo_packet_temp(7 downto 0) <= "00000000";
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -399,9 +399,9 @@ begin
 				end if;
 
 			when RIGHT_OFFSET_B =>
-				if (h_off < 2*unsigned(offset_max) + 1) then
+				if (h_off < 2*unsigned(brush_width) + 1) then
 					-- write packet
-					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1 + unsigned(offset_max) - h_off);
+					sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - 1 + unsigned(brush_width) - h_off);
 					sram_fifo_packet_temp(15 downto 8) <= blue_reg;
 					sram_fifo_packet_temp(7 downto 0) <= "00000000";
 					packet_flag_temp <= '1';
@@ -418,12 +418,12 @@ begin
 
 			when RIGHT_UP_OFFSET_B =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1 - mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(offset_max) - h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - 1 - mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(brush_width) - h_off);
 				sram_fifo_packet_temp(15 downto 8) <= blue_reg;
 				sram_fifo_packet_temp(7 downto 0) <= "00000000";
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
@@ -434,12 +434,12 @@ begin
 
 			when RIGHT_DOWN_OFFSET_B =>
 				-- write packet
-				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1 + mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(offset_max) - h_off);
+				sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) - 1 + mult_temp(ADDRESS_WIDTH-1 downto 0) + unsigned(brush_width) - h_off);
 				sram_fifo_packet_temp(15 downto 8) <= blue_reg;
 				sram_fifo_packet_temp(7 downto 0) <= "00000000";
 				packet_flag_temp <= '1';
 
-				if (v_off /= resize(shift_right(unsigned(offset_max),1), 2*ADDRESS_WIDTH)) then
+				if (v_off /= resize(shift_right(unsigned(brush_width),1), 2*ADDRESS_WIDTH)) then
 					v_off_n <= v_off + 1;
 					mult_temp_n <= (v_off + 1) * 1600;
 				else
