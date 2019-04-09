@@ -64,6 +64,9 @@ architecture BHV of spi_slave is
 	signal v_off, v_off_n			: unsigned(ADDRESS_WIDTH-1 downto 0);
 	signal mult_temp, mult_temp_n	: unsigned(2*ADDRESS_WIDTH-1 downto 0);
 
+	signal curr_color_reg			: std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+	signal curr_color_reg_n			: std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+
 begin
 
 	--U_STATE_7SEG : entity work.decoder7seg
@@ -125,7 +128,7 @@ begin
 			h_off <= (others => '0');
 			v_off <= (others => '0');
 			mult_temp <= (others => '0');
-			curr_color <= (others => '0');
+			curr_color_reg <= (others => '0');
 			state <= INIT;
 			state_code_reg <= "0000";
 		elsif (clk'event and clk = '1') then
@@ -144,17 +147,19 @@ begin
 			h_off <= h_off_n;
 			v_off <= v_off_n;
 			mult_temp <= mult_temp_n;
-			curr_color <= red_reg & green_reg & green_reg;
+			curr_color_reg <= curr_color_reg_n;
 			state <= next_state;
 			state_code_reg <= state_code_temp;
 		end if;
 	end process;
 
+	curr_color <= curr_color_reg;
+
 	--received_byte <= shift_reg;
 	mosi_temp(7 downto 1) <= (others => '0');
 	mosi_temp(0) <= mosi_sync; 
 
-	process(state, ss_sync, cntr_reg, shift_reg, sck_sync, sck_low_flag_reg, mosi_temp, state_code_reg, packet_buff, address_hold, packet_sent, red_reg, green_reg, blue_reg, h_off, v_off, offset_max, mult_temp)
+	process(state, ss_sync, cntr_reg, shift_reg, sck_sync, sck_low_flag_reg, mosi_temp, state_code_reg, packet_buff, address_hold, packet_sent, red_reg, green_reg, blue_reg, h_off, v_off, offset_max, mult_temp, curr_color_reg)
 	begin
 		next_state <= state;
 		ack <= '0';
@@ -174,6 +179,8 @@ begin
 		h_off_n <= h_off;
 		v_off_n <= v_off;
 		mult_temp_n <= mult_temp;
+
+		curr_color_reg_n <= curr_color_reg;
 
 		case state is
 			when INIT =>
@@ -214,9 +221,11 @@ begin
 						--sram_fifo_packet_temp(16) <= '0';
 					when to_unsigned(32, 6) =>	-- RED
 						red_reg_n <= shift_reg;
+						curr_color_reg_n(COLOR_WIDTH-1 downto 0) <= shift_reg;
 						--sram_fifo_packet_temp(15 downto 8) <= shift_reg;
 					when to_unsigned(40, 6) =>	-- GREEN
 						green_reg_n <= shift_reg;
+						curr_color_reg_n(2*COLOR_WIDTH-1 downto COLOR_WIDTH) <= shift_reg;
 						--sram_fifo_packet_temp(7 downto 0) <= shift_reg;
 						if (packet_sent = '0') then
 							--packet_flag_temp <= '1';
@@ -224,6 +233,7 @@ begin
 						end if;
 					when to_unsigned(48, 6) =>	-- BLUE
 						blue_reg_n <= shift_reg;
+						curr_color_reg_n(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH) <= shift_reg;
 						h_off_n <= to_unsigned(0, ADDRESS_WIDTH);
 						v_off_n <= to_unsigned(1, ADDRESS_WIDTH);
 						next_state <= LEFT_OFFSET_RG;

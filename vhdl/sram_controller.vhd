@@ -133,7 +133,7 @@ begin
 					sram_ready_n <= '1';
 					sram_read_en_n <= '0';
 					sram_addr_n <= cntr;
-					sram_write_data_n <= (others => '1');
+					sram_write_data_n <= (others => '0');
 					sram_ce_n <= '0';
 					sram_oe_n <= '1';
 					sram_we_n <= '0';

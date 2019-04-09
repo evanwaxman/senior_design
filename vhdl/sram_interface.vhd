@@ -59,7 +59,7 @@ architecture BHV of sram_interface is
 
 begin
 
-	offset_max <= std_logic_vector(to_unsigned(10, 10));
+	offset_max <= std_logic_vector(to_unsigned(8, 10));
 	
     U_SPI_SLAVE : entity work.spi_slave
         port map(

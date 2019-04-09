@@ -85,19 +85,19 @@ begin
                 else
                     if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
                         lcd_addr <= pixel_location & '1';
-                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800) then
                         lcd_addr <= pixel_location & '1';
-                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10) then
                         lcd_addr <= pixel_location & '1';
-                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
                         lcd_addr <= pixel_location & '1';
-                        red_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     else
                         lcd_addr <= pixel_location & '1';
@@ -113,16 +113,16 @@ begin
                 else
                     if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
                         lcd_addr <= pixel_location & '0';
-                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                        blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800) then
                         lcd_addr <= pixel_location & '0';
-                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                        blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10) then
                         lcd_addr <= pixel_location & '0';
-                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                        blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
                         lcd_addr <= pixel_location & '0';
-                        blue_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                        blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     else
                         lcd_addr <= pixel_location & '0';
                         blue_n <= sram_read_data(15 downto 8);                                                                    
