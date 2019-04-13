@@ -30,14 +30,14 @@ entity top_level is
         sram_ble            : out       std_logic;
 
         -- lcd controller
-        Horiz_Sync          : out       std_logic;
-        Vert_Sync           : out       std_logic;
+        h_sync              : out       std_logic;
+        v_sync              : out       std_logic;
         pixel_color         : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         den                 : out       std_logic;
         pixel_clock         : out       std_logic;
         on_off              : out       std_logic;
         brush_size          : in        std_logic_vector(OFFSET_WIDTH-1 downto 0);
-        --change_brush_button : in        std_logic;
+        erase_screen        : in        std_logic;
 
         -- pll output
         pll_locked_out      : out std_logic
@@ -55,6 +55,7 @@ architecture STR of top_level is
     signal sram_read_data   : std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
     signal sram_ready       : std_logic;
     signal curr_color       : std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+
     signal brush_width      : std_logic_vector(OFFSET_WIDTH downto 0);
 
 begin
@@ -76,9 +77,12 @@ begin
 
     pll_locked_out <= not pll_locked;
 
+    brush_width <= '0' & brush_size;
+
     U_LCD_INTERFACE : entity work.lcd_interface
         generic map (
             COLOR_WIDTH     => COLOR_WIDTH,
+            OFFSET_WIDTH    => OFFSET_WIDTH,
             SRAM_DATA_WIDTH => SRAM_DATA_WIDTH,
             SRAM_ADDR_WIDTH => SRAM_ADDR_WIDTH
         )
@@ -86,25 +90,18 @@ begin
             clk                     => clk,
             clk_25MHz               => clk_25MHz,
             rst                     => sram_ready,
-            Horiz_Sync              => Horiz_Sync,
-            Vert_Sync               => Vert_Sync,
+            h_sync                  => h_sync,
+            v_sync                  => v_sync,
             pixel_color             => pixel_color,
             den                     => den,
-            --change_brush_button     => change_brush_button,
+            brush_width             => std_logic_vector(shift_left(unsigned(brush_width), 1)),
             lcd_addr                => lcd_addr,
             sram_read_data          => sram_read_data,
             lcd_status              => lcd_status,
             curr_color              => curr_color
         );
 
-    process(brush_width)
-    begin
-        if (unsigned(brush_size) = 0) then
-            brush_width <= "00001";
-        else
-            brush_width <= '0' & std_logic_vector(shift_left(unsigned(brush_size), 1));
-        end if;
-    end process;
+
 
     U_SRAM_INTERFACE : entity work.sram_interface
         generic map (
@@ -122,7 +119,7 @@ begin
             sram_ready          => sram_ready,  
             lcd_addr            => lcd_addr,
             lcd_status          => lcd_status,
-            brush_width         => brush_width,
+            brush_width          => std_logic_vector(shift_left(unsigned(brush_width), 1)),
             curr_color          => curr_color,
             --write_fifo_full     => open,
             sram_read_data      => sram_read_data,

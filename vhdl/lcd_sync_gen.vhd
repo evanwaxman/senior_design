@@ -7,8 +7,8 @@ entity lcd_sync_gen is
     port(
         clk_25MHz       : in    std_logic;
         rst             : in    std_logic;
-        Horiz_Sync      : out   std_logic;
-        Vert_Sync       : out   std_logic;
+        h_sync          : out   std_logic;
+        v_sync          : out   std_logic;
         Video_On        : out   std_logic;
         pixel_location  : out   std_logic_vector(18 downto 0);
         Hcount          : out   std_logic_vector(9 downto 0);
@@ -23,6 +23,8 @@ architecture BHV of lcd_sync_gen is
     --signal clk_25MHz : std_logic;
     signal Hcount_temp : std_logic_vector(9 downto 0);
     signal Vcount_temp : std_logic_vector(9 downto 0);
+    signal Horiz_Sync  : std_logic;
+    signal Vert_Sync   : std_logic;
 
     signal pixel_cntr  : std_logic_vector(18 downto 0);
 
@@ -43,7 +45,7 @@ begin
         if(rst = '1') then
             Hcount_temp <= (others => '0');
             Vcount_temp <= (others => '0');
-            Video_On <= '1';
+            Video_On <= '0';
             Horiz_Sync <= '1';
             Vert_Sync <= '1';
             pixel_cntr <= (others => '0');
@@ -83,6 +85,9 @@ begin
             else
                 Vert_Sync <= '1';
             end if;
+
+            h_sync <= Horiz_Sync;
+            v_sync <= Vert_Sync;
         end if;
     end process;
 

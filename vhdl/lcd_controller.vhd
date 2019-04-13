@@ -6,6 +6,7 @@ use work.LCD_LIB.all;
 entity lcd_controller is
     generic (
         COLOR_WIDTH         : positive  := 8;
+        OFFSET_WIDTH        : positive := 4;
         SRAM_DATA_WIDTH     : positive := 16;
         SRAM_ADDR_WIDTH     : positive := 20
     );
@@ -18,7 +19,8 @@ entity lcd_controller is
         vcount              : in        std_logic_vector(9 downto 0);
         pixel_color         : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         curr_color          : in        std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
-        --change_brush_button : in        std_logic;
+        brush_width         : in        std_logic_vector(OFFSET_WIDTH downto 0);
+        den                 : out       std_logic;
 
         -- sram signals
         lcd_addr            : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
@@ -40,7 +42,23 @@ architecture BHV of lcd_controller is
     signal blue_n               : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal sram_read_en_n       : std_logic;
 
+    --signal clear_letters        : std_logic;
+    --signal char_cntr_x          : std_logic_vector(5 downto 0);
+    --signal char_cntr_y          : std_logic_vector(9 downto 0);
+
 begin
+    
+    --clear_letters <= rst;
+
+    --U_CHAR_RAM : entity char_ram.vhd 
+    --    port map (
+    --        aclr    => clear_letters,
+    --        address => char_cntr_y(9 downto 3) & char_cntr_x,
+    --        clock   => clock_sig,
+    --        data    => data_sig,
+    --        wren    => wren_sig,
+    --        q       => q_sig
+    --    );
 
     lcd_status <= video_on;
 
@@ -50,18 +68,20 @@ begin
             red <= (others => '0');
             green <= (others => '0');
             blue <= (others => '0');
+            den <= '0';
             state <= INIT;
         elsif (clk'event and clk = '1') then
             red <= red_n;
             green <= green_n;
             blue <= blue_n;
+            den <= video_on;
             state <= next_state;
         end if;
     end process;
 
     pixel_color <= blue & green & red;
 
-    process(state, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount)
+    process(state, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width)
     begin
         red_n <= red;
         green_n <= green;
@@ -88,11 +108,11 @@ begin
                         lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
-                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800) then
+                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) >= 24) then
                         lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
-                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10) then
+                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10 and unsigned(hcount) <= 775) then
                         lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
@@ -100,11 +120,25 @@ begin
                         lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
+                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) < 24) then
+                        red_n <= "00000000";
+                        green_n <= "00000000";
+                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) < 24 and unsigned(hcount) > 775) then
+                        red_n <= "00000000";
+                        green_n <= "00000000";
                     else
                         lcd_addr <= pixel_location & '1';
                         red_n <= sram_read_data(15 downto 8);
                         green_n <= sram_read_data(7 downto 0);                                                                       
                     end if;
+
+                    if (unsigned(hcount) >= (to_unsigned(790, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(hcount) <= (to_unsigned(790, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
+                        if (unsigned(vcount) >= (to_unsigned(9, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(vcount) <= (to_unsigned(9, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
+                            red_n <= curr_color(COLOR_WIDTH-1 downto 0);
+                            green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);  
+                        end if;
+                    end if;
+
                     next_state <= READ_SRAM_B;
                 end if;
 
@@ -115,59 +149,36 @@ begin
                     if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
                         lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
-                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800) then
+                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) >= 24) then
                         lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
-                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10) then
+                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10 and unsigned(hcount) <= 775) then
                         lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
                         lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                    elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) < 24) then
+                        blue_n <= "00000000";
+                    elsif (unsigned(vcount) >= 0 and unsigned(vcount) < 24 and unsigned(hcount) > 775) then
+                        blue_n <= "00000000";
                     else
                         lcd_addr <= pixel_location & '0';
                         blue_n <= sram_read_data(15 downto 8);                                                                    
                     end if;
+
+                    
+                    if (unsigned(hcount) >= (to_unsigned(790, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(hcount) <= (to_unsigned(790, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
+                        if (unsigned(vcount) >= (to_unsigned(9, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(vcount) <= (to_unsigned(9, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
+                            blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                        end if;
+                    end if;
+
                     next_state <= READ_SRAM_RG;
                 end if;
 
             when others => null;
         end case;
     end process;
-
-
-
--------------------------------------------------------------------------------- working lcd vhdl
-    --process (clk_25MHz, rst)
-    --begin
-    --    if (rst = '1') then
-    --        pixel_color <= (others => '0');
-    --    elsif (clk'event and clk = '1') then
-    --        pixel_color <= red;
-    --    end if;
-    --end process;
-
-    --process (Hcount, Vcount)
-    --begin
-    --    red <= (others => '0');
-    --    --green <= (others => '0');
-    --    --blue <= (others => '0');
-
-    --    if (unsigned(Hcount) >= 50 and unsigned(Hcount) < 800 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 480) then
-    --        red <= "11111111";
-    --    --elsif (unsigned(Hcount) >= 150 and unsigned(Hcount) < 250 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
-    --    --    red <= "11111111";
-    --    --    blue <= "00000000";
-    --    --    green <= "00000000";
-    --    --elsif (unsigned(Hcount) >= 250 and unsigned(Hcount) < 350 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
-    --    --    red <= "00000000";
-    --    --    blue <= "11111111";
-    --    --    green <= "00000000";
-    --    --elsif (unsigned(Hcount) >= 350 and unsigned(Hcount) < 450 and unsigned(Vcount) >= 100 and unsigned(Vcount) < 200) then
-    --    --    red <= "00000000";
-    --    --    blue <= "00000000";
-    --    --    green <= "11111111";
-    --    end if;
-    --end process;
 
 end BHV;

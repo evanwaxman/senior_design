@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity spi_slave is
 	generic(
-		COLOR_WIDTH     : positive := 8;
+		COLOR_WIDTH     	: positive := 8;
 		OFFSET_WIDTH 	 	: positive 	:= 4;
 		ADDRESS_WIDTH 		: positive 	:= 20
 	);

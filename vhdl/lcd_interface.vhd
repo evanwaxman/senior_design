@@ -6,6 +6,7 @@ use work.LCD_LIB.all;
 entity lcd_interface is
 	generic (
         COLOR_WIDTH     	: positive := 8;
+        OFFSET_WIDTH        : positive := 4;
         SRAM_DATA_WIDTH 	: positive := 16;
         SRAM_ADDR_WIDTH 	: positive := 20
 	);
@@ -13,11 +14,11 @@ entity lcd_interface is
         clk             	: in        std_logic;
         clk_25MHz       	: in        std_logic;
         rst             	: in        std_logic;
-        Horiz_Sync      	: out       std_logic;
-        Vert_Sync       	: out       std_logic;
+        h_sync      		: out       std_logic;
+        v_sync       		: out       std_logic;
         pixel_color     	: out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         den             	: out       std_logic;
-        --change_brush_button : in        std_logic;
+        brush_width 		: in 		std_logic_vector(OFFSET_WIDTH downto 0);
 
         -- sram signals
         lcd_addr        	: out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
@@ -45,8 +46,8 @@ begin
 	    port map(
 	        clk_25MHz       => clk_25MHz,
 	        rst             => rst,
-	        Horiz_Sync      => Horiz_Sync,
-	        Vert_Sync       => Vert_Sync,
+	        h_sync      	=> h_sync,
+	        v_sync       	=> v_sync,
 	        Video_On        => video_on,
 	        pixel_location  => pixel_location,
 	        Hcount          => hcount,
@@ -55,7 +56,8 @@ begin
 
     U_LCD_CONTROLLER : entity work.lcd_controller
     	generic map(
-    		COLOR_WIDTH 	=> COLOR_WIDTH
+    		COLOR_WIDTH 	=> COLOR_WIDTH,
+    		OFFSET_WIDTH    => OFFSET_WIDTH
     	)
 	    port map(
 			clk 					=> clk,
@@ -65,13 +67,14 @@ begin
 			hcount 					=> hcount,
 			vcount 					=> vcount,
 			pixel_color 			=> pixel_color,
-			--change_brush_button 	=> change_brush_button;
+			brush_width 			=> brush_width,
+			den	 					=> den,
 			curr_color				=> curr_color,
 			lcd_addr 				=> lcd_addr,
 			sram_read_data 			=> sram_read_data,
 			lcd_status 				=> lcd_status
 	    );
     
-    den <= video_on;
+    --den <= video_on;
 	
 end architecture BHV;
