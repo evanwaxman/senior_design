@@ -5,7 +5,7 @@ use work.LCD_LIB.all;
 
 entity lcd_controller is
     generic (
-        COLOR_WIDTH         : positive  := 8;
+        COLOR_WIDTH         : positive := 8;
         OFFSET_WIDTH        : positive := 4;
         SRAM_DATA_WIDTH     : positive := 16;
         SRAM_ADDR_WIDTH     : positive := 20
@@ -42,22 +42,25 @@ architecture BHV of lcd_controller is
     signal blue_n               : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal sram_read_en_n       : std_logic;
 
-    --signal clear_letters        : std_logic;
-    --signal char_cntr_x          : std_logic_vector(5 downto 0);
-    --signal char_cntr_y          : std_logic_vector(9 downto 0);
+    signal clear_letters        : std_logic;
+    signal char_cntr_x          : std_logic_vector(5 downto 0);
+    signal char_cntr_y          : std_logic_vector(9 downto 0);
+    signal char_ram_din         : std_logic_vector(7 downto 0);
+    signal char_ram_dout        : std_logic_vector(7 downto 0);
+    signal char_ram_we          : std_logic;
 
 begin
     
     --clear_letters <= rst;
 
-    --U_CHAR_RAM : entity char_ram.vhd 
+    --U_CHAR_RAM : entity work.char_ram
     --    port map (
     --        aclr    => clear_letters,
     --        address => char_cntr_y(9 downto 3) & char_cntr_x,
-    --        clock   => clock_sig,
-    --        data    => data_sig,
-    --        wren    => wren_sig,
-    --        q       => q_sig
+    --        clock   => clk,
+    --        data    => char_ram_din,
+    --        wren    => char_ram_we,
+    --        q       => char_ram_dout
     --    );
 
     lcd_status <= video_on;
@@ -104,20 +107,17 @@ begin
                 if (video_on = '0') then
                     next_state <= IDLE;
                 else
+                    -- draw color borders
                     if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
-                        lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) >= 24) then
-                        lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10 and unsigned(hcount) <= 775) then
-                        lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
-                        lcd_addr <= pixel_location & '1';
                         red_n <= curr_color(COLOR_WIDTH-1 downto 0);
                         green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);
                     elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) < 24) then
@@ -126,12 +126,13 @@ begin
                     elsif (unsigned(vcount) >= 0 and unsigned(vcount) < 24 and unsigned(hcount) > 775) then
                         red_n <= "00000000";
                         green_n <= "00000000";
-                    else
+                    else    -- current pixel within color borders
                         lcd_addr <= pixel_location & '1';
                         red_n <= sram_read_data(15 downto 8);
                         green_n <= sram_read_data(7 downto 0);                                                                       
                     end if;
 
+                    -- draw brush square
                     if (unsigned(hcount) >= (to_unsigned(790, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(hcount) <= (to_unsigned(790, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
                         if (unsigned(vcount) >= (to_unsigned(9, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(vcount) <= (to_unsigned(9, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
                             red_n <= curr_color(COLOR_WIDTH-1 downto 0);
@@ -146,28 +147,25 @@ begin
                 if (video_on = '0') then
                     next_state <= IDLE;
                 else
+                    -- draw color borders
                     if (unsigned(hcount) >= 0 and unsigned(hcount) <= 10) then
-                        lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) >= 24) then
-                        lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 0 and unsigned(vcount) <= 10 and unsigned(hcount) <= 775) then
-                        lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(vcount) >= 470 and unsigned(vcount) <= 480) then
-                        lcd_addr <= pixel_location & '0';
                         blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
                     elsif (unsigned(hcount) >= 790 and unsigned(hcount) <= 800 and unsigned(vcount) < 24) then
                         blue_n <= "00000000";
                     elsif (unsigned(vcount) >= 0 and unsigned(vcount) < 24 and unsigned(hcount) > 775) then
                         blue_n <= "00000000";
-                    else
+                    else    -- current pixel within color borders
                         lcd_addr <= pixel_location & '0';
                         blue_n <= sram_read_data(15 downto 8);                                                                    
                     end if;
 
-                    
+                    -- draw brush square
                     if (unsigned(hcount) >= (to_unsigned(790, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(hcount) <= (to_unsigned(790, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
                         if (unsigned(vcount) >= (to_unsigned(9, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(vcount) <= (to_unsigned(9, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
                             blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);

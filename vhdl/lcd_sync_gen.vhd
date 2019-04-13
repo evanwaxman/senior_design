@@ -13,14 +13,12 @@ entity lcd_sync_gen is
         pixel_location  : out   std_logic_vector(18 downto 0);
         Hcount          : out   std_logic_vector(9 downto 0);
         Vcount          : out   std_logic_vector(9 downto 0)
-        --clk_25MHz_out   : out   std_logic
     );
 end lcd_sync_gen;
 
 
 architecture BHV of lcd_sync_gen is
 
-    --signal clk_25MHz : std_logic;
     signal Hcount_temp : std_logic_vector(9 downto 0);
     signal Vcount_temp : std_logic_vector(9 downto 0);
     signal Horiz_Sync  : std_logic;
@@ -29,16 +27,6 @@ architecture BHV of lcd_sync_gen is
     signal pixel_cntr  : std_logic_vector(18 downto 0);
 
 begin
-    --U_CLK_DIV : entity work.clk_div
-    --    generic map(
-    --        clk_in_freq => 50000000,
-    --        clk_out_freq => 25000000
-    --    )
-    --    port map(
-    --        clk_in => clk,
-    --        clk_out => clk_25MHz,
-    --        rst => rst
-    --    );
 
     process(clk_25MHz, rst)
     begin
@@ -49,7 +37,6 @@ begin
             Horiz_Sync <= '1';
             Vert_Sync <= '1';
             pixel_cntr <= (others => '0');
-            --pixel_location <= (others => '0');
         elsif(clk_25MHz'event and clk_25MHz = '1') then
             if((unsigned(Hcount_temp) < H_DISPLAY_END) and unsigned(Vcount_temp) < V_DISPLAY_END) then
                 pixel_cntr <= std_logic_vector(unsigned(pixel_cntr) + 1);
@@ -94,7 +81,5 @@ begin
     pixel_location <= pixel_cntr;
     Hcount <= Hcount_temp;
     Vcount <= Vcount_temp;
-    --clk_25MHz_out <= clk_25MHz;
-
 
 end BHV;

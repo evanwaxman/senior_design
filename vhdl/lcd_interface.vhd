@@ -30,11 +30,6 @@ end lcd_interface;
 
 architecture BHV of lcd_interface is
 
-	--signal write_fifo_re    : std_logic;
- --   signal write_fifo_dout  : std_logic_vector(35 downto 0);
- --   signal write_fifo_empty : std_logic;
- --   signal write_fifo_full  : std_logic;
-
     signal hcount 			: std_logic_vector(9 downto 0);
     signal vcount 			: std_logic_vector(9 downto 0);
     signal video_on 		: std_logic;
@@ -74,7 +69,5 @@ begin
 			sram_read_data 			=> sram_read_data,
 			lcd_status 				=> lcd_status
 	    );
-    
-    --den <= video_on;
 	
 end architecture BHV;

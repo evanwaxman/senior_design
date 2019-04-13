@@ -17,13 +17,6 @@ entity sram_interface is
 		mosi 			: in 		std_logic;
 		miso 			: out 		std_logic;
 
-		-- spi_slave
-		--led0            : out   	std_logic_vector(6 downto 0);
-  --      led1            : out   	std_logic_vector(6 downto 0);
-  --      led2            : out   	std_logic_vector(6 downto 0);
-  --      received_byte 	: out 		std_logic_vector(7 downto 0);
-
-
         -- lcd i/o
         sram_ready 		: out 		std_logic;
         lcd_addr 		: in 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
@@ -71,10 +64,6 @@ begin
 	        packet_flag         => packet_flag,
 	        brush_width      	=> brush_width,
 	        curr_color 			=> curr_color
-	        --led0                => led0,
-	        --led1                => led1,
-	        --led2                => led2,
-	        --received_byte       => received_byte
         );
 
 	U_SPI_WRITE_FIFO : entity work.sram_write_fifo 

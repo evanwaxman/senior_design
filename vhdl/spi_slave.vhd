@@ -19,11 +19,6 @@ entity spi_slave is
 		packet_flag			: out 	std_logic;
 		brush_width      	: in 	std_logic_vector(OFFSET_WIDTH downto 0);
 		curr_color 			: out 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0)
-		-- testing
-		--led0    			: out 	std_logic_vector(6 downto 0);
-		--led1    			: out 	std_logic_vector(6 downto 0);
-		--led2    			: out 	std_logic_vector(6 downto 0);
-		--received_byte 		: out 	std_logic_vector(7 downto 0)
 	);
 end spi_slave;
 
@@ -55,7 +50,6 @@ architecture BHV of spi_slave is
 	signal address_hold_temp 		: std_logic_vector(19 downto 0);
 	signal counter_led2_hold 		: std_logic_vector(3 downto 0);
 
-
 	signal red_reg, red_reg_n 		: std_logic_vector(7 downto 0);
 	signal green_reg, green_reg_n	: std_logic_vector(7 downto 0);
 	signal blue_reg, blue_reg_n		: std_logic_vector(7 downto 0);
@@ -67,26 +61,6 @@ architecture BHV of spi_slave is
 	signal curr_color_reg_n			: std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
 
 begin
-
-	--U_STATE_7SEG : entity work.decoder7seg
-	--	port map(
-	--		input 	=> state_code_reg,
-	--		output 	=> led0
-	--	);
-
-	--U_SCK_COUNT0_7SEG : entity work.decoder7seg
-	--	port map(
-	--		input 	=> cntr_reg(3 downto 0),
-	--		output 	=> led1
-	--	);
-
-	--counter_led2_hold <= "00" & cntr_reg(5 downto 4);
-
-	--U_SCK_COUNT1_7SEG : entity work.decoder7seg
-	--	port map(
-	--		input 	=> counter_led2_hold,
-	--		output 	=> led2
-	--	);
 
 	U_SPI_SYNC : entity work.df_sync 
 		port map(
@@ -153,8 +127,6 @@ begin
 	end process;
 
 	curr_color <= curr_color_reg;
-
-	--received_byte <= shift_reg;
 	mosi_temp(7 downto 1) <= (others => '0');
 	mosi_temp(0) <= mosi_sync; 
 
@@ -204,31 +176,20 @@ begin
 					sck_low_flag_temp <= '0';
 				end if;
 
-				--if (unsigned(cntr_reg) = 8) then
-				--	next_state <= ACK_DATA;
-				--end if;
-
 				case unsigned(cntr_reg) is
 					when to_unsigned(8, 6) =>	-- ADDR_HIGH
 						address_hold_temp(19 downto 17) <= shift_reg(2 downto 0);
-						--sram_fifo_packet_temp(35 downto 33) <= shift_reg(2 downto 0);
 					when to_unsigned(16, 6) =>	-- ADDR_MID
 						address_hold_temp(16 downto 9) <= shift_reg;
-						--sram_fifo_packet_temp(32 downto 25) <= shift_reg;
 					when to_unsigned(24, 6) => 	-- ADDR_LOW
 						address_hold_temp(8 downto 1) <= shift_reg;
-						--sram_fifo_packet_temp(24 downto 17) <= shift_reg;
-						--sram_fifo_packet_temp(16) <= '0';
 					when to_unsigned(32, 6) =>	-- RED
 						red_reg_n <= shift_reg;
 						curr_color_reg_n(COLOR_WIDTH-1 downto 0) <= shift_reg;
-						--sram_fifo_packet_temp(15 downto 8) <= shift_reg;
 					when to_unsigned(40, 6) =>	-- GREEN
 						green_reg_n <= shift_reg;
 						curr_color_reg_n(2*COLOR_WIDTH-1 downto COLOR_WIDTH) <= shift_reg;
-						--sram_fifo_packet_temp(7 downto 0) <= shift_reg;
 						if (packet_sent = '0') then
-							--packet_flag_temp <= '1';
 							packet_sent_temp <= '1';
 						end if;
 					when to_unsigned(48, 6) =>	-- BLUE
@@ -237,11 +198,6 @@ begin
 						h_off_n <= to_unsigned(0, ADDRESS_WIDTH);
 						v_off_n <= to_unsigned(1, ADDRESS_WIDTH);
 						next_state <= LEFT_OFFSET_RG;
-						--sram_fifo_packet_temp(35 downto 16) <= std_logic_vector(unsigned(address_hold) + 1);
-						--sram_fifo_packet_temp(15 downto 8) <= shift_reg;
-						--sram_fifo_packet_temp(7 downto 0) <= "00000000";
-						--packet_flag_temp <= '1';
-						--next_state <= ACK_DATA;
 					when others => null;
 				end case;
 
