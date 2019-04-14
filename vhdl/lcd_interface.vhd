@@ -19,6 +19,7 @@ entity lcd_interface is
         pixel_color     	: out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         den             	: out       std_logic;
         brush_width 		: in 		std_logic_vector(OFFSET_WIDTH downto 0);
+        display_state 		: in 		std_logic_vector(7 downto 0);
 
         -- sram signals
         lcd_addr        	: out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
@@ -63,6 +64,7 @@ begin
 			vcount 					=> vcount,
 			pixel_color 			=> pixel_color,
 			brush_width 			=> brush_width,
+			display_state 			=> display_state,
 			den	 					=> den,
 			curr_color				=> curr_color,
 			lcd_addr 				=> lcd_addr,

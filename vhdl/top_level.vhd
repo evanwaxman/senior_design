@@ -36,8 +36,7 @@ entity top_level is
         den                 : out       std_logic;
         pixel_clock         : out       std_logic;
         on_off              : out       std_logic;
-        brush_size          : in        std_logic_vector(OFFSET_WIDTH-1 downto 0);
-        erase_screen        : in        std_logic;
+        display_state       : in        std_logic_vector(7 downto 0);
 
         -- pll output
         pll_locked_out      : out std_logic
@@ -77,7 +76,7 @@ begin
 
     pll_locked_out <= not pll_locked;
 
-    brush_width <= '0' & brush_size;
+    brush_width <= '0' & display_state(3 downto 0);
 
     U_LCD_INTERFACE : entity work.lcd_interface
         generic map (
@@ -95,6 +94,7 @@ begin
             pixel_color             => pixel_color,
             den                     => den,
             brush_width             => std_logic_vector(shift_left(unsigned(brush_width), 1)),
+            display_state           => display_state,
             lcd_addr                => lcd_addr,
             sram_read_data          => sram_read_data,
             lcd_status              => lcd_status,
