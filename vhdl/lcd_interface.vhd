@@ -62,6 +62,7 @@ begin
     	)
 	    port map(
 			clk 			=> clk,
+			clk_25MHz 		=> clk_25MHz,
 			rst	 			=> rst,
 			video_on 		=> video_on,
 			pixel_location 	=> pixel_location,

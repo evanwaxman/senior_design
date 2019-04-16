@@ -13,6 +13,7 @@ entity lcd_controller is
     );
     port(
         clk                 : in    std_logic;
+        clk_25MHz           : in    std_logic;
         rst                 : in    std_logic;
         video_on            : in    std_logic;
         pixel_location      : in    std_logic_vector(SRAM_ADDR_WIDTH-2 downto 0);
@@ -38,7 +39,7 @@ end lcd_controller;
 
 architecture BHV of lcd_controller is
     
-    type STATE_TYPE is (INIT, WRITE_STARTUP_SCREEN, DISPLAY_STARTUP_SCREEN_RG, DISPLAY_STARTUP_SCREEN_B, WRITE_MAIN_MENU, DISPLAY_MAIN_MENU_RG, DISPLAY_MAIN_MENU_B, WRITE_DOODLE_BAR, IDLE, READ_SRAM_RG, READ_SRAM_B, CLEAR_CHAR_RAM);
+    type STATE_TYPE is (INIT, WRITE_STARTUP_SCREEN, DISPLAY_STARTUP_SCREEN_RG, DISPLAY_STARTUP_SCREEN_B, WRITE_MAIN_MENU, DISPLAY_MAIN_MENU_RG, DISPLAY_MAIN_MENU_B, CUBE_RUNNER_RG, CUBE_RUNNER_B, WRITE_DOODLE_BAR, IDLE, READ_SRAM_RG, READ_SRAM_B, CLEAR_CHAR_RAM);
     type WORD is array(20 downto 0) of std_logic_vector(7 downto 0);
 
     signal doodle_boy_word                                  : WORD;
@@ -63,7 +64,7 @@ architecture BHV of lcd_controller is
     signal y_cntr, y_cntr_n                                 : unsigned(5 downto 0);
     signal font_addr                                        : std_logic_vector(10 downto 0);
     signal font_row_hold, font_row_hold_n                   : std_logic_vector(7 downto 0);
-    signal clk_10Hz                                          : std_logic;
+    signal clk_10Hz                                         : std_logic;
     signal up_button_pressed, up_button_pressed_n           : std_logic;
     signal down_button_pressed, down_button_pressed_n       : std_logic;
     signal right_button_pressed, right_button_pressed_n     : std_logic;
@@ -72,6 +73,10 @@ architecture BHV of lcd_controller is
     signal b_button_pressed, b_button_pressed_n             : std_logic;
     signal timer                                            : std_logic_vector(2 downto 0);
     signal timer_rst                                        : std_logic;
+
+    signal game_red, game_green, game_blue                  : std_logic_vector(COLOR_WIDTH-1 downto 0);
+    signal game_start                                       : std_logic;
+    signal button_checked                                   : std_logic;
 
 begin
 
@@ -103,6 +108,28 @@ begin
             clk_out         => clk_10Hz,
             rst             => timer_rst
         );
+
+    U_CR_GAME_LOGIC : entity work.CR_game_logic
+    generic map(
+        COLOR_WIDTH     => COLOR_WIDTH
+    )
+    port map(
+        clk_25MHz               => clk_25MHz,
+        rst                     => rst,
+        hcount                  => hcount,
+        vcount                  => vcount,
+        game_start              => game_start,
+        up_button_pressed       => up_button_pressed,
+        down_button_pressed     => down_button_pressed,
+        right_button_pressed    => right_button_pressed,
+        left_button_pressed     => left_button_pressed,
+        a_button_pressed        => a_button_pressed,
+        b_button_pressed        => b_button_pressed,
+        game_red                => game_red,
+        game_green              => game_green,
+        game_blue               => game_blue,
+        button_checked          => button_checked
+    );
 
     lcd_status <= video_on;
 
@@ -208,7 +235,7 @@ begin
     gaming_word(5 downto 0) <= (0 => G, 1 => a_l, 2 => m_l, 3 => i_l, 4 => n_l, 5 => g_l);
     brush_size_word(9 downto 0) <= (0 => B, 1 => r_l, 2 => u_l, 3 => s_l, 4 => h_l, 5 => SPACE, 6 => S, 7 => i_l, 8 => z_l, 9 => e_l);
 
-    process(state, saved_state, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodle_boy_word, doodling_word, brush_size_word, gaming_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed)
+    process(state, saved_state, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodle_boy_word, doodling_word, brush_size_word, gaming_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
     begin
         red_n <= red;
         green_n <= green;
@@ -223,6 +250,8 @@ begin
         font_row_hold_n <= font_row_hold;
         x_cntr_n <= x_cntr;
         y_cntr_n <= y_cntr;
+
+        game_start <= '0';
 
         up_button_pressed_n <= up_button_pressed;
         down_button_pressed_n <= down_button_pressed;
@@ -352,6 +381,10 @@ begin
                     a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_DOODLE_BAR;
                     next_state <= CLEAR_CHAR_RAM;
+                elsif (a_button_pressed = '1' and right_button_pressed = '1') then
+                    a_button_pressed_n <= '0';
+                    saved_state_n <= CUBE_RUNNER_RG;
+                    next_state <= CLEAR_CHAR_RAM;
                 else
                     a_button_pressed_n <= '0';
                     next_state <= DISPLAY_MAIN_MENU_B;
@@ -391,13 +424,46 @@ begin
                     a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_DOODLE_BAR;
                     next_state <= CLEAR_CHAR_RAM;
+                elsif (a_button_pressed = '1' and right_button_pressed = '1') then
+                    a_button_pressed_n <= '0';
+                    saved_state_n <= CUBE_RUNNER_RG;
+                    next_state <= CLEAR_CHAR_RAM;
                 else
                     a_button_pressed_n <= '0';
                     next_state <= DISPLAY_MAIN_MENU_RG;
                 end if;
 
 -------------------------------------------------------------------------------- GAMING
+            when CUBE_RUNNER_RG =>
+                game_start <= '1';
+                red_n <= game_red;
+                green_n <= game_green;
 
+                if (button_checked = '1') then
+                    up_button_pressed_n <= '0';
+                    down_button_pressed_n <= '0';
+                    right_button_pressed_n <= '0';
+                    left_button_pressed_n <= '0';
+                    a_button_pressed_n <= '0';
+                    b_button_pressed_n <= '0';
+                end if;
+
+                next_state <= CUBE_RUNNER_B;
+
+            when CUBE_RUNNER_B =>
+                game_start <= '1';
+                blue_n <= game_blue;
+
+                if (button_checked = '1') then
+                    up_button_pressed_n <= '0';
+                    down_button_pressed_n <= '0';
+                    right_button_pressed_n <= '0';
+                    left_button_pressed_n <= '0';
+                    a_button_pressed_n <= '0';
+                    b_button_pressed_n <= '0';
+                end if;
+
+                next_state <= CUBE_RUNNER_RG;
 
 -------------------------------------------------------------------------------- DOODLING
 
