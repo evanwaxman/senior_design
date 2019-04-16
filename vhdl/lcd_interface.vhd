@@ -5,27 +5,32 @@ use work.LCD_LIB.all;
 
 entity lcd_interface is
 	generic (
-        COLOR_WIDTH     	: positive := 8;
-        OFFSET_WIDTH        : positive := 4;
-        SRAM_DATA_WIDTH 	: positive := 16;
-        SRAM_ADDR_WIDTH 	: positive := 20
+        COLOR_WIDTH     		: positive := 8;
+        OFFSET_WIDTH        	: positive := 4;
+        SRAM_DATA_WIDTH 		: positive := 16;
+        SRAM_ADDR_WIDTH 		: positive := 20
 	);
 	port(
-        clk             	: in        std_logic;
-        clk_25MHz       	: in        std_logic;
-        rst             	: in        std_logic;
-        h_sync      		: out       std_logic;
-        v_sync       		: out       std_logic;
-        pixel_color     	: out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
-        den             	: out       std_logic;
-        brush_width 		: in 		std_logic_vector(OFFSET_WIDTH downto 0);
-        display_state 		: in 		std_logic_vector(7 downto 0);
+        clk             : in  	std_logic;
+        clk_25MHz       : in  	std_logic;
+        rst             : in  	std_logic;
+        h_sync      	: out 	std_logic;
+        v_sync       	: out 	std_logic;
+        pixel_color     : out 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        den             : out 	std_logic;
+        brush_width 	: in 	std_logic_vector(OFFSET_WIDTH downto 0);
+		up_button 	 	: in 	std_logic;
+		down_button	 	: in 	std_logic;
+		right_button 	: in 	std_logic;
+		left_button	 	: in 	std_logic;
+		a_button 	 	: in 	std_logic;
+		b_button 	 	: in 	std_logic;
 
         -- sram signals
-        lcd_addr        	: out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
-        sram_read_data  	: in        std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
-        lcd_status      	: out       std_logic;
-        curr_color 			: in 		std_logic_vector((3*COLOR_WIDTH)-1 downto 0)
+        lcd_addr        : out   std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+        sram_read_data  : in    std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+        lcd_status      : out   std_logic;
+        curr_color 		: in 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0)
 	);
 end lcd_interface;
 
@@ -56,20 +61,25 @@ begin
     		OFFSET_WIDTH    => OFFSET_WIDTH
     	)
 	    port map(
-			clk 					=> clk,
-			rst	 					=> rst,
-			video_on 				=> video_on,
-			pixel_location 			=> pixel_location,
-			hcount 					=> hcount,
-			vcount 					=> vcount,
-			pixel_color 			=> pixel_color,
-			brush_width 			=> brush_width,
-			display_state 			=> display_state,
-			den	 					=> den,
-			curr_color				=> curr_color,
-			lcd_addr 				=> lcd_addr,
-			sram_read_data 			=> sram_read_data,
-			lcd_status 				=> lcd_status
+			clk 			=> clk,
+			rst	 			=> rst,
+			video_on 		=> video_on,
+			pixel_location 	=> pixel_location,
+			hcount 			=> hcount,
+			vcount 			=> vcount,
+			pixel_color 	=> pixel_color,
+			brush_width 	=> brush_width,
+			up_button 		=> up_button,
+			down_button 	=> down_button,
+			right_button 	=> right_button,
+			left_button 	=> left_button,
+			a_button 	 	=> a_button,
+			b_button 		=> b_button,
+			den	 			=> den,
+			curr_color		=> curr_color,
+			lcd_addr 		=> lcd_addr,
+			sram_read_data 	=> sram_read_data,
+			lcd_status 		=> lcd_status
 	    );
 	
 end architecture BHV;

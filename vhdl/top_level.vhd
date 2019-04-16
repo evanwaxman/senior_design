@@ -5,38 +5,45 @@ use work.LCD_LIB.all;
 
 entity top_level is
     generic(
-        COLOR_WIDTH         : positive := 8;
-        OFFSET_WIDTH        : positive := 4;
-        SRAM_DATA_WIDTH     : positive := 16;
-        SRAM_ADDR_WIDTH     : positive := 20
+        COLOR_WIDTH     : positive := 8;
+        OFFSET_WIDTH    : positive := 4;
+        SRAM_DATA_WIDTH : positive := 16;
+        SRAM_ADDR_WIDTH : positive := 20
     );
     port(
-        clk                 : in        std_logic;
-        rst                 : in        std_logic;
+        clk             : in    std_logic;
+        rst             : in    std_logic;
 
         -- spi inputs
-        sck                 : in        std_logic;
-        ss                  : in        std_logic;
-        mosi                : in        std_logic;
-        miso                : out       std_logic;
+        sck             : in    std_logic;
+        ss              : in    std_logic;
+        mosi            : in    std_logic;
+        miso            : out   std_logic;
 
-        -- sram_interface
-        sram_addr           : out       std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
-        sram_data_bus       : inout     std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
-        sram_ce             : out       std_logic;
-        sram_oe             : out       std_logic;
-        sram_we             : out       std_logic;
-        sram_bhe            : out       std_logic;
-        sram_ble            : out       std_logic;
+        -- sram interface
+        sram_addr       : out   std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+        sram_data_bus   : inout std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+        sram_ce         : out   std_logic;
+        sram_oe         : out   std_logic;
+        sram_we         : out   std_logic;
+        sram_bhe        : out   std_logic;
+        sram_ble        : out   std_logic;
 
-        -- lcd controller
-        h_sync              : out       std_logic;
-        v_sync              : out       std_logic;
-        pixel_color         : out       std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
-        den                 : out       std_logic;
-        pixel_clock         : out       std_logic;
-        on_off              : out       std_logic;
-        display_state       : in        std_logic_vector(7 downto 0);
+        -- lcd interface
+        h_sync          : out   std_logic;
+        v_sync          : out   std_logic;
+        pixel_color     : out   std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        den             : out   std_logic;
+        pixel_clock     : out   std_logic;
+        on_off          : out   std_logic;
+        brush_size      : in    std_logic_vector(3 downto 0);
+        up_button       : in    std_logic;
+        down_button     : in    std_logic;
+        right_button    : in    std_logic;
+        left_button     : in    std_logic;
+        a_button        : in    std_logic;
+        b_button        : in    std_logic;
+
 
         -- pll output
         pll_locked_out      : out std_logic
@@ -76,7 +83,7 @@ begin
 
     pll_locked_out <= not pll_locked;
 
-    brush_width <= '0' & display_state(3 downto 0);
+    brush_width <= '0' & brush_size(3 downto 0);
 
     U_LCD_INTERFACE : entity work.lcd_interface
         generic map (
@@ -86,19 +93,24 @@ begin
             SRAM_ADDR_WIDTH => SRAM_ADDR_WIDTH
         )
         port map(
-            clk                     => clk,
-            clk_25MHz               => clk_25MHz,
-            rst                     => sram_ready,
-            h_sync                  => h_sync,
-            v_sync                  => v_sync,
-            pixel_color             => pixel_color,
-            den                     => den,
-            brush_width             => std_logic_vector(shift_left(unsigned(brush_width), 1)),
-            display_state           => display_state,
-            lcd_addr                => lcd_addr,
-            sram_read_data          => sram_read_data,
-            lcd_status              => lcd_status,
-            curr_color              => curr_color
+            clk             => clk,
+            clk_25MHz       => clk_25MHz,
+            rst             => sram_ready,
+            h_sync          => h_sync,
+            v_sync          => v_sync,
+            pixel_color     => pixel_color,
+            den             => den,
+            brush_width     => std_logic_vector(shift_left(unsigned(brush_width), 1)),
+            up_button       => up_button,
+            down_button     => down_button,
+            right_button    => right_button,
+            left_button     => left_button,
+            a_button        => a_button,
+            b_button        => b_button,
+            lcd_addr        => lcd_addr,
+            sram_read_data  => sram_read_data,
+            lcd_status      => lcd_status,
+            curr_color      => curr_color
         );
 
 
