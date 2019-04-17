@@ -76,6 +76,7 @@ architecture BHV of lcd_controller is
 
     signal game_red, game_green, game_blue                  : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal game_start                                       : std_logic;
+    signal game_over                                        : std_logic;
     signal game_on                                          : std_logic;
     signal button_checked                                   : std_logic;
     signal random_seed                                      : std_logic_vector(15 downto 0);
@@ -130,6 +131,7 @@ begin
         left_button_pressed     => left_button_pressed,
         a_button_pressed        => a_button_pressed,
         b_button_pressed        => b_button_pressed,
+        game_over               => game_over,
         game_red                => game_red,
         game_green              => game_green,
         game_blue               => game_blue,
@@ -249,7 +251,7 @@ begin
     gaming_word(5 downto 0) <= (0 => G, 1 => a_l, 2 => m_l, 3 => i_l, 4 => n_l, 5 => g_l);
     brush_size_word(9 downto 0) <= (0 => B, 1 => r_l, 2 => u_l, 3 => s_l, 4 => h_l, 5 => SPACE, 6 => S, 7 => i_l, 8 => z_l, 9 => e_l);
 
-    process(state, saved_state, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodle_boy_word, doodling_word, brush_size_word, gaming_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
+    process(state, saved_state, game_over, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodle_boy_word, doodling_word, brush_size_word, gaming_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
     begin
         red_n <= red;
         green_n <= green;
@@ -490,7 +492,11 @@ begin
                     b_button_pressed_n <= '0';
                 end if;
 
-                next_state <= CUBE_RUNNER_B;
+                if (game_over = '1') then
+                    next_state <= WRITE_MAIN_MENU;
+                else
+                    next_state <= CUBE_RUNNER_B;
+                end if;
 
             when CUBE_RUNNER_B =>
                 game_on <= '1';
@@ -505,7 +511,11 @@ begin
                     b_button_pressed_n <= '0';
                 end if;
 
-                next_state <= CUBE_RUNNER_RG;
+                if (game_over = '1') then
+                    next_state <= WRITE_MAIN_MENU;
+                else
+                    next_state <= CUBE_RUNNER_RG;
+                end if;
 
 -------------------------------------------------------------------------------- DOODLING
 

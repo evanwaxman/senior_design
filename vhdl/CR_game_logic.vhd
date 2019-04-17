@@ -22,7 +22,7 @@ entity CR_game_logic is
         left_button_pressed  	: in    std_logic;
         a_button_pressed   		: in    std_logic;
         b_button_pressed     	: in    std_logic;
-        --game_over 			: out 	std_logic;
+        game_over 				: out 	std_logic;
         game_red 				: out 	std_logic_vector(COLOR_WIDTH-1 downto 0);
         game_green 				: out 	std_logic_vector(COLOR_WIDTH-1 downto 0);
         game_blue 				: out 	std_logic_vector(COLOR_WIDTH-1 downto 0);
@@ -168,14 +168,18 @@ begin
 	obstacle_color <= "00000000" & "11111111" & "11111111";
 	player_color <= "11111111" & "11111111" & "00000000";
 
-	process (player_loc_reg, obstacle_color, player_color, hcount, vcount, obstacle_gen_reg, obstacle_lane_0, obstacle_lane_1, obstacle_lane_2, obstacle_lane_3, obstacle_lane_4, obstacle_lane_5, obstacle_lane_6, obstacle_lane_7, obstacle_lane_8, obstacle_lane_9, obstacle_lane_10, obstacle_lane_11, obstacle_lane_12, obstacle_lane_13, obstacle_lane_14)
+
+	game_over <= ((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9)));
+
+
+	process (player_loc_reg, obstacle_gen_reg, obstacle_color, player_color, hcount, vcount, obstacle_lane_0, obstacle_lane_1, obstacle_lane_2, obstacle_lane_3, obstacle_lane_4, obstacle_lane_5, obstacle_lane_6, obstacle_lane_7, obstacle_lane_8, obstacle_lane_9, obstacle_lane_10, obstacle_lane_11, obstacle_lane_12, obstacle_lane_13, obstacle_lane_14)
 	begin
 		game_red <= (others => '0');
 		game_green <= (others => '0');
 		game_blue <= (others => '0');
 
 		------------------------------------------------------------------------ DISPLAY PLAYER
-		if (unsigned(vcount) >= 432 and unsigned(vcount) <= 480) then
+		if (unsigned(vcount) > 432 and unsigned(vcount) <= 480) then
 			case player_loc_reg is
 				when "000000000000001" =>
 					if (unsigned(hcount) >= 754 and unsigned(hcount) <= 800) then
@@ -1328,9 +1332,6 @@ begin
 				end if;
 			end if;
 		end if;
-
-
-
 	end process;
 
 end BHV;
