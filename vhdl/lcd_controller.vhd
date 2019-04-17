@@ -76,7 +76,9 @@ architecture BHV of lcd_controller is
 
     signal game_red, game_green, game_blue                  : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal game_start                                       : std_logic;
+    signal game_on                                          : std_logic;
     signal button_checked                                   : std_logic;
+    signal random_seed                                      : std_logic_vector(15 downto 0);
 
 begin
 
@@ -114,11 +116,14 @@ begin
         COLOR_WIDTH     => COLOR_WIDTH
     )
     port map(
+        clk                     => clk,
         clk_25MHz               => clk_25MHz,
         rst                     => rst,
         hcount                  => hcount,
         vcount                  => vcount,
+        random_seed             => random_seed,
         game_start              => game_start,
+        game_on                 => game_on,
         up_button_pressed       => up_button_pressed,
         down_button_pressed     => down_button_pressed,
         right_button_pressed    => right_button_pressed,
@@ -230,6 +235,15 @@ begin
         end if;
     end process;
 
+    process (clk, rst)
+    begin
+        if (rst = '1') then
+            random_seed <= (others => '0');
+        elsif (rising_edge(clk)) then
+            random_seed <= std_logic_vector(unsigned(random_seed) + 1);
+        end if;
+    end process;
+
     doodle_boy_word(9 downto 0) <= (0 => D, 1 => O, 2 => O, 3 => D, 4 => L, 5 => E, 6 => SPACE, 7 => B, 8 => O, 9 => Y);
     doodling_word(7 downto 0) <= (0 => D, 1 => o_l, 2 => o_l, 3 => d_l, 4 => l_l, 5 => i_l, 6 => n_l, 7 => g_l);
     gaming_word(5 downto 0) <= (0 => G, 1 => a_l, 2 => m_l, 3 => i_l, 4 => n_l, 5 => g_l);
@@ -252,6 +266,7 @@ begin
         y_cntr_n <= y_cntr;
 
         game_start <= '0';
+        game_on <= '0';
 
         up_button_pressed_n <= up_button_pressed;
         down_button_pressed_n <= down_button_pressed;
@@ -329,6 +344,7 @@ begin
                     misc_cntr_n <= misc_cntr + 1;
                 else
                     misc_cntr_n <= (others => '0');
+                    left_button_pressed_n <= '1';
                     next_state <= DISPLAY_MAIN_MENU_RG;
                 end if;
             
@@ -341,9 +357,41 @@ begin
 
                 red_n <= (others => font_row_hold(7));
                 green_n <= (others => font_row_hold(7));
-                if (left_button_pressed = '1') then
-                    right_button_pressed_n <= '0';
+                if (left_button_pressed = '1' and right_button_pressed = '0') then
+                    --right_button_pressed_n <= '0';
 
+                    if (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 190 and unsigned(hcount) <= 192 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');                        
+                    elsif (unsigned(hcount) >= 270 and unsigned(hcount) <= 272 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    end if;
+                elsif (left_button_pressed = '0' and right_button_pressed = '1') then
+                    --left_button_pressed_n <= '0';
+
+                    if (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 512 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');                        
+                    elsif (unsigned(hcount) >= 574 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    end if;
+                else
+                    right_button_pressed_n <= '0';
+                    left_button_pressed_n <= '0';
                     if (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
                         red_n <= (others => '1');
                         green_n <= (others => '1');
@@ -359,30 +407,13 @@ begin
                     end if;
                 end if;
 
-                if (right_button_pressed = '1') then
-                    left_button_pressed_n <= '0';
-
-                    if (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
-                        red_n <= (others => '1');
-                        green_n <= (others => '1');
-                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
-                        red_n <= (others => '1');
-                        green_n <= (others => '1');
-                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 512 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
-                        red_n <= (others => '1');
-                        green_n <= (others => '1');                        
-                    elsif (unsigned(hcount) >= 574 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
-                        red_n <= (others => '1');
-                        green_n <= (others => '1');
-                    end if;
-                end if;
-
                 if (a_button_pressed = '1' and left_button_pressed = '1') then
                     a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_DOODLE_BAR;
                     next_state <= CLEAR_CHAR_RAM;
                 elsif (a_button_pressed = '1' and right_button_pressed = '1') then
                     a_button_pressed_n <= '0';
+                    game_start <= '1';
                     saved_state_n <= CUBE_RUNNER_RG;
                     next_state <= CLEAR_CHAR_RAM;
                 else
@@ -392,9 +423,33 @@ begin
 
             when DISPLAY_MAIN_MENU_B =>
                 blue_n <= (others => font_row_hold(7));
-                if (left_button_pressed = '1') then
-                    right_button_pressed_n <= '0';
+                if (left_button_pressed = '1' and right_button_pressed = '0') then
+                    --right_button_pressed_n <= '0';
 
+                    if (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 190 and unsigned(hcount) <= 192 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        blue_n <= (others => '1');                       
+                    elsif (unsigned(hcount) >= 270 and unsigned(hcount) <= 272 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        blue_n <= (others => '1');
+                    end if;
+                elsif (left_button_pressed = '0' and right_button_pressed = '1') then
+                    --left_button_pressed_n <= '0';
+
+                    if (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 512 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        blue_n <= (others => '1');                       
+                    elsif (unsigned(hcount) >= 574 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
+                        blue_n <= (others => '1');
+                    end if;
+                else
+                    right_button_pressed_n <= '0';
+                    left_button_pressed_n <= '0';
                     if (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
                         blue_n <= (others => '1');
                     elsif (unsigned(hcount) >= 190 and unsigned(hcount) <= 270 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
@@ -406,26 +461,13 @@ begin
                     end if;
                 end if;
 
-                if (right_button_pressed = '1') then
-                    left_button_pressed_n <= '0';
-
-                    if (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 316) then
-                        blue_n <= (others => '1');
-                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 576 and unsigned(vcount) >= 340 and unsigned(vcount) <= 342) then
-                        blue_n <= (others => '1');
-                    elsif (unsigned(hcount) >= 510 and unsigned(hcount) <= 512 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
-                        blue_n <= (others => '1');                       
-                    elsif (unsigned(hcount) >= 574 and unsigned(hcount) <= 576 and unsigned(vcount) >= 314 and unsigned(vcount) <= 342) then
-                        blue_n <= (others => '1');
-                    end if;
-                end if;
-
                 if (a_button_pressed = '1' and left_button_pressed = '1') then
                     a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_DOODLE_BAR;
                     next_state <= CLEAR_CHAR_RAM;
                 elsif (a_button_pressed = '1' and right_button_pressed = '1') then
                     a_button_pressed_n <= '0';
+                    game_start <= '1';
                     saved_state_n <= CUBE_RUNNER_RG;
                     next_state <= CLEAR_CHAR_RAM;
                 else
@@ -435,7 +477,7 @@ begin
 
 -------------------------------------------------------------------------------- GAMING
             when CUBE_RUNNER_RG =>
-                game_start <= '1';
+                game_on <= '1';
                 red_n <= game_red;
                 green_n <= game_green;
 
@@ -451,7 +493,7 @@ begin
                 next_state <= CUBE_RUNNER_B;
 
             when CUBE_RUNNER_B =>
-                game_start <= '1';
+                game_on <= '1';
                 blue_n <= game_blue;
 
                 if (button_checked = '1') then
