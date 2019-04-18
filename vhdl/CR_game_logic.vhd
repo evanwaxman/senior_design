@@ -10,6 +10,7 @@ entity CR_game_logic is
 	port (
 		clk 					: in 	std_logic;
 		clk_25MHz				: in 	std_logic;
+		clk_1Hz_out				: out 	std_logic;
 		rst 					: in 	std_logic;
 		hcount 					: in 	std_logic_vector(9 downto 0);
 		vcount 					: in 	std_logic_vector(9 downto 0);
@@ -33,7 +34,7 @@ end entity CR_game_logic;
 
 architecture BHV of CR_game_logic is
 
-	type STATE_TYPE is (INIT, EASY, MEDIUM, HARD, CRAZY_HARD, WTF);
+	type STATE_TYPE is (INIT, EASY, MEDIUM, HARD, CRAZY_HARD, WTF, END_GAME);
 	signal state, next_state 	: STATE_TYPE;
 
 	signal clk_1Hz 			: std_logic;
@@ -41,12 +42,16 @@ architecture BHV of CR_game_logic is
 	signal clk_4Hz 			: std_logic;
 	signal clk_8Hz 			: std_logic;
 	signal clk_10Hz 		: std_logic;
+	signal clk_16Hz 		: std_logic;
 	signal player_loc_reg 	: std_logic_vector(14 downto 0);
 	signal obstacle_gen_reg	: std_logic_vector(14 downto 0);
 	signal lfsr_reg 		: std_logic_vector(15 downto 0);
 	signal obstacle_color 	: std_logic_vector(23 downto 0);
 	signal player_color 	: std_logic_vector(23 downto 0);
 	signal background_color : std_logic_vector(23 downto 0);
+	signal obstacle_color_n 	: std_logic_vector(23 downto 0);
+	signal player_color_n 	: std_logic_vector(23 downto 0);
+	signal background_color_n : std_logic_vector(23 downto 0);
 
 	signal obstacle_lane_0 	: std_logic_vector(9 downto 0);
 	signal obstacle_lane_1 	: std_logic_vector(9 downto 0);
@@ -83,6 +88,8 @@ architecture BHV of CR_game_logic is
 	signal game_timer 			: std_logic_vector(7 downto 0);
 	signal rst_game_timer		: std_logic;
 	signal game_clk 			: std_logic;
+	signal game_over_reg 		: std_logic;
+	signal game_over_reg_n 		: std_logic;
 
 begin
 
@@ -98,7 +105,7 @@ begin
 	U_OBSTACLE_GEN : entity work.obstacle_gen 
 		port map (
 			clk 				=> game_clk,
-			rst 				=> rst,
+			rst 				=> game_start,
 			lfsr_reg 			=> lfsr_reg,
 			obstacle_gen_reg 	=> obstacle_gen_reg
 		);
@@ -113,6 +120,8 @@ begin
             clk_out         => clk_1Hz,
             rst             => rst
         );
+
+    clk_1Hz_out <= clk_1Hz;
 
     U_CLK_DIV_2HZ  : entity work.clk_div
         generic map (
@@ -158,15 +167,43 @@ begin
             rst             => rst
         );
 
+    U_CLK_DIV_16HZ  : entity work.clk_div
+        generic map (
+            clk_in_freq     => 50000000, 
+            clk_out_freq    => 16
+        )
+        port map (
+            clk_in          => clk,
+            clk_out         => clk_16Hz,
+            rst             => rst
+        );
+
+    game_over <= game_over_reg;
+
     ---------------------------------------------------------------------------- move player
-	process (clk_25MHz, rst)
+	process (clk_25MHz, game_start)
 	begin
-		if (rst = '1') then
+		if (game_start = '1') then
+			game_over_reg <= '0';
 			player_loc_reg <= "000000010000000";
+			background_color <= "00000000" & "00000000" & "00000000";
+			obstacle_color <= "00000000" & "11111111" & "11111111";
+			player_color <= "11111111" & "11111111" & "00000000";
 			state <= INIT;
 		elsif (rising_edge(clk_25MHz)) then
+			game_over_reg <= game_over_reg_n;
+			--if (game_start = '1') then
+			--	background_color <= "00000000" & "00000000" & "00000000";
+			--	obstacle_color <= "00000000" & "11111111" & "11111111";
+			--	player_color <= "11111111" & "11111111" & "00000000";
+			--	game_over_reg <= '0';
+			--	player_loc_reg <= "000000010000000";
+			--	state <= INIT;
+			--end if;
 			if (game_on = '1') then
-				if (left_button_pressed = '1') then
+				if (game_over_reg = '1') then
+					player_loc_reg <= std_logic_vector(shift_right(unsigned(player_loc_reg), 1));
+				elsif (left_button_pressed = '1') then
 					button_checked <= '1';
 					if (player_loc_reg(14) = '0') then
 						player_loc_reg <= std_logic_vector(shift_left(unsigned(player_loc_reg), 1));
@@ -180,7 +217,14 @@ begin
 					button_checked <= '0';
 				end if;
 
+				background_color <= background_color_n;
+				obstacle_color <= obstacle_color_n;
+				player_color <= player_color_n;
 				state <= next_state;
+			else
+				game_over_reg <= '0';
+				player_loc_reg <= "000000010000000";
+				state <= INIT;
 			end if;
 		end if;
 	end process;
@@ -194,77 +238,10 @@ begin
 		end if;
 	end process;
 
-	process (state, game_timer, clk_1Hz, clk_2Hz, clk_4Hz, clk_8Hz, clk_10Hz)
+		---------------------------------------------------------------------------- shift obstacles
+	process (game_clk, game_start)
 	begin
-
-		game_clk <= clk_1Hz;
-		rst_game_timer <= '0';
-		background_color <= "00000000" & "00000000" & "00000000";
-		obstacle_color <= "00000000" & "11111111" & "11111111";
-		player_color <= "11111111" & "11111111" & "00000000";
-
-		next_state <= state;
-
-		case state is
-			when INIT =>
-				rst_game_timer <= '1';
-				next_state <= EASY;
-
-			when EASY =>
-				game_clk <= clk_1Hz;
-
-				if (unsigned(game_timer) = 10) then
-					--rst_game_timer <= '1';
-					next_state <= MEDIUM;
-				end if;
-
-			when MEDIUM =>
-				game_clk <= clk_2Hz;
-				background_color <= "00000000" & "00000000" & "11111111";
-				obstacle_color <= "11111111" & "11111111" & "00000000";
-				player_color <= "00000000" & "11111111" & "00000000";
-
-				if (unsigned(game_timer) = 20) then
-					--rst_game_timer <= '1';
-					next_state <= HARD;
-				end if;
-
-			when HARD =>
-				game_clk <= clk_4Hz;
-				background_color <= "00000000" & "11111111" & "00000000";
-				obstacle_color <= "00000000" & "11111111" & "11111111";
-				player_color <= "11111111" & "00000000" & "00000000";
-
-				if (unsigned(game_timer) = 30) then
-					--rst_game_timer <= '1';
-					next_state <= CRAZY_HARD;
-				end if;
-
-			when CRAZY_HARD =>
-				game_clk <= clk_8Hz;
-				background_color <= "11111111" & "00000000" & "00000000";
-				obstacle_color <= "00000000" & "11111111" & "00000000";
-				player_color <= "00000000" & "00000000" & "11111111";
-
-				if (unsigned(game_timer) = 40) then
-					--rst_game_timer <= '1';
-					next_state <= WTF;
-				end if;
-
-			when WTF =>
-				game_clk <= clk_10Hz;
-				background_color <= "11111111" & "11111111" & "11111111";
-				obstacle_color <= "11110000" & "00001111" & "01111000";
-				player_color <= "00000000" & "00000000" & "00000000";
-
-			when others => null;
-		end case;
-	end process;
-
-	---------------------------------------------------------------------------- shift obstacles
-	process (game_clk, rst)
-	begin
-		if (rst = '1') then
+		if (game_start = '1') then
 			obstacle_lane_0 <= (others => '0');
 			obstacle_lane_1 <= (others => '0');
 			obstacle_lane_2 <= (others => '0');
@@ -281,27 +258,147 @@ begin
 			obstacle_lane_13 <= (others => '0');
 			obstacle_lane_14 <= (others => '0');
 		elsif (rising_edge(game_clk)) then
-			obstacle_lane_0 <= obstacle_lane_0(8 downto 0) & obstacle_gen_reg(0);
-			obstacle_lane_1 <= obstacle_lane_1(8 downto 0) & obstacle_gen_reg(1);
-			obstacle_lane_2 <= obstacle_lane_2(8 downto 0) & obstacle_gen_reg(2);
-			obstacle_lane_3 <= obstacle_lane_3(8 downto 0) & obstacle_gen_reg(3);
-			obstacle_lane_4 <= obstacle_lane_4(8 downto 0) & obstacle_gen_reg(4);
-			obstacle_lane_5 <= obstacle_lane_5(8 downto 0) & obstacle_gen_reg(5);
-			obstacle_lane_6 <= obstacle_lane_6(8 downto 0) & obstacle_gen_reg(6);
-			obstacle_lane_7 <= obstacle_lane_7(8 downto 0) & obstacle_gen_reg(7);
-			obstacle_lane_8 <= obstacle_lane_8(8 downto 0) & obstacle_gen_reg(8);
-			obstacle_lane_9 <= obstacle_lane_9(8 downto 0) & obstacle_gen_reg(9);
-			obstacle_lane_10 <= obstacle_lane_10(8 downto 0) & obstacle_gen_reg(10);
-			obstacle_lane_11 <= obstacle_lane_11(8 downto 0) & obstacle_gen_reg(11);
-			obstacle_lane_12 <= obstacle_lane_12(8 downto 0) & obstacle_gen_reg(12);
-			obstacle_lane_13 <= obstacle_lane_13(8 downto 0) & obstacle_gen_reg(13);
-			obstacle_lane_14 <= obstacle_lane_14(8 downto 0) & obstacle_gen_reg(14);
+			if (game_on = '1') then
+				if (game_over_reg = '1') then
+					obstacle_lane_0  <= obstacle_lane_1;
+					obstacle_lane_1  <= obstacle_lane_2;
+					obstacle_lane_2  <= obstacle_lane_3;
+					obstacle_lane_3  <= obstacle_lane_4;
+					obstacle_lane_4  <= obstacle_lane_5;
+					obstacle_lane_5  <= obstacle_lane_6;
+					obstacle_lane_6  <= obstacle_lane_7;
+					obstacle_lane_7  <= obstacle_lane_8;
+					obstacle_lane_8  <= obstacle_lane_9;
+					obstacle_lane_9  <= obstacle_lane_10;
+					obstacle_lane_10 <= obstacle_lane_11;
+					obstacle_lane_11 <= obstacle_lane_12;
+					obstacle_lane_12 <= obstacle_lane_13;
+					obstacle_lane_13 <= obstacle_lane_14;
+					obstacle_lane_14 <= (others => '0');
+				else
+					obstacle_lane_0 <= obstacle_lane_0(8 downto 0) & obstacle_gen_reg(0);
+					obstacle_lane_1 <= obstacle_lane_1(8 downto 0) & obstacle_gen_reg(1);
+					obstacle_lane_2 <= obstacle_lane_2(8 downto 0) & obstacle_gen_reg(2);
+					obstacle_lane_3 <= obstacle_lane_3(8 downto 0) & obstacle_gen_reg(3);
+					obstacle_lane_4 <= obstacle_lane_4(8 downto 0) & obstacle_gen_reg(4);
+					obstacle_lane_5 <= obstacle_lane_5(8 downto 0) & obstacle_gen_reg(5);
+					obstacle_lane_6 <= obstacle_lane_6(8 downto 0) & obstacle_gen_reg(6);
+					obstacle_lane_7 <= obstacle_lane_7(8 downto 0) & obstacle_gen_reg(7);
+					obstacle_lane_8 <= obstacle_lane_8(8 downto 0) & obstacle_gen_reg(8);
+					obstacle_lane_9 <= obstacle_lane_9(8 downto 0) & obstacle_gen_reg(9);
+					obstacle_lane_10 <= obstacle_lane_10(8 downto 0) & obstacle_gen_reg(10);
+					obstacle_lane_11 <= obstacle_lane_11(8 downto 0) & obstacle_gen_reg(11);
+					obstacle_lane_12 <= obstacle_lane_12(8 downto 0) & obstacle_gen_reg(12);
+					obstacle_lane_13 <= obstacle_lane_13(8 downto 0) & obstacle_gen_reg(13);
+					obstacle_lane_14 <= obstacle_lane_14(8 downto 0) & obstacle_gen_reg(14);
+				end if;
+			else
+				obstacle_lane_0 <= (others => '0');
+				obstacle_lane_1 <= (others => '0');
+				obstacle_lane_2 <= (others => '0');
+				obstacle_lane_3 <= (others => '0');
+				obstacle_lane_4 <= (others => '0');
+				obstacle_lane_5 <= (others => '0');
+				obstacle_lane_6 <= (others => '0');
+				obstacle_lane_7 <= (others => '0');
+				obstacle_lane_8 <= (others => '0');
+				obstacle_lane_9 <= (others => '0');
+				obstacle_lane_10 <= (others => '0');
+				obstacle_lane_11 <= (others => '0');
+				obstacle_lane_12 <= (others => '0');
+				obstacle_lane_13 <= (others => '0');
+				obstacle_lane_14 <= (others => '0');				
+			end if;
 		end if;
 	end process;
 
+	---------------------------------------------------------------------------- CHANGE DIFFICULTY
+	process (state, game_timer, background_color, obstacle_color, player_color, game_over_reg, player_loc_reg, obstacle_lane_0, obstacle_lane_1, obstacle_lane_2, obstacle_lane_3, obstacle_lane_4, obstacle_lane_5, obstacle_lane_6, obstacle_lane_7, obstacle_lane_8, obstacle_lane_9, obstacle_lane_10, obstacle_lane_11, obstacle_lane_12, obstacle_lane_13, obstacle_lane_14, clk_2Hz, clk_4Hz, clk_8Hz, clk_10Hz, clk_16Hz)
+	begin
 
-	game_over <= ((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9)));
+		game_clk <= clk_2Hz;
+		rst_game_timer <= '0';
+		--background_color <= "00000000" & "00000000" & "00000000";
+		--obstacle_color <= "00000000" & "11111111" & "11111111";
+		--player_color <= "11111111" & "11111111" & "00000000";
+		background_color_n <= background_color;
+		obstacle_color_n <= obstacle_color;
+		player_color_n <= player_color;
 
+		game_over_reg_n <= game_over_reg;
+
+		next_state <= state;
+
+		case state is
+			when INIT =>
+				rst_game_timer <= '1';
+				next_state <= EASY;
+
+			when EASY =>
+				game_clk <= clk_2Hz;
+
+				if (((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9))) = '1') then
+					next_state <= END_GAME;
+				elsif (unsigned(game_timer) = 10) then
+					--rst_game_timer <= '1';
+					next_state <= MEDIUM;
+				end if;
+
+			when MEDIUM =>
+				game_clk <= clk_4Hz;
+				background_color_n <= "00000000" & "00000000" & "11111111";
+				obstacle_color_n <= "11111111" & "11111111" & "00000000";
+				player_color_n <= "00000000" & "11111111" & "00000000";
+
+				if (((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9))) = '1') then
+					next_state <= END_GAME;
+				elsif (unsigned(game_timer) = 20) then
+					--rst_game_timer <= '1';
+					next_state <= HARD;
+				end if;
+
+			when HARD =>
+				game_clk <= clk_8Hz;
+				background_color_n <= "00000000" & "11111111" & "00000000";
+				obstacle_color_n <= "00000000" & "11111111" & "11111111";
+				player_color_n <= "11111111" & "00000000" & "00000000";
+
+				if (((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9))) = '1') then
+					next_state <= END_GAME;
+				elsif (unsigned(game_timer) = 30) then
+					--rst_game_timer <= '1';
+					next_state <= CRAZY_HARD;
+				end if;
+
+			when CRAZY_HARD =>
+				game_clk <= clk_10Hz;
+				background_color_n <= "11111111" & "00000000" & "00000000";
+				obstacle_color_n <= "00000000" & "11111111" & "00000000";
+				player_color_n <= "00000000" & "00000000" & "11111111";
+
+				if (((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9))) = '1') then
+					next_state <= END_GAME;
+				elsif (unsigned(game_timer) = 40) then
+					--rst_game_timer <= '1';
+					next_state <= WTF;
+				end if;
+
+			when WTF =>
+				game_clk <= clk_16Hz;
+				background_color_n <= "11111111" & "11111111" & "11111111";
+				obstacle_color_n <= "11110000" & "00001111" & "01111000";
+				player_color_n <= "00000000" & "00000000" & "00000000";
+
+				if (((player_loc_reg(0) and obstacle_lane_0(9)) or (player_loc_reg(1) and obstacle_lane_1(9)) or (player_loc_reg(2) and obstacle_lane_2(9)) or (player_loc_reg(3) and obstacle_lane_3(9)) or (player_loc_reg(4) and obstacle_lane_4(9)) or (player_loc_reg(5) and obstacle_lane_5(9)) or (player_loc_reg(6) and obstacle_lane_6(9)) or (player_loc_reg(7) and obstacle_lane_7(9)) or (player_loc_reg(8) and obstacle_lane_8(9)) or (player_loc_reg(9) and obstacle_lane_9(9)) or (player_loc_reg(10) and obstacle_lane_10(9)) or (player_loc_reg(11) and obstacle_lane_11(9)) or (player_loc_reg(12) and obstacle_lane_12(9)) or (player_loc_reg(13) and obstacle_lane_13(9)) or (player_loc_reg(14) and obstacle_lane_14(9))) = '1') then
+					next_state <= END_GAME;
+				end if;
+
+			when END_GAME =>
+				game_over_reg_n <= '1';
+
+			when others => null;
+		end case;
+	end process;
 
 	process (player_loc_reg, obstacle_gen_reg, background_color, obstacle_color, player_color, hcount, vcount, obstacle_lane_0, obstacle_lane_1, obstacle_lane_2, obstacle_lane_3, obstacle_lane_4, obstacle_lane_5, obstacle_lane_6, obstacle_lane_7, obstacle_lane_8, obstacle_lane_9, obstacle_lane_10, obstacle_lane_11, obstacle_lane_12, obstacle_lane_13, obstacle_lane_14)
 	begin

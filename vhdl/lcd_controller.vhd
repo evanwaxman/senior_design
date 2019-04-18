@@ -39,12 +39,13 @@ end lcd_controller;
 
 architecture BHV of lcd_controller is
     
-    type STATE_TYPE is (INIT, WRITE_STARTUP_SCREEN, DISPLAY_STARTUP_SCREEN_RG, DISPLAY_STARTUP_SCREEN_B, WRITE_MAIN_MENU, DISPLAY_MAIN_MENU_RG, DISPLAY_MAIN_MENU_B, CUBE_RUNNER_RG, CUBE_RUNNER_B, WRITE_DOODLE_BAR, IDLE, READ_SRAM_RG, READ_SRAM_B, CLEAR_CHAR_RAM);
+    type STATE_TYPE is (INIT, WRITE_STARTUP_SCREEN, DISPLAY_STARTUP_SCREEN_RG, DISPLAY_STARTUP_SCREEN_B, WRITE_MAIN_MENU, DISPLAY_MAIN_MENU_RG, DISPLAY_MAIN_MENU_B, CUBE_RUNNER_RG, CUBE_RUNNER_B, WRITE_GAME_OVER, DISPLAY_GAME_OVER_RG, DISPLAY_GAME_OVER_B, WRITE_DOODLE_BAR, IDLE, READ_SRAM_RG, READ_SRAM_B, CLEAR_CHAR_RAM);
     type WORD is array(20 downto 0) of std_logic_vector(7 downto 0);
 
     signal doodle_boy_word                                  : WORD;
     signal doodling_word                                    : WORD;
     signal gaming_word                                      : WORD;
+    signal game_over_word                                   : WORD;
     signal brush_size_word                                  : WORD;
     signal state, next_state, saved_state, saved_state_n    : STATE_TYPE;
 
@@ -71,8 +72,8 @@ architecture BHV of lcd_controller is
     signal left_button_pressed, left_button_pressed_n       : std_logic;
     signal a_button_pressed, a_button_pressed_n             : std_logic;
     signal b_button_pressed, b_button_pressed_n             : std_logic;
-    signal timer                                            : std_logic_vector(2 downto 0);
-    signal timer_rst                                        : std_logic;
+    signal button_timer                                     : std_logic_vector(2 downto 0);
+    signal button_timer_rst                                 : std_logic;
 
     signal game_red, game_green, game_blue                  : std_logic_vector(COLOR_WIDTH-1 downto 0);
     signal game_start                                       : std_logic;
@@ -80,6 +81,9 @@ architecture BHV of lcd_controller is
     signal game_on                                          : std_logic;
     signal button_checked                                   : std_logic;
     signal random_seed                                      : std_logic_vector(15 downto 0);
+    signal timer_1s                                         : std_logic_vector(4 downto 0);
+    signal timer_1s_rst                                     : std_logic;
+    signal clk_1Hz                                          : std_logic;
 
 begin
 
@@ -109,7 +113,7 @@ begin
         port map (
             clk_in          => clk,
             clk_out         => clk_10Hz,
-            rst             => timer_rst
+            rst             => button_timer_rst
         );
 
     U_CR_GAME_LOGIC : entity work.CR_game_logic
@@ -119,6 +123,7 @@ begin
     port map(
         clk                     => clk,
         clk_25MHz               => clk_25MHz,
+        clk_1Hz_out             => clk_1Hz,
         rst                     => rst,
         hcount                  => hcount,
         vcount                  => vcount,
@@ -155,7 +160,7 @@ begin
             font_row_hold <= (others => '0');
             x_cntr <= (others => '0');
             y_cntr <= (others => '0');
-            timer_rst <= '1';
+            button_timer_rst <= '1';
             up_button_pressed <= '0';
             down_button_pressed <= '0';
             right_button_pressed <= '0';
@@ -185,8 +190,8 @@ begin
             x_cntr <= x_cntr_n;
             y_cntr <= y_cntr_n;
 
-            if (unsigned(timer) = 2) then
-                timer_rst <= '1';
+            if (unsigned(button_timer) = 2) then
+                button_timer_rst <= '1';
 
                 if (right_button = '0') then
                     right_button_pressed <= '1';
@@ -218,7 +223,7 @@ begin
                 left_button_pressed <= left_button_pressed_n;
                 a_button_pressed <= a_button_pressed_n;
                 b_button_pressed <= b_button_pressed_n;
-                timer_rst <= '0';
+                button_timer_rst <= '0';
             end if;
 
             saved_state <= saved_state_n;
@@ -228,15 +233,27 @@ begin
 
     pixel_color <= blue & green & red;
 
-    process (clk_10Hz, timer_rst)
+    ---------------------------------------------------------------------------- BUTTON TIMER
+    process (clk_10Hz, button_timer_rst)
     begin
-        if (timer_rst = '1') then
-            timer <= (others => '0');
+        if (button_timer_rst = '1') then
+            button_timer <= (others => '0');
         elsif (rising_edge(clk_10Hz)) then
-            timer <= std_logic_vector(unsigned(timer) + 1);
+            button_timer <= std_logic_vector(unsigned(button_timer) + 1);
         end if;
     end process;
 
+    ---------------------------------------------------------------------------- 1s TIMER
+    process (clk_1Hz, timer_1s_rst)
+    begin
+        if (timer_1s_rst = '1') then
+            timer_1s <= (others => '0');
+        elsif (rising_edge(clk_1Hz)) then
+            timer_1s <= std_logic_vector(unsigned(timer_1s) + 1);
+        end if;
+    end process;
+
+    ---------------------------------------------------------------------------- RANDOM SEED GEN
     process (clk, rst)
     begin
         if (rst = '1') then
@@ -249,9 +266,10 @@ begin
     doodle_boy_word(9 downto 0) <= (0 => D, 1 => O, 2 => O, 3 => D, 4 => L, 5 => E, 6 => SPACE, 7 => B, 8 => O, 9 => Y);
     doodling_word(7 downto 0) <= (0 => D, 1 => o_l, 2 => o_l, 3 => d_l, 4 => l_l, 5 => i_l, 6 => n_l, 7 => g_l);
     gaming_word(5 downto 0) <= (0 => G, 1 => a_l, 2 => m_l, 3 => i_l, 4 => n_l, 5 => g_l);
+    game_over_word(8 downto 0) <= (0 => G, 1 => A, 2 => M, 3 => E, 4 => SPACE, 5 => O, 6 => V, 7 => E, 8 => R);
     brush_size_word(9 downto 0) <= (0 => B, 1 => r_l, 2 => u_l, 3 => s_l, 4 => h_l, 5 => SPACE, 6 => S, 7 => i_l, 8 => z_l, 9 => e_l);
 
-    process(state, saved_state, game_over, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodle_boy_word, doodling_word, brush_size_word, gaming_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
+    process(state, saved_state, game_over, timer_1s, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodle_boy_word, doodling_word, brush_size_word, gaming_word, game_over_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
     begin
         red_n <= red;
         green_n <= green;
@@ -276,6 +294,8 @@ begin
         left_button_pressed_n <= left_button_pressed;
         a_button_pressed_n <= a_button_pressed;
         b_button_pressed_n <= b_button_pressed;
+
+        timer_1s_rst <= '0';
 
         saved_state_n <= saved_state;
         next_state <= state;
@@ -493,7 +513,8 @@ begin
                 end if;
 
                 if (game_over = '1') then
-                    next_state <= WRITE_MAIN_MENU;
+                    timer_1s_rst <= '1';
+                    next_state <= WRITE_GAME_OVER;
                 else
                     next_state <= CUBE_RUNNER_B;
                 end if;
@@ -512,9 +533,63 @@ begin
                 end if;
 
                 if (game_over = '1') then
-                    next_state <= WRITE_MAIN_MENU;
+                    next_state <= WRITE_GAME_OVER;
                 else
                     next_state <= CUBE_RUNNER_RG;
+                end if;
+
+            when WRITE_GAME_OVER =>
+                game_on <= '1';
+                if (misc_cntr < 9) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 44, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(15, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= game_over_word(to_integer(misc_cntr));
+                    misc_cntr_n <= misc_cntr + 1;
+                else
+                    timer_1s_rst <= '1';
+                    misc_cntr_n <= (others => '0');
+                    next_state <= DISPLAY_GAME_OVER_RG;
+                end if;                
+
+            when DISPLAY_GAME_OVER_RG =>
+                game_on <= '1';
+
+                if (hcount(2 downto 0) = "111") then
+                    font_row_hold_n <= font_row;
+                else
+                    font_row_hold_n <= std_logic_vector(shift_left(unsigned(font_row_hold), 1));
+                end if;
+
+                if (font_row_hold(7) = '1') then
+                    red_n <= (others => font_row_hold(7));
+                    green_n <= (others => font_row_hold(7));
+                else
+                    red_n <= game_red;
+                    green_n <= game_green;
+                end if;
+
+                if (unsigned(timer_1s) = 9) then
+                    saved_state_n <= WRITE_MAIN_MENU;
+                    next_state <= CLEAR_CHAR_RAM;
+                else
+                    next_state <= DISPLAY_GAME_OVER_B;
+                end if;
+
+            when DISPLAY_GAME_OVER_B =>
+                game_on <= '1';
+
+                if (font_row_hold(7) = '1') then
+                    blue_n <= (others => font_row_hold(7));
+                else
+                    blue_n <= game_blue;
+                end if;
+
+                if (unsigned(timer_1s) = 9) then
+                    saved_state_n <= WRITE_MAIN_MENU;
+                    next_state <= CLEAR_CHAR_RAM;
+                else
+                    next_state <= DISPLAY_GAME_OVER_RG;
                 end if;
 
 -------------------------------------------------------------------------------- DOODLING

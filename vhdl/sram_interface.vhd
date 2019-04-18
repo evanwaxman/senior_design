@@ -22,6 +22,7 @@ entity sram_interface is
         lcd_addr 		: in 		std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
         lcd_status 		: in 		std_logic;
         brush_width     : in 		std_logic_vector(OFFSET_WIDTH downto 0);
+        erase_screen 	: in 		std_logic;
         curr_color 		: out 		std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
         --write_fifo_full : out 		std_logic;
 
@@ -89,6 +90,7 @@ begin
 		port map (
 			clk 			=> clk,
 			rst 			=> rst,
+			erase_screen 	=> erase_screen,
 			spi_addr		=> spi_addr,
 			spi_data		=> spi_data,
 			spi_fifo_re 	=> spi_fifo_re,

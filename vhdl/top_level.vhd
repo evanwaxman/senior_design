@@ -6,7 +6,7 @@ use work.LCD_LIB.all;
 entity top_level is
     generic(
         COLOR_WIDTH     : positive := 8;
-        OFFSET_WIDTH    : positive := 4;
+        OFFSET_WIDTH    : positive := 3;
         SRAM_DATA_WIDTH : positive := 16;
         SRAM_ADDR_WIDTH : positive := 20
     );
@@ -36,7 +36,8 @@ entity top_level is
         den             : out   std_logic;
         pixel_clock     : out   std_logic;
         on_off          : out   std_logic;
-        brush_size      : in    std_logic_vector(3 downto 0);
+        brush_size      : in    std_logic_vector(2 downto 0);
+        erase_screen    : in    std_logic;
         up_button       : in    std_logic;
         down_button     : in    std_logic;
         right_button    : in    std_logic;
@@ -83,7 +84,7 @@ begin
 
     pll_locked_out <= not pll_locked;
 
-    brush_width <= '0' & brush_size(3 downto 0);
+    brush_width <= '0' & brush_size(2 downto 0);
 
     U_LCD_INTERFACE : entity work.lcd_interface
         generic map (
@@ -131,7 +132,8 @@ begin
             sram_ready          => sram_ready,  
             lcd_addr            => lcd_addr,
             lcd_status          => lcd_status,
-            brush_width          => std_logic_vector(shift_left(unsigned(brush_width), 1)),
+            brush_width         => std_logic_vector(shift_left(unsigned(brush_width), 1)),
+            erase_screen        => erase_screen,
             curr_color          => curr_color,
             --write_fifo_full     => open,
             sram_read_data      => sram_read_data,

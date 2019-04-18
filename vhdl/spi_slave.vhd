@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity spi_slave is
 	generic(
 		COLOR_WIDTH     	: positive := 8;
-		OFFSET_WIDTH 	 	: positive 	:= 4;
+		OFFSET_WIDTH 	 	: positive 	:= 3;
 		ADDRESS_WIDTH 		: positive 	:= 20
 	);
 	port(

@@ -12,6 +12,8 @@ entity sram_controller is
 		clk 			: in 		std_logic;
 		rst 			: in 		std_logic;
 
+		erase_screen 	: in 		std_logic;
+
 		-- spi i/o
 		spi_addr 		: in 		std_logic_vector(19 downto 0);
 		spi_data 		: in 		std_logic_vector(15 downto 0);
@@ -105,7 +107,7 @@ begin
 	-- for testing without fifo
 	--spi_fifo_re <= '0';
 	----------------------------------------------------------------------------
-	process(state, lcd_status, lcd_addr, spi_fifo_empty, spi_addr, spi_data, cntr)
+	process(state, erase_screen, lcd_status, lcd_addr, spi_fifo_empty, spi_addr, spi_data, cntr)
 	begin
 		next_state <= state;
 
@@ -263,14 +265,15 @@ begin
 				end if;
 
 			when READ_SRAM =>
+				if (lcd_status = '0') then
+					next_state <= WRITE_SRAM;
+				end if;
+
 				sram_read_en_n <= '1';
 				sram_addr_n <= lcd_addr;
 				sram_ce_n <= '0';
 				sram_oe_n <= '0';
 				sram_we_n <= '1';
-				if (lcd_status = '0') then
-					next_state <= WRITE_SRAM;
-				end if;
 
 			when others => null;
 		end case;
