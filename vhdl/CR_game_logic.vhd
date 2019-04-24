@@ -394,6 +394,7 @@ begin
 				end if;
 
 			when END_GAME =>
+				game_clk <= clk_4Hz;
 				game_over_reg_n <= '1';
 
 			when others => null;
