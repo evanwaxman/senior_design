@@ -33,20 +33,31 @@ entity lcd_controller is
         -- sram signals
         lcd_addr            : out   std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
         sram_read_data      : in    std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
-        lcd_status          : out   std_logic
+        lcd_status          : out   std_logic;
+        sound_mode          : out   std_logic_vector(3 downto 0)
     );
 end lcd_controller;
 
 architecture BHV of lcd_controller is
     
-    type STATE_TYPE is (INIT, WRITE_STARTUP_SCREEN, DISPLAY_STARTUP_SCREEN_RG, DISPLAY_STARTUP_SCREEN_B, WRITE_MAIN_MENU, DISPLAY_MAIN_MENU_RG, DISPLAY_MAIN_MENU_B, CUBE_RUNNER_RG, CUBE_RUNNER_B, WRITE_GAME_OVER, DISPLAY_GAME_OVER_RG, DISPLAY_GAME_OVER_B, WRITE_DOODLE_BAR, IDLE, READ_SRAM_RG, READ_SRAM_B, CLEAR_CHAR_RAM);
+    type STATE_TYPE is (INIT, WRITE_STARTUP_SCREEN, DISPLAY_STARTUP_SCREEN_RG, DISPLAY_STARTUP_SCREEN_B, WRITE_MAIN_MENU, DISPLAY_MAIN_MENU_RG, DISPLAY_MAIN_MENU_B, WRITE_HELP_MENU, DISPLAY_HELP_MENU_RG, DISPLAY_HELP_MENU_B, WRITE_GAME_BAR, CUBE_RUNNER_RG, CUBE_RUNNER_B, WRITE_GAME_OVER, DISPLAY_GAME_OVER_RG, DISPLAY_GAME_OVER_B, WRITE_DOODLE_BAR, IDLE, READ_SRAM_RG, READ_SRAM_B, CLEAR_CHAR_RAM);
     type WORD is array(20 downto 0) of std_logic_vector(7 downto 0);
 
     signal doodle_boy_word                                  : WORD;
     signal doodling_word                                    : WORD;
     signal gaming_word                                      : WORD;
+    signal score_word                                       : WORD;
+    signal score_num                                        : WORD;
     signal game_over_word                                   : WORD;
     signal brush_size_word                                  : WORD;
+    signal left_word                                        : WORD;
+    signal right_word                                       : WORD;
+    signal menu_word                                        : WORD;
+    signal help_word                                        : WORD;
+    signal brush_word                                       : WORD;
+    signal color_word                                       : WORD;
+    signal select_word                                      : WORD;
+    signal erase_word                                       : WORD;
     signal state, next_state, saved_state, saved_state_n    : STATE_TYPE;
 
     signal red, red_n                                       : std_logic_vector(COLOR_WIDTH-1 downto 0);
@@ -61,6 +72,7 @@ architecture BHV of lcd_controller is
     signal char_ram_we, char_ram_we_n                       : std_logic;
     signal font_row                                         : std_logic_vector(7 downto 0);
     signal misc_cntr, misc_cntr_n                           : unsigned(7 downto 0);
+    signal letter_cntr, letter_cntr_n                       : unsigned(7 downto 0);
     signal x_cntr, x_cntr_n                                 : unsigned(6 downto 0);
     signal y_cntr, y_cntr_n                                 : unsigned(5 downto 0);
     signal font_addr                                        : std_logic_vector(10 downto 0);
@@ -93,6 +105,8 @@ architecture BHV of lcd_controller is
 
     signal left_option, left_option_n                       : std_logic;
     signal right_option, right_option_n                     : std_logic;
+    signal sound_mode_n                                     : std_logic_vector(3 downto 0);
+    signal game_sound                                       : std_logic_vector(3 downto 0);
 
 begin
 
@@ -170,7 +184,8 @@ begin
         game_red                => game_red,
         game_green              => game_green,
         game_blue               => game_blue,
-        button_checked          => button_checked
+        button_checked          => button_checked,
+        game_sound              => game_sound
     );
 
     lcd_status <= video_on;
@@ -187,6 +202,7 @@ begin
             char_cntr_x <= (others => '0');
             char_cntr_y <= (others => '0');
             misc_cntr <= (others => '0');
+            letter_cntr <= (others => '0');
             font_row_hold <= (others => '0');
             x_cntr <= (others => '0');
             y_cntr <= (others => '0');
@@ -204,6 +220,8 @@ begin
 
             left_option <= '0';
             right_option <= '0';
+
+            sound_mode <= (others => '0');
 
             saved_state <= INIT;
             state <= INIT;
@@ -224,6 +242,7 @@ begin
             end if;
 
             misc_cntr <= misc_cntr_n;
+            letter_cntr <= letter_cntr_n;
             font_row_hold <= font_row_hold_n;
             x_cntr <= x_cntr_n;
             y_cntr <= y_cntr_n;
@@ -243,6 +262,8 @@ begin
                     a_button_pressed <= '1';
                 elsif (b_button = '0') then
                     b_button_pressed <= '1';
+                else
+                    up_button_pressed <= '0';
                 end if;
             else
                 up_button_pressed <= up_button_pressed_n;
@@ -259,6 +280,8 @@ begin
             doodle_boy_rom_addr <= doodle_boy_rom_addr_n;
             left_option <= left_option_n;
             right_option <= right_option_n;
+
+            sound_mode <= sound_mode_n;
 
             saved_state <= saved_state_n;
             state <= next_state;
@@ -300,10 +323,19 @@ begin
     --doodle_boy_word(9 downto 0) <= (0 => D, 1 => O, 2 => O, 3 => D, 4 => L, 5 => E, 6 => SPACE, 7 => B, 8 => O, 9 => Y);
     doodling_word(7 downto 0) <= (0 => D, 1 => o_l, 2 => o_l, 3 => d_l, 4 => l_l, 5 => i_l, 6 => n_l, 7 => g_l);
     gaming_word(5 downto 0) <= (0 => G, 1 => a_l, 2 => m_l, 3 => i_l, 4 => n_l, 5 => g_l);
+    score_word(6 downto 0) <= (0 => S, 1 => c_l, 2 => o_l, 3 => r_l, 4 => e_l, 5 => COLON, 6 => SPACE);
     game_over_word(8 downto 0) <= (0 => G, 1 => A, 2 => M, 3 => E, 4 => SPACE, 5 => O, 6 => V, 7 => E, 8 => R);
     brush_size_word(9 downto 0) <= (0 => B, 1 => r_l, 2 => u_l, 3 => s_l, 4 => h_l, 5 => SPACE, 6 => S, 7 => i_l, 8 => z_l, 9 => e_l);
+    left_word(3 downto 0) <= (0 => L, 1 => e_l, 2 => f_l, 3 => t_l);
+    right_word(4 downto 0) <= (0 => R, 1 => i_l, 2 => g_l, 3 => h_l, 4 => t_l);
+    menu_word(3 downto 0) <= (0 => M, 1 => e_l, 2 => n_l, 3 => u_l);
+    help_word(3 downto 0) <= (0 => H, 1 => e_l, 2 => l_l, 3 => p_l);
+    brush_word(4 downto 0) <= (0 => B, 1 => r_l, 2 => u_l, 3 => s_l, 4 => h_l);
+    color_word(4 downto 0) <= (0 => C, 1 => o_l, 2 => l_l, 3 => o_l, 4 => r_l);
+    select_word(5 downto 0) <= (0 => S, 1 => e_l, 2 => l_l, 3 => e_l, 4 => c_l, 5 => t_l);
+    erase_word(4 downto 0) <= (0 => E, 1 => r_l, 2 => a_l, 3 => s_l, 4 => e_l);
 
-    process(state, saved_state, left_option, right_option, doodle_boy_logo_rom_out, pencil_logo_rom_out, game_logo_rom_out, doodle_boy_rom_addr, pencil_rom_addr, game_rom_addr, game_over, timer_1s, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, doodling_word, brush_size_word, gaming_word, game_over_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
+    process(state, saved_state, help_word, erase_word, left_word, right_word, brush_word, select_word, select_word, color_word, game_sound, letter_cntr, left_option, right_option, doodle_boy_logo_rom_out, pencil_logo_rom_out, game_logo_rom_out, doodle_boy_rom_addr, pencil_rom_addr, game_rom_addr, game_over, timer_1s, red, green, blue, video_on, pixel_location, sram_read_data, curr_color, hcount, vcount, brush_width, misc_cntr, score_word, doodling_word, brush_size_word, gaming_word, game_over_word, font_row, font_row_hold, x_cntr, y_cntr, up_button_pressed, down_button_pressed, right_button_pressed, left_button_pressed, a_button_pressed, b_button_pressed, game_red, game_green, game_blue, button_checked)
     begin
         red_n <= red;
         green_n <= green;
@@ -315,6 +347,7 @@ begin
         char_ram_we_n <= '0';
         char_ram_din_n <= (others => '0');
         misc_cntr_n <= misc_cntr;
+        letter_cntr_n <= letter_cntr;
         font_row_hold_n <= font_row_hold;
         x_cntr_n <= x_cntr;
         y_cntr_n <= y_cntr;
@@ -331,11 +364,6 @@ begin
 
         timer_1s_rst <= '0';
 
-        saved_state_n <= saved_state;
-        next_state <= state;
-
-
-
         pencil_rom_addr_n <= pencil_rom_addr;
         game_rom_addr_n <= game_rom_addr;
         doodle_boy_rom_addr_n <= doodle_boy_rom_addr;
@@ -343,59 +371,28 @@ begin
         left_option_n <= left_option;
         right_option_n <= right_option;
 
+        sound_mode_n <= "0000";
+
+        saved_state_n <= saved_state;
+        next_state <= state;
+
         case state is
             when INIT =>
+                sound_mode_n <= "0100";
                 misc_cntr_n <= (others => '0');
+                letter_cntr_n <= (others => '0');
                 pencil_rom_addr_n <= (others => '0');
                 game_rom_addr_n <= (others => '0');
                 doodle_boy_rom_addr_n <= (others => '0');
 
+                timer_1s_rst <= '1';
+
                 next_state <= DISPLAY_STARTUP_SCREEN_RG;
 
 -------------------------------------------------------------------------------- START UP SCREEN
-
-            --when WRITE_STARTUP_SCREEN =>
-            --    if (misc_cntr < 10) then
-            --        char_x_addr <= std_logic_vector(resize(misc_cntr + 44, 7));
-            --        char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(15, 6));
-            --        char_ram_we_n <= '1';
-            --        char_ram_din_n <= doodle_boy_word(to_integer(misc_cntr));
-            --        misc_cntr_n <= misc_cntr + 1;
-            --    else
-            --        misc_cntr_n <= (others => '0');
-            --        next_state <= DISPLAY_STARTUP_SCREEN_RG;
-            --    end if;
-
-            --when DISPLAY_STARTUP_SCREEN_RG =>
-            --    if (hcount(2 downto 0) = "111") then
-            --        font_row_hold_n <= font_row;
-            --    else
-            --        font_row_hold_n <= std_logic_vector(shift_left(unsigned(font_row_hold), 1));
-            --    end if;
-
-            --    red_n <= (others => font_row_hold(7));
-            --    green_n <= (others => font_row_hold(7));
-
-            --    if (a_button_pressed = '1') then
-            --        a_button_pressed_n <= '0';
-            --        saved_state_n <= WRITE_MAIN_MENU;
-            --        next_state <= CLEAR_CHAR_RAM;
-            --    else
-            --        next_state <= DISPLAY_STARTUP_SCREEN_B;
-            --    end if;
-
-            --when DISPLAY_STARTUP_SCREEN_B =>
-            --    blue_n <= (others => font_row_hold(7));
-
-            --    if (a_button_pressed = '1') then
-            --        a_button_pressed_n <= '0';
-            --        saved_state_n <= WRITE_MAIN_MENU;
-            --        next_state <= CLEAR_CHAR_RAM;
-            --    else
-            --        next_state <= DISPLAY_STARTUP_SCREEN_RG;
-            --    end if;
-
             when DISPLAY_STARTUP_SCREEN_RG =>
+                sound_mode_n <= "0100";
+
                 if (unsigned(hcount) > 238 and unsigned(hcount) <= 563 and unsigned(vcount) > 215 and unsigned(vcount) <= 265) then
                     red_n(7 downto 4) <= doodle_boy_logo_rom_out(11 downto 8);
                     red_n(3 downto 0) <= (others => '1');
@@ -406,7 +403,7 @@ begin
                     green_n <= (others => '1');
                 end if;
 
-                if (a_button_pressed = '1') then
+                if (unsigned(timer_1s) = 3) then
                     a_button_pressed_n <= '0';
                     next_state <= WRITE_MAIN_MENU;
                 else
@@ -415,6 +412,8 @@ begin
 
 
             when DISPLAY_STARTUP_SCREEN_B =>
+                sound_mode_n <= "0100";
+
                 if (unsigned(hcount) > 238 and unsigned(hcount) <= 563 and unsigned(vcount) > 215 and unsigned(vcount) <= 265) then
                     blue_n(7 downto 4) <= doodle_boy_logo_rom_out(3 downto 0);
                     blue_n(3 downto 0) <= (others => '1');
@@ -427,7 +426,7 @@ begin
                     doodle_boy_rom_addr_n <= (others => '0');
                 end if;
 
-                if (a_button_pressed = '1') then
+                if (unsigned(timer_1s) = 3) then
                     a_button_pressed_n <= '0';
                     next_state <= WRITE_MAIN_MENU;
                 else
@@ -435,7 +434,6 @@ begin
                 end if;
 
 -------------------------------------------------------------------------------- MAIN MENU
-
             when WRITE_MAIN_MENU =>
                 if (misc_cntr < 8) then
                     char_x_addr <= std_logic_vector(resize(misc_cntr + 24, 7));
@@ -449,6 +447,24 @@ begin
                     char_ram_we_n <= '1';
                     char_ram_din_n <= gaming_word(to_integer(misc_cntr-8));
                     misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 14 and misc_cntr < 15) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr - 14, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(0, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= LESS_THAN;
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 15 and misc_cntr < 17) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr - 14, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(0, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= DASH;
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 17 and misc_cntr < 21) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr - 13, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(0, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= help_word(to_integer(misc_cntr-17));
+                    misc_cntr_n <= misc_cntr + 1;                                                            
                 else
                     misc_cntr_n <= (others => '0');
                     pencil_rom_addr_n <= (others => '0');
@@ -485,10 +501,12 @@ begin
                     end if;
                 elsif (left_option = '1') then  -- draw left box
                     if (left_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         left_button_pressed_n <= '0';
                         left_option_n <= '1';
                         right_option_n <= '0';
                     elsif (right_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         right_button_pressed_n <= '0';
                         right_option_n <= '1';
                         left_option_n <= '0';
@@ -515,10 +533,12 @@ begin
                     end if;
                 elsif (right_option = '1') then   -- draw right box
                     if (left_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         left_button_pressed_n <= '0';
                         left_option_n <= '1';
                         right_option_n <= '0';
                     elsif (right_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         right_button_pressed_n <= '0';
                         right_option_n <= '1';
                         left_option_n <= '0';
@@ -545,10 +565,12 @@ begin
                     end if;
                 else
                     if (left_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         left_button_pressed_n <= '0';
                         left_option_n <= '1';
                         right_option_n <= '0';
                     elsif (right_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         right_button_pressed_n <= '0';
                         right_option_n <= '1';
                         left_option_n <= '0';
@@ -562,13 +584,20 @@ begin
 
 
                 if (a_button_pressed = '1' and left_option = '1') then
+                    sound_mode_n <= "1000";
                     a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_DOODLE_BAR;
                     next_state <= CLEAR_CHAR_RAM;
                 elsif (a_button_pressed = '1' and right_option = '1') then
+                    sound_mode_n <= "1000";
                     a_button_pressed_n <= '0';
                     game_start <= '1';
                     saved_state_n <= CUBE_RUNNER_RG;
+                    next_state <= CLEAR_CHAR_RAM;
+                elsif (up_button_pressed = '1') then
+                    pencil_rom_addr_n <= (others => '0');
+                    game_rom_addr_n <= (others => '0');
+                    saved_state_n <= WRITE_HELP_MENU;
                     next_state <= CLEAR_CHAR_RAM;
                 else
                     a_button_pressed_n <= '0';
@@ -576,7 +605,13 @@ begin
                 end if;
 
             when DISPLAY_MAIN_MENU_B => 
-                if (font_row_hold(7) = '1') then
+                if (up_button_pressed = '1') then
+                    sound_mode_n <= "1000";
+                    pencil_rom_addr_n <= (others => '0');
+                    game_rom_addr_n <= (others => '0');
+                    saved_state_n <= DISPLAY_MAIN_MENU_RG;
+                    next_state <= DISPLAY_HELP_MENU_RG;
+                elsif (font_row_hold(7) = '1') then
                     blue_n <= (others => '0');
 
                 elsif (unsigned(vcount) > 236 and unsigned(vcount) <= 300) then
@@ -598,10 +633,12 @@ begin
                     end if;
                 elsif (left_option = '1') then  -- draw left box
                     if (left_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         left_button_pressed_n <= '0';
                         left_option_n <= '1';
                         right_option_n <= '0';
                     elsif (right_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         right_button_pressed_n <= '0';
                         right_option_n <= '1';
                         left_option_n <= '0';
@@ -623,10 +660,12 @@ begin
                     end if;
                 elsif (right_option = '1') then   -- draw right box
                     if (left_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         left_button_pressed_n <= '0';
                         left_option_n <= '1';
                         right_option_n <= '0';
                     elsif (right_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         right_button_pressed_n <= '0';
                         right_option_n <= '1';
                         left_option_n <= '0';
@@ -648,10 +687,12 @@ begin
                     end if;
                 else
                     if (left_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         left_button_pressed_n <= '0';
                         left_option_n <= '1';
                         right_option_n <= '0';
                     elsif (right_button_pressed = '1') then
+                        sound_mode_n <= "1000";
                         right_button_pressed_n <= '0';
                         right_option_n <= '1';
                         left_option_n <= '0';
@@ -663,21 +704,233 @@ begin
                 end if;
 
                 if (a_button_pressed = '1' and left_option = '1') then
+                    sound_mode_n <= "1000";
                     a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_DOODLE_BAR;
                     next_state <= CLEAR_CHAR_RAM;
                 elsif (a_button_pressed = '1' and right_option = '1') then
+                    sound_mode_n <= "1000";
                     a_button_pressed_n <= '0';
                     game_start <= '1';
                     saved_state_n <= CUBE_RUNNER_RG;
+                    next_state <= CLEAR_CHAR_RAM;
+                elsif (up_button_pressed = '1') then
+                    pencil_rom_addr_n <= (others => '0');
+                    game_rom_addr_n <= (others => '0');
+                    saved_state_n <= WRITE_HELP_MENU;
                     next_state <= CLEAR_CHAR_RAM;
                 else
                     a_button_pressed_n <= '0';
                     next_state <= DISPLAY_MAIN_MENU_RG;
                 end if;
 
+-------------------------------------------------------------------------------- HELP MENU
+            when WRITE_HELP_MENU =>
+                if (misc_cntr < 8) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 18, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(1, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= doodling_word(to_integer(misc_cntr));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 8 and misc_cntr < 14) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 64, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(1, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= gaming_word(to_integer(misc_cntr-8));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 14 and misc_cntr < 19) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 4, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(5, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= erase_word(to_integer(misc_cntr-14));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 19 and misc_cntr < 23) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 52, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(10, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= left_word(to_integer(misc_cntr-19));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 23 and misc_cntr < 28) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 57, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(10, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= right_word(to_integer(misc_cntr-23));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 28 and misc_cntr < 33) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr - 5, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(20, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= brush_word(to_integer(misc_cntr-28));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 33 and misc_cntr < 39) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr + 47, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(20, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= select_word(to_integer(misc_cntr-33));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr >= 39 and misc_cntr < 44) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr - 24, 7));
+                    char_y_addr(9 downto 4) <= std_logic_vector(to_unsigned(25, 6));
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= color_word(to_integer(misc_cntr-39));
+                    misc_cntr_n <= misc_cntr + 1;
+                else
+                    misc_cntr_n <= (others => '0');
+                    pencil_rom_addr_n <= (others => '0');
+                    game_rom_addr_n <= (others => '0');
+                    next_state <= DISPLAY_HELP_MENU_RG;
+                end if;
+
+            when DISPLAY_HELP_MENU_RG =>
+                if (up_button_pressed = '1') then
+                    if (hcount(2 downto 0) = "111") then
+                        font_row_hold_n <= font_row;
+                    else
+                        font_row_hold_n <= std_logic_vector(shift_left(unsigned(font_row_hold), 1));
+                    end if;
+
+                    if (font_row_hold(7) = '1') then    -- draw characters
+                        red_n <= (others => '0');
+                        green_n <= (others => '0');
+                    -- left half of screen
+                    elsif (unsigned(hcount) >= 100 and unsigned(hcount) < 160 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 140 and unsigned(hcount) < 200 and unsigned(vcount) >= 60 and unsigned(vcount) < 120) then
+                        red_n <= (others => '0');
+                        green_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 180 and unsigned(hcount) < 240 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 140 and unsigned(hcount) < 200 and unsigned(vcount) >= 220 and unsigned(vcount) < 280) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 120 and unsigned(hcount) < 180 and unsigned(vcount) >= 380 and unsigned(vcount) < 440) then
+                        red_n <= (others => '0');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 180 and unsigned(hcount) < 240 and unsigned(vcount) >= 300 and unsigned(vcount) < 360) then
+                        red_n <= (others => '0');
+                        green_n <= (others => '1'); 
+
+                    -- right half of screen
+                    elsif (unsigned(hcount) >= 560 and unsigned(hcount) < 620 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 600 and unsigned(hcount) < 660 and unsigned(vcount) >= 60 and unsigned(vcount) < 120) then
+                        red_n <= (others => '0');
+                        green_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 640 and unsigned(hcount) < 700 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 600 and unsigned(hcount) < 660 and unsigned(vcount) >= 220 and unsigned(vcount) < 280) then
+                        red_n <= (others => '1');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 580 and unsigned(hcount) < 640 and unsigned(vcount) >= 380 and unsigned(vcount) < 440) then
+                        red_n <= (others => '0');
+                        green_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 640 and unsigned(hcount) < 700 and unsigned(vcount) >= 300 and unsigned(vcount) < 360) then
+                        red_n <= (others => '0');
+                        green_n <= (others => '1');    
+
+                    -- background
+                    elsif (unsigned(hcount) >= 0 and unsigned(hcount) < 400) then
+                        red_n <= (others => '1');
+                        green_n <= "01101001";
+                    elsif (unsigned(hcount) >= 400 and unsigned(hcount) < 800) then
+                        red_n <= (others => '0');
+                        green_n <= "11110000";
+                    end if;
+
+                    next_state <= DISPLAY_HELP_MENU_B;
+                else
+                    if (unsigned(vcount) = 237) then
+                        pencil_rom_addr_n <= (others => '0');
+                        game_rom_addr_n <= (others => '0');
+                        saved_state_n <= WRITE_MAIN_MENU;
+                        next_state <= CLEAR_CHAR_RAM;
+                    else
+                        next_state <= DISPLAY_HELP_MENU_B;
+                    end if;
+                end if;
+
+            when DISPLAY_HELP_MENU_B =>
+                if (up_button_pressed = '1') then
+                    -- left half of screen
+                    if (font_row_hold(7) = '1') then    -- draw characters
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 100 and unsigned(hcount) < 160 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 140 and unsigned(hcount) < 200 and unsigned(vcount) >= 60 and unsigned(vcount) < 120) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 180 and unsigned(hcount) < 240 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 140 and unsigned(hcount) < 200 and unsigned(vcount) >= 220 and unsigned(vcount) < 280) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 120 and unsigned(hcount) < 180 and unsigned(vcount) >= 380 and unsigned(vcount) < 440) then
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 180 and unsigned(hcount) < 240 and unsigned(vcount) >= 300 and unsigned(vcount) < 360) then
+                        blue_n <= (others => '0');        
+
+                    -- right half of screen
+                    elsif (unsigned(hcount) >= 560 and unsigned(hcount) < 620 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 600 and unsigned(hcount) < 660 and unsigned(vcount) >= 60 and unsigned(vcount) < 120) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 640 and unsigned(hcount) < 700 and unsigned(vcount) >= 140 and unsigned(vcount) < 200) then
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 600 and unsigned(hcount) < 660 and unsigned(vcount) >= 220 and unsigned(vcount) < 280) then
+                        blue_n <= (others => '1');
+                    elsif (unsigned(hcount) >= 580 and unsigned(hcount) < 640 and unsigned(vcount) >= 380 and unsigned(vcount) < 440) then
+                        blue_n <= (others => '0');
+                    elsif (unsigned(hcount) >= 640 and unsigned(hcount) < 700 and unsigned(vcount) >= 300 and unsigned(vcount) < 360) then
+                        blue_n <= (others => '0');    
+
+                    -- background
+                    elsif (unsigned(hcount) >= 0 and unsigned(hcount) < 400) then
+                        blue_n <= "10110100";
+                    elsif (unsigned(hcount) >= 400 and unsigned(hcount) < 800) then
+                        blue_n <= (others => '1');
+                    end if;
+                    next_state <= DISPLAY_HELP_MENU_RG;
+                else
+                    if (unsigned(vcount) = 237) then
+                        pencil_rom_addr_n <= (others => '0');
+                        game_rom_addr_n <= (others => '0');
+                        saved_state_n <= WRITE_MAIN_MENU;
+                        next_state <= CLEAR_CHAR_RAM;
+                    else
+                        next_state <= DISPLAY_HELP_MENU_RG;
+                    end if;
+                end if;
+
 -------------------------------------------------------------------------------- GAMING
+            when WRITE_GAME_BAR =>
+                if (misc_cntr < 8) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr, 7));
+                    char_y_addr(9 downto 4) <= (others => '0');
+                    char_ram_we_n <= '1';
+                    char_ram_din_n <= score_word(to_integer(misc_cntr));
+                    misc_cntr_n <= misc_cntr + 1;
+                elsif (misc_cntr = 8) then
+                    char_x_addr <= std_logic_vector(resize(misc_cntr, 7));
+                    char_y_addr(9 downto 4) <= (others => '0');
+                    char_ram_we_n <= '1';
+                    --char_ram_din_n <= char_0(to_integer(misc_cntr));
+                    misc_cntr_n <= misc_cntr + 1;
+                else
+                    misc_cntr_n <= (others => '0');
+                    next_state <= CUBE_RUNNER_RG;
+                end if;
+
             when CUBE_RUNNER_RG =>
+                sound_mode_n <= game_sound;
+
+                if (hcount(2 downto 0) = "111") then
+                    font_row_hold_n <= font_row;
+                else
+                    font_row_hold_n <= std_logic_vector(shift_left(unsigned(font_row_hold), 1));
+                end if;
+
                 game_on <= '1';
                 red_n <= game_red;
                 green_n <= game_green;
@@ -699,6 +952,7 @@ begin
                 end if;
 
             when CUBE_RUNNER_B =>
+                sound_mode_n <= game_sound;
                 game_on <= '1';
                 blue_n <= game_blue;
 
@@ -718,6 +972,8 @@ begin
                 end if;
 
             when WRITE_GAME_OVER =>
+                sound_mode_n <= game_sound;
+
                 game_on <= '1';
                 if (misc_cntr < 9) then
                     char_x_addr <= std_logic_vector(resize(misc_cntr + 44, 7));
@@ -732,6 +988,8 @@ begin
                 end if;                
 
             when DISPLAY_GAME_OVER_RG =>
+                sound_mode_n <= game_sound;
+
                 game_on <= '1';
 
                 if (hcount(2 downto 0) = "111") then
@@ -748,7 +1006,8 @@ begin
                     green_n <= game_green;
                 end if;
 
-                if (unsigned(timer_1s) = 9) then
+                if (unsigned(timer_1s) = 7) then
+                    a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_MAIN_MENU;
                     next_state <= CLEAR_CHAR_RAM;
                 else
@@ -756,6 +1015,8 @@ begin
                 end if;
 
             when DISPLAY_GAME_OVER_B =>
+                sound_mode_n <= game_sound;
+
                 game_on <= '1';
 
                 if (font_row_hold(7) = '1') then
@@ -764,7 +1025,8 @@ begin
                     blue_n <= game_blue;
                 end if;
 
-                if (unsigned(timer_1s) = 9) then
+                if (unsigned(timer_1s) = 7) then
+                    a_button_pressed_n <= '0';
                     saved_state_n <= WRITE_MAIN_MENU;
                     next_state <= CLEAR_CHAR_RAM;
                 else
@@ -772,8 +1034,9 @@ begin
                 end if;
 
 -------------------------------------------------------------------------------- DOODLING
-
             when WRITE_DOODLE_BAR =>
+                sound_mode_n <= "0001";
+
                 if (misc_cntr < 10) then
                     char_x_addr <= std_logic_vector(resize(misc_cntr + 86, 7));
                     char_y_addr(9 downto 4) <= (others => '0');
@@ -786,14 +1049,30 @@ begin
                 end if;
 
             when IDLE =>
-                if (video_on = '1') then
+                sound_mode_n <= "0001";
+
+                if (down_button_pressed = '1') then
+                    a_button_pressed_n <= '0';
+                    down_button_pressed_n <= '0';
+                    saved_state_n <= WRITE_MAIN_MENU;
+                    next_state <= CLEAR_CHAR_RAM;
+
+                elsif (video_on = '1') then
                     lcd_addr <= pixel_location & '0';
                     blue_n <= sram_read_data(15 downto 8);
                     next_state <= READ_SRAM_RG;
                 end if;
 
             when READ_SRAM_RG =>
-                if (video_on = '0') then
+                sound_mode_n <= "0001";
+
+                if (down_button_pressed = '1') then
+                    a_button_pressed_n <= '0';
+                    down_button_pressed_n <= '0';
+                    saved_state_n <= WRITE_MAIN_MENU;
+                    next_state <= CLEAR_CHAR_RAM;
+
+                elsif (video_on = '0') then
                     next_state <= IDLE;
                 else
                     -- draw color borders
@@ -824,8 +1103,8 @@ begin
                     -- draw brush square
                     if (unsigned(hcount) >= (to_unsigned(790, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(hcount) <= (to_unsigned(790, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
                         if (unsigned(vcount) >= (to_unsigned(9, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(vcount) <= (to_unsigned(9, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
-                            red_n <= curr_color(COLOR_WIDTH-1 downto 0);
-                            green_n <= curr_color(2*COLOR_WIDTH-1 downto COLOR_WIDTH);  
+                            red_n <= (others => '1');
+                            green_n <= (others => '1');  
                         end if;
                     end if;
 
@@ -845,7 +1124,15 @@ begin
                 end if;
 
             when READ_SRAM_B =>
-                if (video_on = '0') then
+                sound_mode_n <= "0001";
+
+                if (down_button_pressed = '1') then
+                    a_button_pressed_n <= '0';
+                    down_button_pressed_n <= '0';
+                    saved_state_n <= WRITE_MAIN_MENU;
+                    next_state <= CLEAR_CHAR_RAM;
+
+                elsif (video_on = '0') then
                     next_state <= IDLE;
                 else
                     -- draw color borders
@@ -869,7 +1156,7 @@ begin
                     -- draw brush square
                     if (unsigned(hcount) >= (to_unsigned(790, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(hcount) <= (to_unsigned(790, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
                         if (unsigned(vcount) >= (to_unsigned(9, 10) - resize(shift_right(unsigned(brush_width), 1), 10)) and unsigned(vcount) <= (to_unsigned(9, 10) + resize(shift_right(unsigned(brush_width), 1), 10))) then
-                            blue_n <= curr_color(3*COLOR_WIDTH-1 downto 2*COLOR_WIDTH);
+                            blue_n <= (others => '1');
                         end if;
                     end if;
 

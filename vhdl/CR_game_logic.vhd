@@ -27,7 +27,8 @@ entity CR_game_logic is
         game_red 				: out 	std_logic_vector(COLOR_WIDTH-1 downto 0);
         game_green 				: out 	std_logic_vector(COLOR_WIDTH-1 downto 0);
         game_blue 				: out 	std_logic_vector(COLOR_WIDTH-1 downto 0);
-        button_checked 			: out 	std_logic
+        button_checked 			: out 	std_logic;
+        game_sound 				: out 	std_logic_vector(3 downto 0)
 	);
 	
 end entity CR_game_logic;
@@ -184,6 +185,7 @@ begin
 	process (clk_25MHz, game_start)
 	begin
 		if (game_start = '1') then
+			game_sound <= "0000";
 			game_over_reg <= '0';
 			player_loc_reg <= "000000010000000";
 			background_color <= "00000000" & "00000000" & "00000000";
@@ -202,18 +204,22 @@ begin
 			--end if;
 			if (game_on = '1') then
 				if (game_over_reg = '1') then
+					game_sound <= "0010";
 					player_loc_reg <= std_logic_vector(shift_right(unsigned(player_loc_reg), 1));
 				elsif (left_button_pressed = '1') then
+					game_sound <= "1000";
 					button_checked <= '1';
 					if (player_loc_reg(14) = '0') then
 						player_loc_reg <= std_logic_vector(shift_left(unsigned(player_loc_reg), 1));
 					end if;
 				elsif (right_button_pressed = '1') then
+					game_sound <= "1000";
 					button_checked <= '1';
 					if (player_loc_reg(0) = '0') then
 						player_loc_reg <= std_logic_vector(shift_right(unsigned(player_loc_reg), 1));
 					end if;
 				else
+					game_sound <= "0000";
 					button_checked <= '0';
 				end if;
 

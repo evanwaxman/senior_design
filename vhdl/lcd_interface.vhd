@@ -30,7 +30,8 @@ entity lcd_interface is
         lcd_addr        : out   std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
         sram_read_data  : in    std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
         lcd_status      : out   std_logic;
-        curr_color 		: in 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0)
+        curr_color 		: in 	std_logic_vector((3*COLOR_WIDTH)-1 downto 0);
+        sound_mode 		: out 	std_logic_vector(3 downto 0)
 	);
 end lcd_interface;
 
@@ -80,7 +81,8 @@ begin
 			curr_color		=> curr_color,
 			lcd_addr 		=> lcd_addr,
 			sram_read_data 	=> sram_read_data,
-			lcd_status 		=> lcd_status
+			lcd_status 		=> lcd_status,
+			sound_mode 		=> sound_mode
 	    );
 	
 end architecture BHV;

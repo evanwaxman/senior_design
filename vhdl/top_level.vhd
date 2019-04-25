@@ -45,6 +45,7 @@ entity top_level is
         a_button        : in    std_logic;
         b_button        : in    std_logic;
 
+        sound_mode      : out   std_logic_vector(3 downto 0);
 
         -- pll output
         pll_locked_out      : out std_logic
@@ -111,7 +112,8 @@ begin
             lcd_addr        => lcd_addr,
             sram_read_data  => sram_read_data,
             lcd_status      => lcd_status,
-            curr_color      => curr_color
+            curr_color      => curr_color,
+            sound_mode      => sound_mode
         );
 
 

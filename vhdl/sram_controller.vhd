@@ -39,25 +39,24 @@ end sram_controller;
 
 architecture BHV of sram_controller is
 
-	type STATE_TYPE is (INIT, CLEAR_SRAM, WRITE_SRAM, READ_SRAM);
+	type STATE_TYPE is (INIT, INITIAL_CLEAR_SRAM, CLEAR_SRAM, WRITE_SRAM, READ_SRAM);
 	signal state, next_state : STATE_TYPE;
 
-	signal sram_ready_n 		: std_logic;
-
-	signal sram_write_data		: std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
-	signal sram_write_data_n	: std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
-	signal sram_read_en 		: std_logic;
-	signal sram_read_en_n 		: std_logic;
-	signal spi_fifo_re_n 		: std_logic;
-	signal sram_addr_n 			: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
-	signal sram_ce_n 			: std_logic;
-	signal sram_oe_n 			: std_logic;
-	signal sram_we_n 			: std_logic;
-	signal sram_bhe_n 			: std_logic;
-	signal sram_ble_n 			: std_logic;
-	signal cntr 		: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
-	signal cntr_n		: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
-
+	signal sram_ready_n 							: std_logic;
+	signal sram_write_data							: std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+	signal sram_write_data_n						: std_logic_vector(SRAM_DATA_WIDTH-1 downto 0);
+	signal sram_read_en 							: std_logic;
+	signal sram_read_en_n 							: std_logic;
+	signal spi_fifo_re_n 							: std_logic;
+	signal sram_addr_n 								: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+	signal sram_ce_n 								: std_logic;
+	signal sram_oe_n 								: std_logic;
+	signal sram_we_n 								: std_logic;
+	signal sram_bhe_n 								: std_logic;
+	signal sram_ble_n 								: std_logic;
+	signal cntr 									: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+	signal cntr_n									: std_logic_vector(SRAM_ADDR_WIDTH-1 downto 0);
+	signal erase_screen_flag, erase_screen_flag_n 	: std_logic;
 
 begin
 
@@ -71,7 +70,6 @@ begin
 			data_bus 	=> sram_data_bus
 		);
 	
-
 	process(clk, rst)
 	begin
 		if (rst = '1') then
@@ -86,6 +84,7 @@ begin
 			sram_bhe <= '0';
 			sram_ble <= '0';
 			cntr <= (others => '0');
+			erase_screen_flag <= '0';
 			state <= INIT;
 		elsif (clk'event and clk = '1') then
 			sram_ready <= sram_ready_n;
@@ -99,6 +98,11 @@ begin
 			sram_bhe <= sram_bhe_n;
 			sram_ble <= sram_ble_n;
 			cntr <= cntr_n;
+			if (erase_screen = '1') then
+				erase_screen_flag <= '1';
+			else
+				erase_screen_flag <= erase_screen_flag_n;
+			end if;
 			state <= next_state;
 		end if;
 	end process;
@@ -107,7 +111,7 @@ begin
 	-- for testing without fifo
 	--spi_fifo_re <= '0';
 	----------------------------------------------------------------------------
-	process(state, erase_screen, lcd_status, lcd_addr, spi_fifo_empty, spi_addr, spi_data, cntr)
+	process(state, erase_screen_flag, lcd_status, lcd_addr, spi_fifo_empty, spi_addr, spi_data, cntr)
 	begin
 		next_state <= state;
 
@@ -125,14 +129,15 @@ begin
 
 		cntr_n <= cntr;
 
+		erase_screen_flag_n <= erase_screen_flag;
+
 		case (state) is
 			when INIT =>
 				sram_ready_n <= '1';
-				next_state <= CLEAR_SRAM;
+				next_state <= INITIAL_CLEAR_SRAM;
 
-			when CLEAR_SRAM =>
+			when INITIAL_CLEAR_SRAM =>
 				if (unsigned(cntr) < 767999) then
-					sram_ready_n <= '1';
 					sram_read_en_n <= '0';
 					sram_addr_n <= cntr;
 					sram_write_data_n <= (others => '0');
@@ -141,6 +146,30 @@ begin
 					sram_we_n <= '0';
 					cntr_n <= std_logic_vector(unsigned(cntr) + 1);
 				else
+					cntr_n <= (others => '0');
+					erase_screen_flag_n <= '0';
+					next_state <= READ_SRAM;
+				end if;
+
+			when CLEAR_SRAM =>
+				if (lcd_status = '1') then
+					sram_read_en_n <= '1';
+					sram_addr_n <= lcd_addr;
+					sram_ce_n <= '0';
+					sram_oe_n <= '0';
+					sram_we_n <= '1';
+					next_state <= READ_SRAM;
+				elsif (unsigned(cntr) < 767999) then
+					sram_read_en_n <= '0';
+					sram_addr_n <= cntr;
+					sram_write_data_n <= (others => '0');
+					sram_ce_n <= '0';
+					sram_oe_n <= '1';
+					sram_we_n <= '0';
+					cntr_n <= std_logic_vector(unsigned(cntr) + 1);
+				else
+					cntr_n <= (others => '0');
+					erase_screen_flag_n <= '0';
 					next_state <= READ_SRAM;
 				end if;
 
@@ -152,6 +181,8 @@ begin
 					sram_oe_n <= '0';
 					sram_we_n <= '1';
 					next_state <= READ_SRAM;
+				elsif (erase_screen_flag = '1') then
+					next_state <= CLEAR_SRAM;
 				else
 					sram_read_en_n <= '0';
 
@@ -164,116 +195,22 @@ begin
 						sram_oe_n <= '1';
 						sram_we_n <= '0';
 					end if;
-
-					--if (unsigned(cntr) < 128000) then
-					--	if (cntr(0) = '0') then
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111111111111";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';
-					--	else
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111100000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';	
-					--	end if;
-
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--elsif (unsigned(cntr) >= 128000 and unsigned(cntr) < 256000) then
-					--	if (cntr(0) = '0') then
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "0000000011111111";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';
-					--	else
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111100000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';	
-					--	end if;
-
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--elsif (unsigned(cntr) >= 256000 and unsigned(cntr) < 384000) then
-					--	if (cntr(0) = '0') then
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111100000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';
-					--	else
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111100000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';	
-					--	end if;
-
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--elsif (unsigned(cntr) >= 384000 and unsigned(cntr) < 512000) then
-					--	if (cntr(0) = '0') then
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111111111111";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';
-					--	else
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "0000000000000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';	
-					--	end if;
-
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--elsif (unsigned(cntr) >= 512000 and unsigned(cntr) < 640000) then
-					--	if (cntr(0) = '0') then
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "0000000011111111";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';
-					--	else
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "0000000000000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';	
-					--	end if;
-
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--elsif (unsigned(cntr) >= 640000 and unsigned(cntr) < 767999) then
-					--	if (cntr(0) = '0') then
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "1111111100000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';
-					--	else
-					--		sram_addr_n <= cntr;
-					--		sram_write_data_n <= "0000000000000000";
-					--		sram_ce_n <= '0';
-					--		sram_oe_n <= '1';
-					--		sram_we_n <= '0';	
-					--	end if;
-
-					--	cntr_n <= std_logic_vector(unsigned(cntr) + 1);
-					--end if;
 				end if;
 
 			when READ_SRAM =>
 				if (lcd_status = '0') then
-					next_state <= WRITE_SRAM;
+					if (erase_screen_flag = '1') then
+						next_state <= CLEAR_SRAM;
+					else
+						next_state <= WRITE_SRAM;
+					end if;
+				else
+					sram_read_en_n <= '1';
+					sram_addr_n <= lcd_addr;
+					sram_ce_n <= '0';
+					sram_oe_n <= '0';
+					sram_we_n <= '1';	
 				end if;
-
-				sram_read_en_n <= '1';
-				sram_addr_n <= lcd_addr;
-				sram_ce_n <= '0';
-				sram_oe_n <= '0';
-				sram_we_n <= '1';
 
 			when others => null;
 		end case;

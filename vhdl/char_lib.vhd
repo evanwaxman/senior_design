@@ -30,6 +30,10 @@ package CHAR_LIB is
     constant Z      : std_logic_vector(7 downto 0) := x"5A";
 
     constant SPACE  : std_logic_vector(7 downto 0) := x"20";
+    constant COLON  : std_logic_vector(7 downto 0) := x"3A";
+    constant ARROW  : std_logic_vector(7 downto 0) := x"1B";
+    constant LESS_THAN  : std_logic_vector(7 downto 0) := x"3c";
+    constant DASH   : std_logic_vector(7 downto 0) := x"2D";
 
     constant a_l    : std_logic_vector(7 downto 0) := x"61";
     constant b_l    : std_logic_vector(7 downto 0) := x"62";
@@ -57,5 +61,16 @@ package CHAR_LIB is
     constant x_l    : std_logic_vector(7 downto 0) := x"78";
     constant y_l    : std_logic_vector(7 downto 0) := x"79";
     constant z_l    : std_logic_vector(7 downto 0) := x"7A";
+
+    constant char_0 : std_logic_vector(7 downto 0) := x"30";
+    constant char_1 : std_logic_vector(7 downto 0) := x"31";
+    constant char_2 : std_logic_vector(7 downto 0) := x"32";
+    constant char_3 : std_logic_vector(7 downto 0) := x"33";
+    constant char_4 : std_logic_vector(7 downto 0) := x"34";
+    constant char_5 : std_logic_vector(7 downto 0) := x"35";
+    constant char_6 : std_logic_vector(7 downto 0) := x"36";
+    constant char_7 : std_logic_vector(7 downto 0) := x"37";
+    constant char_8 : std_logic_vector(7 downto 0) := x"38";
+    constant char_9 : std_logic_vector(7 downto 0) := x"39";
 
 end CHAR_LIB;
